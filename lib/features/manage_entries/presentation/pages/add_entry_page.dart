@@ -1,4 +1,9 @@
+import 'package:baindo/features/manage_entries/injection_container.dart';
+import 'package:baindo/features/manage_entries/presentation/bloc/create_entry/create_entry_bloc.dart';
+import 'package:baindo/features/manage_entries/presentation/widgets/entry_form.dart';
+import 'package:baindo/features/manage_entries/presentation/widgets/mood_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddEntryPage extends StatefulWidget {
   final String personOfInterest;
@@ -10,59 +15,29 @@ class AddEntryPage extends StatefulWidget {
 }
 
 class _AddEntryPageState extends State<AddEntryPage> {
-  final _formKey = GlobalKey<FormState>();
-
-  TextEditingController _entryController = TextEditingController();
   String defaultMood = 'Happy';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              DropdownButton<String>(
-                value: defaultMood,
-                icon: Icon(Icons.arrow_downward),
-                iconSize: 24,
-                elevation: 16,
-                style: TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
-                ),
-                onChanged: (String newValue) {
-                  setState(() {
-                    defaultMood = newValue;
-                  });
-                },
-                items: <String>[
-                  'Happy',
-                  'Sad',
-                  'Tired',
-                  'Excited',
-                ].map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-              TextFormField(
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                controller: _entryController,
-              ),
-              RaisedButton(
-                child: Text('Submit'),
-                onPressed: () {},
-              )
-            ],
-          ),
+          child: BlocProvider(
+        create: (_) => sl<CreateEntryBloc>(),
+        child: BlocBuilder<CreateEntryBloc, CreateEntryState>(
+          builder: (BuildContext context, CreateEntryState state) {
+            if (state is EntryInProgress) {
+              return EntryForm(newEntry: state.entry);
+            } else if (state is InitialCreateEntryState) {
+              BlocProvider.of<CreateEntryBloc>(context).add(
+                InitializeEntryEvent(),
+              );
+              return CircularProgressIndicator();
+            } else {
+              return SizedBox();
+            }
+          },
         ),
-      ),
+      )),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.chevron_left),
         onPressed: () {

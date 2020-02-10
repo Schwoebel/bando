@@ -1,12 +1,13 @@
-import 'package:baindo/core/features/authentication/presentation/widgets/create_user.dart';
 import 'package:baindo/core/features/authentication/injection_container.dart' as auth_di;
 import 'package:baindo/core/features/authentication/presentation/widgets/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:baindo/features/view_entries/injection_container.dart' as ve_di;
+import 'package:baindo/features/manage_entries/injection_container.dart' as me_di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ve_di.init();
+  me_di.init();
   auth_di.init();
   runApp(MyApp());
 }

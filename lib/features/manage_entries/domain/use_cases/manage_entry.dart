@@ -6,7 +6,7 @@ import 'package:dartz/dartz.dart';
 
 class ManageEntryOnRemoteSource{
   final ManageEntriesRepository repository;
-  ManageEntryOnRemoteSource(this.repository);
+  ManageEntryOnRemoteSource({@required this.repository});
 
   Future<Either<Failure, bool>> create(Entry entry){
     return repository.createEntry(twoDoTask: entry);

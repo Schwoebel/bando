@@ -5,10 +5,10 @@ part 'entry.g.dart';
 
 @JsonSerializable()
 class Entry {
- // @JsonKey(name: 'create_date', fromJson: firestoreTimeStampFromJson)
+ // @JsonKey(name: 'create_date', fromJson: firestore TimeStampFromJson)
  // final dynamic createDate;
   final String entry;
-  final String mood;
+  final int mood;
   @JsonKey(name: 'person_of_interest')
   final String personOfInterest;
 
