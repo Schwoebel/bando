@@ -18,13 +18,11 @@ class ViewEntriesPage extends StatefulWidget {
 
 class _ViewEntriesPageState extends State<ViewEntriesPage> {
   ViewEntriesBloc bloc;
-  SharedPreferences sharedPreferences;
 
   @override
   void initState() {
     bloc = sl<ViewEntriesBloc>();
-    sharedPreferences = sl<SharedPreferences>();
-    bloc.add(LoadEntriesEvent('NIBS-01'));
+    bloc.add(LoadEntriesEvent('Ynz4ejnJySDe4q3DT8s4'));
     super.initState();
   }
 
@@ -38,7 +36,7 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    AddEntryPage(personOfInterest: 'NIBS-01')),
+                    AddEntryPage(personOfInterest: 'Ynz4ejnJySDe4q3DT8s4')),
           );
         },
       ),

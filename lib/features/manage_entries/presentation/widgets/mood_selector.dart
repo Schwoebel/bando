@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoodSelector extends StatefulWidget {
-  final String mood = 'Happy';
   final Function callback;
+  final Mood mood;
 
-  MoodSelector({Key key, this.callback}) : super(key: key);
+  MoodSelector({Key key, this.callback, this.mood}) : super(key: key);
 
   @override
   _MoodSelectorState createState() => _MoodSelectorState();
@@ -37,13 +37,13 @@ class _MoodSelectorState extends State<MoodSelector> {
       builder: (BuildContext context, MoodState state) {
         if (state is HasMoodsState) {
           return DropdownButton(
-            value: state.moods[0].id,
-            items: state.moods.map<DropdownMenuItem<int>>((Mood mood) {
-              return DropdownMenuItem<int>(
-                  value: mood.id, child: Text(mood.mood));
+            value: widget.mood,
+            items: state.moods.map<DropdownMenuItem<Mood>>((Mood mood) {
+              return DropdownMenuItem<Mood>(
+                  value: mood, child: Text(mood.mood));
             }).toList(),
             onChanged: (value) {
-              widget.callback(widget.mood);
+              widget.callback(value);
             },
           );
         } else {

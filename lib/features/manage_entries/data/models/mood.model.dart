@@ -4,10 +4,12 @@ import 'package:json_annotation/json_annotation.dart';
 part 'mood.model.g.dart';
 @JsonSerializable()
 class MoodModel extends Mood{
-  MoodModel(String mood, String description, int id) : super(mood, description, id);
+  MoodModel(String mood, List<String> description, String id) : super(mood, description, id);
 
-  factory MoodModel.fromJson(Map<dynamic, dynamic> json) =>
-    _$MoodModelFromJson(json);
+  factory MoodModel.fromJson(String id, Map<dynamic, dynamic> json){
+    return _$MoodModelFromJson(json)..id = id;
+  }
+
 
   Map<dynamic, dynamic> toJson() => _$MoodModelToJson(this);
 }

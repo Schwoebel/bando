@@ -24,7 +24,7 @@ class ViewEntriesRemoteDataSourceImpl extends ViewEntriesRemoteDataSource {
         .where(PERSON_OF_INTEREST, isEqualTo: personOfInterestId)
         .getDocuments();
     return querySnapshot.documents
-        .map((element) => EntryModel.fromJson(element.data))
+        .map((element) => EntryModel.fromJson(element.documentID, element.data))
         .toList();
   }
 }

@@ -9,7 +9,6 @@ class UpdateEntry extends CreateEntryEvent {
 }
 
 class CreateEntry extends CreateEntryEvent {
-  final Entry newEntry = Entry('', 0, '');
   CreateEntry();
 }
 

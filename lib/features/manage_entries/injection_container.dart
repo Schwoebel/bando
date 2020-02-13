@@ -62,20 +62,4 @@ init() async {
       firestore: sl(),
     ),
   );
-
-  sl.registerLazySingleton<NetworkInfo>(
-    () => NetworkInfoImpl(
-      sl(),
-    ),
-  );
-  final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton<SharedPreferences>(
-    () => sharedPreferences,
-  );
-  final fireStore = Firestore.instance;
-  sl.registerLazySingleton<Firestore>(() => fireStore);
-
-  sl.registerLazySingleton<DataConnectionChecker>(
-    () => DataConnectionChecker(),
-  );
 }

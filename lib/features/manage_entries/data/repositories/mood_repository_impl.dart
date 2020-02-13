@@ -13,8 +13,10 @@ class MoodRepositoryImpl extends MoodRepository{
   Future<Either<Failure, List<Mood>>> getRemoteMoods() async {
     try{
       List<Mood> moods = await moodRemoteDataSource.getMoods();
+      print(moods);
       return Right(moods);
     } catch(e){
+      print(e);
       return Left(NetworkFailure());
     }
   }

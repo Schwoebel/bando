@@ -31,7 +31,7 @@ class ViewEntriesLocalDataSourceImpl extends ViewEntriesLocalDataSource {
         json.decode(sharedPreferences.getString(LOCAL_STORED_ENTRIES));
     if (jsonString != null) {
       return Future.value(
-        jsonString.map((Map model) => EntryModel.fromJson(model)).toList(),
+        jsonString.map((Map model) => EntryModel.fromJson(model['id'], model)).toList(),
       );
     } else {
       throw CacheException();

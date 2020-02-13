@@ -27,11 +27,13 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
     }
   }
 
-  _failureOrMoodList(Either<Failure, List<Mood>> attempt) async* {
+  Stream<MoodState> _failureOrMoodList(
+      Either<Failure, List<Mood>> attempt) async* {
     yield attempt.fold((failure) {
-      HasErrorMoodState();
+      return HasErrorMoodState();
     }, (success) {
-      HasMoodsState(success);
+      print('success');
+      return HasMoodsState(success);
     });
   }
 }

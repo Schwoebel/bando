@@ -13,16 +13,14 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   AuthBloc authBloc;
-  String _email = "edvin.wiberg@iusinnovation.se";
+  String _email = "curtis.schwoebel@gmail.com";
   String _password = "secretpassword";
 
   @override
   void initState() {
     authBloc = sl<AuthBloc>();
     authBloc.add(SignOutEvent());
-
     authBloc.add(GetCurrentUserEvent());
-
     super.initState();
   }
 

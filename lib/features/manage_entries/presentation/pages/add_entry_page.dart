@@ -26,7 +26,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
         child: BlocBuilder<CreateEntryBloc, CreateEntryState>(
           builder: (BuildContext context, CreateEntryState state) {
             if (state is EntryInProgress) {
-              return EntryForm(newEntry: state.entry);
+              return EntryForm();
             } else if (state is InitialCreateEntryState) {
               BlocProvider.of<CreateEntryBloc>(context).add(
                 InitializeEntryEvent(),

@@ -31,7 +31,7 @@ class EntryRemoteSourceImpl extends EntryRemoteSource {
   @override
   Future<EntryModel> readEntry({@required String id}) async {
     DocumentSnapshot snapshot = await this.firestore.collection(COLLECTION_NAME).document(id).get();
-    return EntryModel.fromJson(snapshot.data);
+    return EntryModel.fromJson(snapshot.documentID, snapshot.data);
   }
 
   @override
