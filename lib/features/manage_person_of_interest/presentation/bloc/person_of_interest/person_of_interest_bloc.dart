@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:baindo/features/manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 part 'person_of_interest_event.dart';

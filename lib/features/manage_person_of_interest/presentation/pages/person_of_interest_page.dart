@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class PersonOfInterest extends StatefulWidget {
+class PersonOfInterestPage extends StatefulWidget {
   @override
-  _PersonOfInterestState createState() => _PersonOfInterestState();
+  _PersonOfInterestPageState createState() => _PersonOfInterestPageState();
 }
 
-class _PersonOfInterestState extends State<PersonOfInterest>
+class _PersonOfInterestPageState extends State<PersonOfInterestPage>
   with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
