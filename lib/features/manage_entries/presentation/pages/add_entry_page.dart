@@ -1,7 +1,6 @@
 import 'package:baindo/features/manage_entries/injection_container.dart';
 import 'package:baindo/features/manage_entries/presentation/bloc/create_entry/create_entry_bloc.dart';
 import 'package:baindo/features/manage_entries/presentation/widgets/entry_form.dart';
-import 'package:baindo/features/manage_entries/presentation/widgets/mood_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +14,7 @@ class AddEntryPage extends StatefulWidget {
 }
 
 class _AddEntryPageState extends State<AddEntryPage> {
-  String defaultMood = 'Happy';
+  String defauttMood = 'Happy';
 
   @override
   Widget build(BuildContext context) {

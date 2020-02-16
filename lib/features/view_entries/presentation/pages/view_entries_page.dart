@@ -1,15 +1,10 @@
-import 'dart:convert';
-
-import 'package:baindo/features/manage_entries/data/models/entry_model.dart';
 import 'package:baindo/features/manage_entries/presentation/pages/add_entry_page.dart';
-import 'package:baindo/features/view_entries/data/data_sources/view_entries_local_data_source.dart';
 import 'package:baindo/features/view_entries/presentation/bloc/view_entries_bloc.dart';
 import 'package:baindo/features/manage_entries/presentation/pages/entry_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:baindo/features/view_entries/injection_container.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ViewEntriesPage extends StatefulWidget {
   @override
@@ -79,7 +74,12 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
                             padding: EdgeInsets.all(16),
                             child: Row(
                               children: <Widget>[
+                                ///TODO Sync personsOfInterest from firestore
+                                ///and store them in sharedPreferences so this can look it up locally.
                                 Text(state.entries[i].personOfInterest),
+
+                                ///TODO Sync moods from Firestore and store them
+                                /// in sharedprences so this can look them up locally through the MoodsBloc
                                 Text(state.entries[i].mood.toString()),
                               ],
                             ),
