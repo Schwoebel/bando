@@ -9,3 +9,5 @@ abstract class SignInFormState {
 }
 
 class InitialSignInFormState extends SignInFormState {}
+
+class CanTrySignIn extends SignInFormState {}

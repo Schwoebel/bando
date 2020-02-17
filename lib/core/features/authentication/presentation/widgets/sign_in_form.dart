@@ -1,7 +1,7 @@
 import 'package:baindo/core/features/authentication/presentation/bloc/sign_in_form/sign_in_form_bloc.dart';
 import 'package:baindo/core/widgets/buttons/long_input_button.dart';
-import 'package:baindo/core/widgets/inputs/password_field.dart';
-import 'package:baindo/core/widgets/inputs/input_field/text_input_field.dart';
+import 'package:baindo/core/widgets/inputs/input_field/password_field.dart';
+import 'package:baindo/core/widgets/inputs/email_input_field/email_input_field.dart';
 import 'package:baindo/features/view_entries/presentation/pages/view_entries_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,8 +16,6 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SignInFormBloc>(
@@ -47,10 +45,15 @@ class _SignInFormState extends State<SignInForm> {
                     child: Form(
                       child: Column(
                         children: <Widget>[
-                          TextInputField(
+                          EmailInputField(
+                            hintText: "E-mail address",
                             errorText: 'Must be an email',
                             callback: (value) {
-                              state.email;
+                              BlocProvider.of<SignInFormBloc>(context).add(
+                                EmailEnteredEvent(
+                                  email: value,
+                                ),
+                              );
                             },
                           ),
                           SizedBox(
@@ -58,7 +61,8 @@ class _SignInFormState extends State<SignInForm> {
                           ),
                           PasswordField(
                             callback: (value) {
-                              state.password
+                              BlocProvider.of<SignInFormBloc>(context)
+                                .add(PasswordEnteredEvent(password: value));
                             },
                           ),
                           SizedBox(
@@ -66,14 +70,7 @@ class _SignInFormState extends State<SignInForm> {
                           ),
                           LongInputButton(
                             buttonText: 'Sign In',
-                            callback: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ViewEntriesPage(),
-                                ),
-                              );
-                            },
+                            callback: _canTrySignIn(state),
                           ),
                           SizedBox(
                             height: 24,
@@ -96,8 +93,22 @@ class _SignInFormState extends State<SignInForm> {
               ],
             ),
           );
-        }
-      ),
+        }),
     );
+  }
+
+  Function _canTrySignIn(SignInFormState state) {
+    if (state is CanTrySignIn) {
+      return () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ViewEntriesPage(),
+          ),
+        );
+      };
+    } else {
+      return null;
+    }
   }
 }
