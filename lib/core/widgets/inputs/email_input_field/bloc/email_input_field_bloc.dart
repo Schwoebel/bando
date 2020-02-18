@@ -42,7 +42,7 @@ class EmailInputFieldBloc
       EmailInputFieldEvent event) async* {
     if (event is ValueEntered) {
       onEmailChanged(event.value);
-      yield isValid ? HasValidValue() : HasError();
+      yield isValid ? HasValidValue(event.value) : HasError();
     } else {
       yield InitialInputFieldState();
     }

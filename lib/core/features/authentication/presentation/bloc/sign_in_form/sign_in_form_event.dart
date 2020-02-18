@@ -1,16 +1,19 @@
 part of 'sign_in_form_bloc.dart';
 
 @immutable
-abstract class SignInFormEvent {}
-
-class EmailEnteredEvent extends SignInFormEvent{
+abstract class SignInFormEvent {
+  final String password;
   final String email;
 
-  EmailEnteredEvent({@required this.email});
+  SignInFormEvent({this.password = '', this.email= ''});
 }
-
-class PasswordEnteredEvent extends SignInFormEvent{
+class AddPasswordData extends SignInFormEvent{
   final String password;
 
-  PasswordEnteredEvent({@required this.password});
+  AddPasswordData(this.password);
+}
+
+class AddEmailData extends SignInFormEvent{
+  final String email;
+  AddEmailData(this.email);
 }

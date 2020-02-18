@@ -8,6 +8,14 @@ abstract class SignInFormState {
   SignInFormState({@required this.email, @required this.password});
 }
 
-class InitialSignInFormState extends SignInFormState {}
+class InitialSignInFormState extends SignInFormState {
+  InitialSignInFormState() : super(email: '', password: '');
+}
 
-class CanTrySignIn extends SignInFormState {}
+class CanSignIn extends SignInFormState {
+  CanSignIn({@required String email, @required String password})
+      : super(
+          email: email,
+          password: password,
+        );
+}

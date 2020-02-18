@@ -53,7 +53,7 @@ class _EmailInputFieldState extends State<EmailInputField> {
     return BlocBuilder<EmailInputFieldBloc, EmailInputFieldState>(
       bloc: bloc,
       builder: (BuildContext context, EmailInputFieldState state) {
-        //if(state is HasValidValue) widget.callback();
+        if(state is HasValidValue) widget.callback(state.text);
         return TextFormField(
           controller: _controller,
           keyboardType: TextInputType.emailAddress,

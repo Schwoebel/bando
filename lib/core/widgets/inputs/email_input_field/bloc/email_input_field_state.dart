@@ -16,6 +16,8 @@ class HasValue extends EmailInputFieldState {
         );
 }
 
-class HasValidValue extends EmailInputFieldState {}
+class HasValidValue extends EmailInputFieldState {
+  HasValidValue(String text):super(text: text);
+}
 
 class HasError extends EmailInputFieldState {}

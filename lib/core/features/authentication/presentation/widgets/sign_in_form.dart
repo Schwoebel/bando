@@ -21,8 +21,9 @@ class _SignInFormState extends State<SignInForm> {
     return BlocProvider<SignInFormBloc>(
       create: (BuildContext context) => SignInFormBloc(),
       child: BlocBuilder<SignInFormBloc, SignInFormState>(
-        builder: (BuildContext context, SignInFormState state) {
-          return Container(
+          builder: (BuildContext context, SignInFormState state) {
+        return SafeArea(
+          child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -37,68 +38,67 @@ class _SignInFormState extends State<SignInForm> {
               children: <Widget>[
                 Expanded(
                   child: Image.network(
-                    "http://placehold.it/250x150/baindo.png?text=Bando"),
+                      "http://placehold.it/250x150/baindo.png?text=Bando"),
                 ),
                 Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Form(
-                      child: Column(
-                        children: <Widget>[
-                          EmailInputField(
-                            hintText: "E-mail address",
-                            errorText: 'Must be an email',
-                            callback: (value) {
-                              BlocProvider.of<SignInFormBloc>(context).add(
-                                EmailEnteredEvent(
-                                  email: value,
-                                ),
-                              );
-                            },
-                          ),
-                          SizedBox(
-                            height: 16,
-                          ),
-                          PasswordField(
-                            callback: (value) {
-                              BlocProvider.of<SignInFormBloc>(context)
-                                .add(PasswordEnteredEvent(password: value));
-                            },
-                          ),
-                          SizedBox(
-                            height: 16,
-                          ),
-                          LongInputButton(
-                            buttonText: 'Sign In',
-                            callback: _canTrySignIn(state),
-                          ),
-                          SizedBox(
-                            height: 24,
-                          ),
-                          LongInputButton(
-                            buttonText: 'Create User',
-                            callback: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CreateUser(),
-                                ),
-                              );
-                            },
-                          )
-                        ],
-                      ),
+                    child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Form(
+                    child: Column(
+                      children: <Widget>[
+                        EmailInputField(
+                          hintText: "E-mail address",
+                          errorText: 'Must be an email',
+                          callback: (value) {
+                            BlocProvider.of<SignInFormBloc>(context).add(
+                              AddEmailData(value),
+                            );
+                          },
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        PasswordField(
+                          callback: (value) {
+                            BlocProvider.of<SignInFormBloc>(context)
+                                .add(AddPasswordData(value));
+                          },
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        LongInputButton(
+                          buttonText: 'Sign In',
+                          callback: _canTrySignIn(state),
+                        ),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        LongInputButton(
+                          buttonText: 'Create User',
+                          callback: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CreateUser(),
+                              ),
+                            );
+                          },
+                        )
+                      ],
                     ),
-                  ))
+                  ),
+                ))
               ],
             ),
-          );
-        }),
+          ),
+        );
+      }),
     );
   }
 
   Function _canTrySignIn(SignInFormState state) {
-    if (state is CanTrySignIn) {
+    if (state is CanSignIn) {
       return () {
         Navigator.push(
           context,

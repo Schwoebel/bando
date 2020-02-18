@@ -3,6 +3,7 @@ import 'package:meta/meta.dart';
 
 class PasswordField extends StatefulWidget {
   final Function callback;
+
   PasswordField({Key key, @required this.callback}) : super(key: key);
 
   @override
@@ -10,9 +11,34 @@ class PasswordField extends StatefulWidget {
 }
 
 class _PasswordFieldState extends State<PasswordField> {
+  TextEditingController _controller;
+
+  @override
+  void initState() {
+    _controller = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _controller.addListener(_onChanged);
+    super.didChangeDependencies();
+  }
+
+  void _onChanged() {
+    widget.callback(_controller.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: _controller,
       validator: (value) {
         if (value.isEmpty) return "you're empty bro";
         return null;
@@ -28,7 +54,6 @@ class _PasswordFieldState extends State<PasswordField> {
         ),
         //
       ),
-      onChanged: widget.callback,
     );
   }
 }
