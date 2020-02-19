@@ -22,6 +22,7 @@ class EmailInputField extends StatefulWidget {
 class _EmailInputFieldState extends State<EmailInputField> {
   EmailInputFieldBloc bloc;
   TextEditingController _controller;
+  String _text = '';
 
   @override
   void initState() {
@@ -43,9 +44,14 @@ class _EmailInputFieldState extends State<EmailInputField> {
   }
 
   void _onChanged() {
-    bloc.add(
-      ValueEntered(value: _controller.text),
-    );
+    if (_controller.text != _text) {
+      _text = _controller.text;
+      bloc.add(
+        ValueEntered(value: _text),
+      );
+    } else {
+      return null;
+    }
   }
 
   @override
@@ -53,7 +59,7 @@ class _EmailInputFieldState extends State<EmailInputField> {
     return BlocBuilder<EmailInputFieldBloc, EmailInputFieldState>(
       bloc: bloc,
       builder: (BuildContext context, EmailInputFieldState state) {
-        if(state is HasValidValue) widget.callback(state.text);
+        if (state is HasValidValue) widget.callback(state.text);
         return TextFormField(
           controller: _controller,
           keyboardType: TextInputType.emailAddress,
