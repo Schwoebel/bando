@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 
 abstract class ManageEntriesRepository {
-  Future<Either<Failure, bool>> createEntry({@required Entry twoDoTask});
+  Future<Either<Failure, bool>> createEntry({@required Entry entry});
 
   Future<Either<Failure, Entry>> readEntry({@required String id});
 

@@ -1,15 +1,12 @@
 import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
-import 'package:baindo/features/manage_entries/domain/entities/mood.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'entry_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(anyMap: true)
 class EntryModel extends Entry {
-  EntryModel(String id, DateTime createDate, String entry, String mood,
-      String personOfInterest)
+  EntryModel(createDate, entry, mood, String personOfInterest)
       : super(
-          id,
           createDate,
           entry,
           mood,
@@ -18,6 +15,11 @@ class EntryModel extends Entry {
 
   factory EntryModel.fromJson(String id, Map<dynamic, dynamic> json) {
     return _$EntryModelFromJson(json)..id = id;
+  }
+
+  factory EntryModel.fromEntry(Entry entry) {
+    return EntryModel(
+        entry.createDate, entry.entry, entry.mood, entry.personOfInterest);
   }
 
   Map<dynamic, dynamic> toJson() => _$EntryModelToJson(this);

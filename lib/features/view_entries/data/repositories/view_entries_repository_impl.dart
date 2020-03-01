@@ -7,6 +7,7 @@ import 'package:baindo/features/view_entries/data/data_sources/view_entries_loca
 import 'package:baindo/features/view_entries/data/data_sources/view_entries_remote_data_source.dart';
 import 'package:baindo/features/view_entries/domain/repositories/view_entries_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
 class ViewEntriesRepositoryImpl extends ViewEntriesRepository {
@@ -24,6 +25,7 @@ class ViewEntriesRepositoryImpl extends ViewEntriesRepository {
   Future<Either<Failure, List<Entry>>> getEntries({
     @required String personOfInterestId,
   }) async {
+    print(personOfInterestId);
     if (await networkInfo.isConnected) {
       try {
         final List<EntryModel> entriesList =
@@ -33,10 +35,11 @@ class ViewEntriesRepositoryImpl extends ViewEntriesRepository {
           entries: entriesList,
         );
         return Right(entriesList);
-      } on ServerException {
+      } catch(e) {
+        print(e);
         return Left(ServerFailure());
       }
-    } else {
+       } else {
       try {
         final localTrivia =
             await viewEntriesLocalDataSource.getEntriesFromLocalDataSource();

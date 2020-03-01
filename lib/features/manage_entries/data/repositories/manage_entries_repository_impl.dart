@@ -1,5 +1,6 @@
 import 'package:baindo/core/failures/failures.dart';
 import 'package:baindo/features/manage_entries/data/data_sources/entry_remote_source.dart';
+import 'package:baindo/features/manage_entries/data/models/entry_model.dart';
 import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
 import 'package:baindo/features/manage_entries/domain/repositories/manage_entries_repository.dart';
 import 'package:meta/meta.dart';
@@ -11,9 +12,14 @@ class ManageEntriesRepositoryImpl extends ManageEntriesRepository {
   ManageEntriesRepositoryImpl({@required this.entryRemoteSource});
 
   @override
-  Future<Either<Failure, bool>> createEntry({Entry twoDoTask}) {
-    // TODO: implement createEntry
-    return null;
+  Future<Either<Failure, bool>> createEntry({Entry entry}) async {
+    try{
+      EntryModel model = EntryModel.fromEntry(entry);
+      await entryRemoteSource.createEntry(entry: model);
+      return Right(true);
+    } catch(e){
+      return Left(NetworkFailure());
+    }
   }
 
   @override

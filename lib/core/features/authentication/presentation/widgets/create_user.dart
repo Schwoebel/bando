@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:baindo/features/view_entries/presentation/pages/view_entries_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -160,22 +159,6 @@ class _CreateUserState extends State<CreateUser> {
         });
   }
 
-  _iosBackButton() {
-    if (Platform.isIOS) {
-      return Positioned(
-        top: 50.0,
-        left: 10.0,
-        child: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          color: Colors.white,
-          onPressed: () => Navigator.pop(context),
-        ),
-      );
-    } else {
-      return Container();
-      // Silly solution, but returning null on Android was not allowed.
-    }
-  }
 
   @override
   void dispose() {

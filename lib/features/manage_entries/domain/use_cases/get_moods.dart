@@ -4,7 +4,6 @@ import 'package:baindo/features/manage_entries/domain/entities/mood.dart';
 import 'package:baindo/features/manage_entries/domain/repositories/mood_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
-import 'package:equatable/equatable.dart';
 
 class GetMoods extends UseCase<List<Mood>, NoParams>{
   final MoodRepository moodRepository;

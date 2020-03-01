@@ -1,15 +1,24 @@
+import 'dart:convert';
+
 import 'package:baindo/features/manage_entries/domain/entities/mood.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'mood.model.g.dart';
 @JsonSerializable()
 class MoodModel extends Mood{
-  MoodModel(String mood, List<String> description) : super(mood, description);
+  MoodModel(String mood, String id) : super(mood, id);
 
-  factory MoodModel.fromJson(String id, Map<dynamic, dynamic> json){
-    return _$MoodModelFromJson(json)..id = id;
+  factory MoodModel.fromJson(Map<String, dynamic> json){
+    return _$MoodModelFromJson(json);
   }
 
+  factory MoodModel.fromLocalStorageJson(Map<dynamic, dynamic> json){
+    return _$MoodModelFromJson(json);
+  }
+
+  factory MoodModel.fromMood(String id, String mood){
+    return MoodModel.fromJson({'id': id, 'mood': mood});
+  }
 
   Map<dynamic, dynamic> toJson() => _$MoodModelToJson(this);
 }

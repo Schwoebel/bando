@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+  import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:baindo/core/features/authentication/data/data_sources/auth_remote_data_source.dart';
 import 'package:baindo/core/features/authentication/data/repositories/auth_repository_impl.dart';

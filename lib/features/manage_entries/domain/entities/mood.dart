@@ -1,12 +1,6 @@
-import 'package:json_annotation/json_annotation.dart';
+class Mood {
+  final String id;
+  final String mood;
 
-part 'mood.g.dart';
-@JsonSerializable()
-class Mood{
- @JsonKey(ignore: true)
- String id;
- final String mood;
- final List<String> description;
-
-  Mood(this.mood, this.description);
+  Mood(this.mood, this.id);
 }

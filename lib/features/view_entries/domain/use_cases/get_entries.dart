@@ -12,7 +12,7 @@ class GetEntries extends UseCase<List<Entry>, Params>{
   GetEntries({@required this.viewEntriesRepository});
   @override
   Future<Either<Failure, List<Entry>>> call(Params params) async {
-    return viewEntriesRepository.getEntries(personOfInterestId: params.personOfInterestId);
+    return await viewEntriesRepository.getEntries(personOfInterestId: params.personOfInterestId);
   }
 
 }

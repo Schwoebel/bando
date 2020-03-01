@@ -1,16 +1,28 @@
-import 'package:baindo/features/manage_entries/domain/entities/mood.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'mood.dart';
 
 part 'entry.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(anyMap: true)
 class Entry {
+  @JsonKey(ignore: true)
   String id;
-  final DateTime createDate;
-  final String entry;
-  final String mood;
+  @JsonKey(name: 'create_date')
+  int createDate;
+  String entry;
+  String mood;
   @JsonKey(name: 'person_of_interest')
-  final String personOfInterest;
+  String personOfInterest;
 
-  Entry(this.id, this.createDate, this.entry, this.mood, this.personOfInterest);
+  String get prettyDate {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(createDate);
+    return dateTime.day.toString() +
+        '-' +
+        dateTime.month.toString() +
+        '-' +
+        dateTime.year.toString();
+  }
+
+  Entry(this.createDate, this.entry, this.mood, this.personOfInterest);
 }

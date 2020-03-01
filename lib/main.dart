@@ -3,18 +3,20 @@ import 'package:baindo/core/features/authentication/presentation/pages/sign_in.d
 import 'package:flutter/material.dart';
 import 'package:baindo/features/view_entries/injection_container.dart' as ve_di;
 import 'package:baindo/features/manage_entries/injection_container.dart' as me_di;
+import 'package:baindo/core/features/manage_person_of_interest/injection_container.dart' as pi_di;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/features/authentication/injection_container.dart';
 import 'core/features/authentication/presentation/bloc/auth/auth_bloc.dart';
 import 'features/manage_entries/presentation/bloc/mood/mood_bloc.dart';
-import 'features/manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
+import 'core/features/manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ve_di.init();
   me_di.init();
   auth_di.init();
+  pi_di.init();
   runApp(MyApp());
 }
 

@@ -9,7 +9,7 @@ class ManageEntryOnRemoteSource{
   ManageEntryOnRemoteSource({@required this.repository});
 
   Future<Either<Failure, bool>> create(Entry entry){
-    return repository.createEntry(twoDoTask: entry);
+    return repository.createEntry(entry: entry);
   }
 
   Future<Either<Failure, Entry>> read({@required String id}){

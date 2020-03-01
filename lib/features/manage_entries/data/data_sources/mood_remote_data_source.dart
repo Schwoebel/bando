@@ -15,10 +15,13 @@ class MoodRemoteDataSourceImpl extends MoodRemoteDataSource {
   @override
   Future<List<MoodModel>> getMoods() async {
     QuerySnapshot snapshot = await firestore.collection('moods').getDocuments();
-    List<MoodModel> moods = snapshot.documents.map((
-      DocumentSnapshot document) =>
-      MoodModel.fromJson(document.documentID, document.data)).toList();
+    List<MoodModel> moods = snapshot.documents
+        .map(
+          (DocumentSnapshot document) => MoodModel.fromJson(
+            document.data..putIfAbsent('id', () => document.documentID),
+          ),
+        )
+        .toList();
     return moods;
   }
-
 }
