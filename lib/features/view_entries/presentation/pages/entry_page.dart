@@ -1,4 +1,5 @@
 import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
+import 'package:baindo/features/view_entries/presentation/widgets/formatted_entry_viewer.dart';
 import 'package:flutter/material.dart';
 
 class EntryPage extends StatelessWidget {
@@ -36,14 +37,7 @@ class EntryPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text(entry.entry),
-                    ),
-                  ],
-                )
+                Expanded(child: FormattedEntryViewer(entry: entry)),
               ],
             ),
           ),

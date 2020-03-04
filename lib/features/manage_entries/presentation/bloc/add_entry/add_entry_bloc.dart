@@ -22,7 +22,7 @@ class AddEntryBloc extends Bloc<AddEntryEvent, AddEntryState> {
 
   @override
   Stream<AddEntryState> mapEventToState(AddEntryEvent event) async* {
-    if (event is CreateEntry) {
+    if (event is CreateEntry || event is UpdateEntry) {
       yield HasEntryInProgress(event.entry);
     } else if (event is SaveEntry) {
       yield SubmittingNewEntry();

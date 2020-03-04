@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
 import 'package:baindo/features/manage_entries/domain/entities/mood.dart';
 import 'package:baindo/features/manage_entries/presentation/bloc/add_entry/add_entry_bloc.dart';
 import 'package:baindo/features/manage_entries/presentation/bloc/mood/mood_bloc.dart';
+import 'package:baindo/features/manage_entries/presentation/widgets/entry_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,13 +20,10 @@ class AddEntryPage extends StatefulWidget {
 }
 
 class _AddEntryPageState extends State<AddEntryPage> {
-  TextEditingController _controller;
   Entry entry;
 
   @override
   void initState() {
-    _controller = TextEditingController();
-    _controller.addListener(_listener);
     int now = DateTime.now().millisecondsSinceEpoch;
     entry = Entry(
       now,
@@ -32,17 +32,6 @@ class _AddEntryPageState extends State<AddEntryPage> {
       widget.personOfInterest,
     );
     super.initState();
-  }
-
-  _listener() {
-    entry = Entry(entry.createDate, _controller.value.text, entry.mood,
-        widget.personOfInterest);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -70,12 +59,15 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   content: Text('Entry Saved'),
                 ),
               );
+              Navigator.pop(context);
             } else if (state is ErrorSubmittingEntry) {
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Error saving Entry, please try again later'),
                 ),
               );
+            } else if (state is HasEntryInProgress){
+              entry = state.entry;
             }
           },
           child: BlocBuilder<AddEntryBloc, AddEntryState>(
@@ -117,14 +109,17 @@ class _AddEntryPageState extends State<AddEntryPage> {
                           }
                         },
                       ),
-                      TextFormField(
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        decoration: InputDecoration(
-                          hintText: 'How did the day go?',
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 4.0, color: Colors.greenAccent),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              )),
+                          constraints: BoxConstraints.expand(),
+                          child: EntryEditor(entry: entry),
                         ),
-                        minLines: 6,
-                        controller: _controller,
                       ),
                       SizedBox(height: 16),
                       Container(

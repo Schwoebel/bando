@@ -35,7 +35,6 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, Auth>> getCurrentUser() async {
     if (await networkInfo.isConnected) {
-      // TODO: check if valid email maybe
       try {
         FirebaseUser firebaseUser = await authRemoteDataSource.getCurrentUser();
         Auth auth = Auth(
@@ -73,16 +72,19 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, Auth>> signIn(String email, String password) async {
     if (await networkInfo.isConnected) {
-      // Todo check if valid email maybe
-      return authRemoteDataSource
+      try{
+        return authRemoteDataSource
           .signIn(email, password)
           .then((AuthResult result) async {
-        final Auth auth = Auth(
-          currentUser: User.fromFirebase(result.user),
-        );
+          final Auth auth = Auth(
+            currentUser: User.fromFirebase(result.user),
+          );
 
-        return Right<Failure, Auth>(auth);
-      }).catchError(handleException);
+          return Right<Failure, Auth>(auth);
+        }).catchError(handleException);
+      } catch (e){
+        print(e);
+      }
     } else {
       return Left(NetworkFailure());
     }

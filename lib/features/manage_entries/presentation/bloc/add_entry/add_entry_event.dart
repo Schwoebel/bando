@@ -15,6 +15,16 @@ class CreateEntry extends AddEntryEvent{
 
 }
 
+class UpdateEntry extends AddEntryEvent{
+  final Entry updatedEntry;
+
+  UpdateEntry(this.updatedEntry):super(updatedEntry);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [updatedEntry];
+}
+
 class SaveEntry extends AddEntryEvent{
   SaveEntry(Entry entry) : super(entry);
 
