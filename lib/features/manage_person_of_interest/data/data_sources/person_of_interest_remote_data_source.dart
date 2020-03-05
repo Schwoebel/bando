@@ -1,5 +1,5 @@
-import 'package:baindo/core/features/manage_person_of_interest/data/models/person_of_interest_model.dart';
-import 'package:baindo/core/features/manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
+import 'package:baindo/features/manage_person_of_interest/data/models/person_of_interest_model.dart';
+import 'package:baindo/features/manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
 import 'package:baindo/features/view_entries/data/data_sources/view_entries_remote_data_source.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,7 +49,7 @@ class PersonOfInterestRemoteDataSourceImpl
     FirebaseUser user = await firebaseAuth.currentUser();
     QuerySnapshot results = await firestore
         .collection(PERSON_OF_INTEREST)
-        .where('administrator', isEqualTo: user.uid)
+        .where('users', arrayContains: user.uid)
         .getDocuments();
     print(results.documents[0].documentID);
     return results.documents

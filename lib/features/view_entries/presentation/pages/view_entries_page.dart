@@ -1,4 +1,4 @@
-import 'package:baindo/core/features/manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
+import '../../../../features/manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
 import 'package:baindo/features/manage_entries/presentation/pages/add_entry_page.dart';
 import 'package:baindo/features/view_entries/presentation/bloc/view_entries/view_entries_bloc.dart';
 import 'package:baindo/features/view_entries/presentation/pages/entry_page.dart';

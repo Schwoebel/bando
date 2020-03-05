@@ -1,4 +1,4 @@
-import 'package:baindo/core/features/manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
+import 'package:baindo/features/manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 

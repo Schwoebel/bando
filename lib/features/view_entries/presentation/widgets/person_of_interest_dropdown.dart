@@ -1,4 +1,4 @@
-import 'package:baindo/core/features/manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
+import '../../../../features/manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
 import 'package:baindo/features/view_entries/presentation/bloc/dropdown_button/dropdown_button_bloc.dart';
 import 'package:flutter/material.dart';
 
