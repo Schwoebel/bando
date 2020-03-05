@@ -64,4 +64,4 @@ node_modules/
 # dotenv environment variables file
 .env
 
-/Users/schwoebel/Development/baindo/bando_cloud_functions/baindo-d0a1b-84a06426ab2d.json
+./baindo-d0a1b-84a06426ab2d.json
