@@ -67,7 +67,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   content: Text('Error saving Entry, please try again later'),
                 ),
               );
-            } else if (state is HasEntryInProgress){
+            } else if (state is HasEntryInProgress) {
               entry = state.entry;
             }
           },
@@ -78,7 +78,9 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   padding: EdgeInsets.all(16),
                   child: Column(
                     children: <Widget>[
-                      MoodDropdown(entry: entry,),
+                      MoodDropdown(
+                        entry: entry,
+                      ),
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
