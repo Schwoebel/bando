@@ -1,11 +1,11 @@
 import 'core/features/authentication/injection_container.dart' as auth_di;
 import 'core/features/authentication/presentation/pages/sign_in.dart';
 import 'package:flutter/material.dart';
-import 'features/mood/presentation/bloc/mood/mood_bloc.dart';
+import 'core/features/mood/presentation/bloc/mood/mood_bloc.dart';
 import 'features/view_entries/injection_container.dart' as ve_di;
 import 'features/manage_entries/injection_container.dart' as me_di;
 import 'features/manage_person_of_interest/injection_container.dart' as pi_di;
-import 'features/mood/injection_container.dart' as mood_di;
+import 'core/features/mood/injection_container.dart' as mood_di;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/features/authentication/injection_container.dart';

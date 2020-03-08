@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../mood/domain/entities/mood.dart';
-
 part 'entry.g.dart';
 
 @JsonSerializable(anyMap: true)

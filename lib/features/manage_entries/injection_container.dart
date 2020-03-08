@@ -6,7 +6,6 @@ import 'package:baindo/features/manage_entries/presentation/bloc/add_entry/add_e
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../mood/data/data_sources/mood_local_data_source.dart';
 
 GetIt sl = GetIt.instance;
 
@@ -33,13 +32,6 @@ init() async {
   sl.registerLazySingleton<EntryRemoteSource>(
     () => EntryRemoteSourceImpl(
       firestore: sl(),
-    ),
-  );
-
-  final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton<MoodLocalDataSource>(
-      ()  => MoodLocalDataSourceImpl(
-      sharedPreferences: sharedPreferences,
     ),
   );
 }

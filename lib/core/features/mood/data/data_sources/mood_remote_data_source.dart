@@ -1,10 +1,10 @@
-import 'package:baindo/features/mood/data/models/mood.model.dart';
-import 'package:baindo/features/mood/domain/entities/mood.dart';
+import 'package:baindo/core/features/mood/data/models/mood.model.dart';
+import 'package:baindo/core/features/mood/domain/entities/mood.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
 abstract class MoodRemoteDataSource {
-  Future<List<Mood>> getMoods();
+  Future<List<MoodModel>> getMoods();
 }
 
 class MoodRemoteDataSourceImpl extends MoodRemoteDataSource {

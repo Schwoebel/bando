@@ -1,7 +1,7 @@
 import 'package:baindo/core/failures/failures.dart';
 import 'package:baindo/core/use_cases/use_cases.dart';
-import 'package:baindo/features/mood/domain/entities/mood.dart';
-import 'package:baindo/features/mood/domain/repositories/mood_repository.dart';
+import 'package:baindo/core/features/mood/domain/entities/mood.dart';
+import 'package:baindo/core/features/mood/domain/repositories/mood_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 

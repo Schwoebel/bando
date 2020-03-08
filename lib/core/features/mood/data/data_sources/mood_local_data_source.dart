@@ -1,14 +1,14 @@
 import 'dart:convert';
 
-import 'package:baindo/features/mood/data/models/mood.model.dart';
-import 'package:baindo/features/mood/domain/entities/mood.dart';
+import 'package:baindo/core/features/mood/data/models/mood.model.dart';
+import 'package:baindo/core/features/mood/domain/entities/mood.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meta/meta.dart';
 
 const MOODS_STORAGE_KEY = 'Moods';
 abstract class MoodLocalDataSource{
   Future<bool> setMoods(List<MoodModel> moods);
-  Future<List<Mood>> getMoods();
+  Future<List<MoodModel>> getMoods();
 }
 
 class MoodLocalDataSourceImpl extends MoodLocalDataSource{
@@ -16,10 +16,10 @@ class MoodLocalDataSourceImpl extends MoodLocalDataSource{
 
   MoodLocalDataSourceImpl({@required this.sharedPreferences});
 
-  Future<List<Mood>> getMoods() async {
+  Future<List<MoodModel>> getMoods() async {
     String moodListString =
     sharedPreferences.getString(MOODS_STORAGE_KEY);
-    List<Mood> list = (json.decode(moodListString) as List)
+    List<MoodModel> list = (json.decode(moodListString) as List)
       .map((e) => MoodModel.fromLocalStorageJson(e))
       .toList();
     return list;
