@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
-import 'package:baindo/features/manage_entries/domain/entities/mood.dart';
+import 'package:baindo/features/mood/domain/entities/mood.dart';
 import 'package:baindo/features/manage_entries/presentation/bloc/add_entry/add_entry_bloc.dart';
-import 'package:baindo/features/manage_entries/presentation/bloc/mood/mood_bloc.dart';
 import 'package:baindo/features/manage_entries/presentation/widgets/entry_editor.dart';
+import 'package:baindo/features/mood/presentation/bloc/mood/mood_bloc.dart';
+import 'package:baindo/features/mood/presentation/widgets/mood_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -77,38 +78,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   padding: EdgeInsets.all(16),
                   child: Column(
                     children: <Widget>[
-                      BlocBuilder<MoodBloc, MoodState>(
-                        builder: (BuildContext context, MoodState moodState) {
-                          if (moodState is InitialMoodState) {
-                            return SizedBox();
-                          } else if (moodState is HasMoodsState) {
-                            return Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: DropdownButton<String>(
-                                    value: entry.mood,
-                                    onChanged: (String newValue) {
-                                      entry.mood = newValue;
-                                      BlocProvider.of<AddEntryBloc>(context)
-                                          .add(CreateEntry(entry));
-                                    },
-                                    items: moodState.moods
-                                        .map(
-                                          (Mood mood) =>
-                                              DropdownMenuItem<String>(
-                                                  child: Text(mood.mood),
-                                                  value: mood.mood),
-                                        )
-                                        .toList(),
-                                  ),
-                                )
-                              ],
-                            );
-                          } else {
-                            return SizedBox();
-                          }
-                        },
-                      ),
+                      MoodDropdown(entry: entry,),
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(

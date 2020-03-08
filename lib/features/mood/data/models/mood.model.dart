@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:baindo/features/manage_entries/domain/entities/mood.dart';
+import 'package:baindo/features/mood/domain/entities/mood.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'mood.model.g.dart';

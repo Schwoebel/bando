@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'mood.dart';
+import '../../../mood/domain/entities/mood.dart';
 
 part 'entry.g.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:baindo/features/manage_entries/data/models/mood.model.dart';
-import 'package:baindo/features/manage_entries/domain/entities/mood.dart';
+import 'package:baindo/features/mood/data/models/mood.model.dart';
+import 'package:baindo/features/mood/domain/entities/mood.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meta/meta.dart';
 

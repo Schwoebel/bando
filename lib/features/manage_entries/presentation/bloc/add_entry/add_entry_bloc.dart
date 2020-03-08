@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:baindo/core/failures/failures.dart';
 import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
-import 'package:baindo/features/manage_entries/domain/entities/mood.dart';
+import 'package:baindo/features/mood/domain/entities/mood.dart';
 import 'package:baindo/features/manage_entries/domain/use_cases/manage_entry.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
