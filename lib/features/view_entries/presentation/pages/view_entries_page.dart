@@ -15,6 +15,7 @@ class ViewEntriesPage extends StatefulWidget {
 
 class _ViewEntriesPageState extends State<ViewEntriesPage> {
   String personOfInterestId;
+
   @override
   void initState() {
     super.initState();
@@ -60,34 +61,51 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  BlocListener<PersonOfInterestBloc, PersonOfInterestState>(
-                    listener:
-                        (BuildContext context, PersonOfInterestState state) {},
-                    child: BlocBuilder<PersonOfInterestBloc,
-                        PersonOfInterestState>(
-                      builder:
-                          (BuildContext context, PersonOfInterestState state) {
-                        if (state is InitialPersonOfInterestState) {
-                          BlocProvider.of<PersonOfInterestBloc>(context).add(
-                            ReadAllowedPersonsOfInterestEvent(),
-                          );
-                          return SizedBox();
-                        } else if (state is GetAllPersonsOfInterestComplete) {
-                          return PersonOfInterestDropdown(
-                            personsOfInterest: state.personsOfInterest,
-                            callback: (String value) {
-                              BlocProvider.of<ViewEntriesBloc>(context).add(
-                                LoadEntriesEvent(
-                                  value,
-                                ),
-                              );
+                  Row(
+                    children: <Widget>[
+
+                      Expanded(
+                        child: BlocListener<PersonOfInterestBloc, PersonOfInterestState>(
+                          listener: (BuildContext context,
+                              PersonOfInterestState state) {},
+                          child: BlocBuilder<PersonOfInterestBloc,
+                              PersonOfInterestState>(
+                            builder: (BuildContext context,
+                                PersonOfInterestState state) {
+                              if (state is InitialPersonOfInterestState) {
+                                BlocProvider.of<PersonOfInterestBloc>(context)
+                                    .add(
+                                  ReadAllowedPersonsOfInterestEvent(),
+                                );
+                                return SizedBox();
+                              } else if (state
+                                  is GetAllPersonsOfInterestComplete) {
+                                return PersonOfInterestDropdown(
+                                  personsOfInterest: state.personsOfInterest,
+                                  callback: (String value) {
+                                    BlocProvider.of<ViewEntriesBloc>(context).add(
+                                      LoadEntriesEvent(
+                                        value,
+                                      ),
+                                    );
+                                  },
+                                );
+                              } else {
+                                return CircularProgressIndicator();
+                              }
                             },
-                          );
-                        } else {
-                          return CircularProgressIndicator();
-                        }
-                      },
-                    ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.settings,
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/profile');
+                        },
+                      ),
+                    ],
                   ),
                   BlocBuilder<ViewEntriesBloc, ViewEntriesState>(
                     builder: (BuildContext context, ViewEntriesState state) {

@@ -1,3 +1,5 @@
+import 'package:baindo/core/features/user_profile/presentation/pages/user_details.dart';
+
 import 'core/features/authentication/injection_container.dart' as auth_di;
 import 'core/features/authentication/presentation/pages/sign_in.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: "Bando an app to connect all the parts in your child's upbringing",
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -46,8 +48,11 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => sl<AuthBloc>()
           )
         ],
-        child: SignIn()
+        child: SignIn(),
       ),
+      routes: {
+        '/profile': (BuildContext context) => UserDetailsPage(),
+      },
     );
   }
 }
