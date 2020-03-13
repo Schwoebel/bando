@@ -2,20 +2,20 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 part 'role.g.dart';
-@JsonSerializable()
+@JsonSerializable(anyMap: true)
 class Role extends Equatable {
   @JsonKey(name: 'area_of_interest')
   final String areaOfInterest;
-  @JsonKey(name: 'role_id')
-  final String roleId;
+  @JsonKey(name: 'poi_id')
+  final String poiId;
   @JsonKey(name: 'role_level')
-  final String roleLevel;
+  final int roleLevel;
   @JsonKey(name: 'role_name')
   final String roleName;
 
   Role(
     {@required this.areaOfInterest,
-      @required this.roleId,
+      @required this.poiId,
       @required this.roleLevel,
       @required this.roleName});
 
@@ -23,7 +23,7 @@ class Role extends Equatable {
   // TODO: implement props
   List<Object> get props => [
     areaOfInterest,
-    roleId,
+    poiId,
     roleLevel,
     roleName,
   ];

@@ -1,3 +1,6 @@
+import 'package:baindo/core/features/authentication/presentation/bloc/auth/auth_bloc.dart';
+import 'package:baindo/features/view_entries/domain/entities/view_entry_arguments.dart';
+
 import '../../../../features/manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
 import 'package:baindo/features/manage_entries/presentation/pages/add_entry_page.dart';
 import 'package:baindo/features/view_entries/presentation/bloc/view_entries/view_entries_bloc.dart';
@@ -22,6 +25,13 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
   }
 
   @override
+  void didChangeDependencies() {
+    final ViewEntriesArgs args = ModalRoute.of(context).settings.arguments;
+    personOfInterestId = args.id;
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
@@ -41,6 +51,10 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
             }
           },
           child: Scaffold(
+            appBar: AppBar(
+              leading: null,
+              actions: <Widget>[],
+            ),
             floatingActionButton: FloatingActionButton(
               child: Icon(Icons.add),
               onPressed: () {
@@ -61,55 +75,51 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-
-                      Expanded(
-                        child: BlocListener<PersonOfInterestBloc, PersonOfInterestState>(
-                          listener: (BuildContext context,
-                              PersonOfInterestState state) {},
-                          child: BlocBuilder<PersonOfInterestBloc,
-                              PersonOfInterestState>(
-                            builder: (BuildContext context,
-                                PersonOfInterestState state) {
-                              if (state is InitialPersonOfInterestState) {
-                                BlocProvider.of<PersonOfInterestBloc>(context)
+                  /* Expanded(
+                    child: BlocListener<PersonOfInterestBloc,
+                        PersonOfInterestState>(
+                      listener: (BuildContext context,
+                          PersonOfInterestState state) {},
+                      child: BlocBuilder<PersonOfInterestBloc,
+                          PersonOfInterestState>(
+                        builder: (BuildContext context,
+                            PersonOfInterestState state) {
+                          if (state is InitialPersonOfInterestState) {
+                            BlocProvider.of<PersonOfInterestBloc>(context)
+                                .add(
+                              ReadAllowedPersonsOfInterestEvent(),
+                            );
+                            return SizedBox();
+                          } else if (state
+                              is GetAllPersonsOfInterestComplete) {
+                            return PersonOfInterestDropdown(
+                              personsOfInterest: state.personsOfInterest,
+                              callback: (String value) {
+                                BlocProvider.of<ViewEntriesBloc>(context)
                                     .add(
-                                  ReadAllowedPersonsOfInterestEvent(),
+                                  LoadEntriesEvent(
+                                    value,
+                                  ),
                                 );
-                                return SizedBox();
-                              } else if (state
-                                  is GetAllPersonsOfInterestComplete) {
-                                return PersonOfInterestDropdown(
-                                  personsOfInterest: state.personsOfInterest,
-                                  callback: (String value) {
-                                    BlocProvider.of<ViewEntriesBloc>(context).add(
-                                      LoadEntriesEvent(
-                                        value,
-                                      ),
-                                    );
-                                  },
-                                );
-                              } else {
-                                return CircularProgressIndicator();
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.settings,
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/profile');
+                              },
+                            );
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
                         },
                       ),
-                    ],
-                  ),
+                    ),
+                  ),*/
                   BlocBuilder<ViewEntriesBloc, ViewEntriesState>(
                     builder: (BuildContext context, ViewEntriesState state) {
                       if (state is ViewEntriesEmptyState) {
+                        BlocProvider.of<ViewEntriesBloc>(context).add(
+                          LoadEntriesEvent(
+                            personOfInterestId,
+                          ),
+                        );
                         return Text('Välkommen');
                       } else if (state is ViewEntriesLoadingState) {
                         return CircularProgressIndicator();
@@ -156,7 +166,7 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
                                       /// in shared preferences so this can look them up locally through the MoodsBloc
                                       Expanded(
                                         child: Text(
-                                          state.entries[i].mood,
+                                          state.entries[i].title,
                                           textAlign: TextAlign.center,
                                         ),
                                       ),

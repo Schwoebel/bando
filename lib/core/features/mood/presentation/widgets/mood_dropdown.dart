@@ -25,9 +25,9 @@ class _MoodDropdownState extends State<MoodDropdown> {
             children: <Widget>[
               Expanded(
                 child: DropdownButton<String>(
-                  value: widget.entry.mood,
+                  value: widget.entry.metaData['mood'],
                   onChanged: (String newValue) {
-                    widget.entry.mood = newValue;
+                    widget.entry.metaData['mood'] = newValue;
                     BlocProvider.of<AddEntryBloc>(context)
                       .add(CreateEntry(widget.entry));
                   },

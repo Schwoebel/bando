@@ -29,20 +29,20 @@ class _EntryEditorState extends State<EntryEditor> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    final document = widget.entry.entry.isEmpty
+    final document = widget.entry.text.isEmpty
         ? NotusDocument()
-        : NotusDocument.fromJson(jsonDecode(widget.entry.entry));
+        : NotusDocument.fromJson(jsonDecode(widget.entry.text));
     _controller = ZefyrController(document);
     _controller.addListener(() {
           BlocProvider.of<AddEntryBloc>(context).add(
             UpdateEntry(
               EntryModel(
-                  widget.entry.createDate,
-                  jsonEncode(
+                  createDate: widget.entry.createDate,
+                  text: jsonEncode(
                     _controller.document.toJson(),
                   ),
-                  widget.entry.mood,
-                  widget.entry.personOfInterest),
+                  title: '',
+                  metaData: {'mood': widget.entry.metaData['mood']}),
             ),
           );
         });

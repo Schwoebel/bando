@@ -20,11 +20,15 @@ class ViewEntriesRemoteDataSourceImpl extends ViewEntriesRemoteDataSource {
   Future<List<EntryModel>> getEntriesForPersonOfInterest(
       {String personOfInterestId}) async {
     QuerySnapshot querySnapshot = await firestore
-        .collection(ENTRIES_COLLECTION_NAME).orderBy('create_date')
-        .where(PERSON_OF_INTEREST, isEqualTo: personOfInterestId)
+        .collection(PERSON_OF_INTEREST)
+        .document(personOfInterestId)
+        .collection(ENTRIES_COLLECTION_NAME)
+        .orderBy('create_date')
         .getDocuments();
     return querySnapshot.documents
         .map((element) => EntryModel.fromJson(element.documentID, element.data))
-        .toList().reversed.toList();
+        .toList()
+        .reversed
+        .toList();
   }
 }

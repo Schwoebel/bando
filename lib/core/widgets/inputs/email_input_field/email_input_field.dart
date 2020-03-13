@@ -7,13 +7,15 @@ class EmailInputField extends StatefulWidget {
   final Function callback;
   final String hintText;
   final String errorText;
+  final String initialValue;
 
-  EmailInputField(
-      {Key key,
-      @required this.callback,
-      @required this.hintText,
-      @required this.errorText})
-      : super(key: key);
+  EmailInputField({
+    Key key,
+    @required this.callback,
+    @required this.hintText,
+    @required this.errorText,
+    this.initialValue,
+  }) : super(key: key);
 
   @override
   _EmailInputFieldState createState() => _EmailInputFieldState();

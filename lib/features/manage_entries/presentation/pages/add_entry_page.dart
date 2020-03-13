@@ -1,4 +1,3 @@
-
 import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
 import 'package:baindo/features/manage_entries/presentation/bloc/add_entry/add_entry_bloc.dart';
 import 'package:baindo/features/manage_entries/presentation/widgets/entry_editor.dart';
@@ -23,12 +22,15 @@ class _AddEntryPageState extends State<AddEntryPage> {
 
   @override
   void initState() {
-    int now = DateTime.now().millisecondsSinceEpoch;
+    int now = DateTime
+      .now()
+      .millisecondsSinceEpoch;
     entry = Entry(
-      now,
-      '',
-      'Happy',
-      widget.personOfInterest,
+      createDate: now,
+      author: '',
+      metaData: {'mood': 'Happy'},
+      text: '',
+      title: '',
     );
     super.initState();
   }
@@ -42,7 +44,8 @@ class _AddEntryPageState extends State<AddEntryPage> {
             create: (_) => sl<AddEntryBloc>(),
           ),
           BlocProvider<MoodBloc>(
-            create: (_) => sl<MoodBloc>()
+            create: (_) =>
+            sl<MoodBloc>()
               ..add(
                 GetMoodsEvent(),
               ),
@@ -82,11 +85,11 @@ class _AddEntryPageState extends State<AddEntryPage> {
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 4.0, color: Colors.greenAccent),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              )),
+                            border: Border.all(
+                              width: 4.0, color: Colors.greenAccent),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            )),
                           constraints: BoxConstraints.expand(),
                           child: EntryEditor(entry: entry),
                         ),
@@ -103,9 +106,9 @@ class _AddEntryPageState extends State<AddEntryPage> {
                           child: RaisedButton(
                             color: Color(0xFFc2e59c),
                             onPressed: () =>
-                                BlocProvider.of<AddEntryBloc>(context).add(
-                              SaveEntry(entry),
-                            ),
+                              BlocProvider.of<AddEntryBloc>(context).add(
+                                SaveEntry(entry),
+                              ),
                             child: Text('Submit'),
                           ),
                         ),

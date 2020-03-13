@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-
+import 'package:meta/meta.dart';
 part 'entry.g.dart';
 
 @JsonSerializable(anyMap: true)
@@ -7,11 +7,12 @@ class Entry {
   @JsonKey(ignore: true)
   String id;
   @JsonKey(name: 'create_date')
-  int createDate;
-  String entry;
-  String mood;
-  @JsonKey(name: 'person_of_interest')
-  String personOfInterest;
+  final int createDate;
+  final String title;
+  final String text;
+  final String author;
+  @JsonKey(name: 'meta_data')
+  final Map<dynamic, dynamic> metaData;
 
   String get prettyDate {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(createDate);
@@ -22,5 +23,11 @@ class Entry {
         dateTime.year.toString();
   }
 
-  Entry(this.createDate, this.entry, this.mood, this.personOfInterest);
+  Entry({
+    @required this.createDate,
+    @required this.title,
+    @required this.metaData,
+    @required this.text,
+    @required this.author
+  });
 }

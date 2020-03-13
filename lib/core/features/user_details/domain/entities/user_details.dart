@@ -1,11 +1,9 @@
-import 'package:baindo/core/features/user_profile/domain/entities/role.dart';
+import 'package:baindo/core/features/user_details/domain/entities/role.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
-part 'user_details.g.dart';
 
-@JsonSerializable()
 class UserDetails extends Equatable {
   final String email;
   @JsonKey(name: 'first_name')
@@ -13,7 +11,7 @@ class UserDetails extends Equatable {
   @JsonKey(name: 'last_name')
   final String lastName;
   @JsonKey(name: 'people_of_interest')
-  final List<String> peopleOfInterest;
+  final List<dynamic> peopleOfInterest;
   final List<Role> roles;
 
   UserDetails({
@@ -32,9 +30,5 @@ class UserDetails extends Equatable {
         peopleOfInterest,
         roles,
       ];
-
-  factory UserDetails.fromJson(Map<String, dynamic> json) =>
-    _$UserDetailsFromJson(json);
-
-  Map<dynamic, dynamic> toJson() => _$UserDetailsToJson(this);
 }
+

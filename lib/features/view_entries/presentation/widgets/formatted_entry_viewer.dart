@@ -16,7 +16,7 @@ class FormattedEntryViewer extends StatelessWidget {
 
   _tryLoadingDocument() {
     try {
-      document = NotusDocument.fromJson(jsonDecode(entry.entry));
+      document = NotusDocument.fromJson(jsonDecode(entry.text));
       return true;
     } catch (e) {
       return false;
@@ -29,6 +29,6 @@ class FormattedEntryViewer extends StatelessWidget {
         constraints: BoxConstraints.expand(),
         child: documentLoaded
             ? ZefyrView(document: document)
-            : Text(entry.entry));
+            : Text(entry.text));
   }
 }

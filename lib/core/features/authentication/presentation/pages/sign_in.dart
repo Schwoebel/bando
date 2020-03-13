@@ -11,56 +11,13 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  AuthBloc authBloc;
-
-  @override
-  didChangeDependencies() {
-    BlocProvider.of<AuthBloc>(context)
-      //..add(SignOutEvent())
-      ..add(GetCurrentUserEvent());
-    super.didChangeDependencies();
-  }
-
-  _reRouteIfLoggedIn() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushReplacementNamed(context, '/soundboard');
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (BuildContext context, AuthState state){
-        if (state is Loaded && state.auth.currentUser != null) {
-          Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ViewEntriesPage()));
-          return SizedBox();
-        } else {
-          return Scaffold(body: SignInForm());
-        }
-      },
-      child: BlocBuilder<AuthBloc, AuthState>(
+    return Scaffold(
+      body: BlocBuilder<AuthBloc, AuthState>(
         bloc: BlocProvider.of<AuthBloc>(context),
         builder: (context, AuthState state) {
-          if (state is Loading) {
-            return Container(
-              child: Center(
-                child: Text('State Loading'),
-              ),
-            );
-          } else if (state is Loaded || state is Empty) {
-            if (state is Loaded && state.auth.currentUser != null) {
-              return SizedBox();
-            } else {
-              return Scaffold(body: SignInForm());
-            }
-          } else {
-            return Container(
-              child: Center(
-                child: Text('AuthState Error'),
-              ),
-            );
-          }
+          return SignInForm();
         },
       ),
     );

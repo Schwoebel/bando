@@ -37,10 +37,9 @@ init() async {
       firestore: sl(),
     ),
   );
-  final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton<MoodLocalDataSource>(
-    () => MoodLocalDataSourceImpl(
-      sharedPreferences: sharedPreferences,
-    ),
-  );
+    sl.registerLazySingleton<MoodLocalDataSource>(
+      () => MoodLocalDataSourceImpl(
+        sharedPreferences: sl(),
+      ),
+    );
 }

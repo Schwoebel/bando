@@ -7,7 +7,6 @@ import 'package:baindo/features/view_entries/data/data_sources/view_entries_loca
 import 'package:baindo/features/view_entries/data/data_sources/view_entries_remote_data_source.dart';
 import 'package:baindo/features/view_entries/domain/repositories/view_entries_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
 class ViewEntriesRepositoryImpl extends ViewEntriesRepository {

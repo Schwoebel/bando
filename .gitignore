@@ -39,3 +39,4 @@ lib/generated_plugin_registrant.dart
 
 /android/app/google-services.json
 /ios/Runner/GoogleService-Info.plist
+/lib/core/features/user_details/data/models/user_details.model.g.dart

@@ -1,3 +1,8 @@
+import 'package:baindo/core/data_sources/user_details_local_data_source.dart';
+import 'package:baindo/core/data_sources/user_details_remote_data_source.dart';
+import 'package:baindo/core/failures/exceptions.dart';
+import 'package:baindo/core/features/user_details/data/models/user_details.model.dart';
+import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -11,9 +16,13 @@ import 'package:baindo/core/network/network_info.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;
+  final UserDetailsLocalDataSource userDetailsLocalDataSource;
+  final UserDetailsRemoteDataSource userDetailsRemoteDataSource;
   final NetworkInfo networkInfo;
 
   AuthRepositoryImpl({
+    @required this.userDetailsLocalDataSource,
+    @required this.userDetailsRemoteDataSource,
     @required this.authRemoteDataSource,
     @required this.networkInfo,
   });
@@ -40,6 +49,9 @@ class AuthRepositoryImpl implements AuthRepository {
         Auth auth = Auth(
             currentUser:
                 firebaseUser == null ? null : User.fromFirebase(firebaseUser));
+        if (auth.currentUser != null) {
+          _alsoGetUserDetails();
+        }
         return Right(auth);
       } catch (e) {
         handleException(e);
@@ -54,7 +66,6 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, Auth>> createUser(
       String email, String password) async {
     if (await networkInfo.isConnected) {
-      // Todo check if valid email maybe
       return authRemoteDataSource
           .createUser(email, password)
           .then((AuthResult result) async {
@@ -72,17 +83,19 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, Auth>> signIn(String email, String password) async {
     if (await networkInfo.isConnected) {
-      try{
+      try {
         return authRemoteDataSource
-          .signIn(email, password)
-          .then((AuthResult result) async {
+            .signIn(email, password)
+            .then((AuthResult result) async {
           final Auth auth = Auth(
             currentUser: User.fromFirebase(result.user),
           );
-
+          if (auth.currentUser != null) {
+            _alsoGetUserDetails();
+          }
           return Right<Failure, Auth>(auth);
         }).catchError(handleException);
-      } catch (e){
+      } catch (e) {
         print(e);
       }
     } else {
@@ -102,6 +115,16 @@ class AuthRepositoryImpl implements AuthRepository {
       }).catchError(handleException);
     } else {
       return Left(NetworkFailure());
+    }
+  }
+
+  _alsoGetUserDetails() async {
+    UserDetailsModel userDetails =
+        await userDetailsRemoteDataSource.getUserDetails();
+    try {
+      await userDetailsLocalDataSource.saveUserDetails(userDetails);
+    } catch (e) {
+      throw CacheException();
     }
   }
 }

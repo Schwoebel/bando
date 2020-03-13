@@ -5,13 +5,13 @@ part 'entry_model.g.dart';
 
 @JsonSerializable(anyMap: true)
 class EntryModel extends Entry {
-  EntryModel(createDate, entry, mood, String personOfInterest)
+  EntryModel({createDate, text, title, metaData, author})
       : super(
-          createDate,
-          entry,
-          mood,
-          personOfInterest,
-        );
+            createDate: createDate,
+            text: text,
+            title: title,
+            metaData: metaData,
+            author: author);
 
   factory EntryModel.fromJson(String id, Map<dynamic, dynamic> json) {
     return _$EntryModelFromJson(json)..id = id;
@@ -19,7 +19,11 @@ class EntryModel extends Entry {
 
   factory EntryModel.fromEntry(Entry entry) {
     return EntryModel(
-        entry.createDate, entry.entry, entry.mood, entry.personOfInterest);
+        createDate: entry.createDate,
+        text: entry.text,
+        author: entry.author,
+        title: entry.title,
+        metaData: entry.metaData);
   }
 
   Map<dynamic, dynamic> toJson() => _$EntryModelToJson(this);

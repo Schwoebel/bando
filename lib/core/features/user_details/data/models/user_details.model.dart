@@ -1,16 +1,18 @@
-import 'package:baindo/core/features/user_profile/domain/entities/user_details.dart';
+import 'package:baindo/core/features/user_details/domain/entities/role.dart';
+import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 part 'user_details.model.g.dart';
-@JsonSerializable()
+@JsonSerializable(anyMap: true)
 class UserDetailsModel extends UserDetails {
+  final List<Role> roles;
   UserDetailsModel({
     @required lastName,
     @required firstName,
     @required email,
     @required peopleOfInterest,
-    @required roles,
+    @required this.roles,
   }) : super(
           lastName: lastName,
           firstName: firstName,
@@ -21,5 +23,10 @@ class UserDetailsModel extends UserDetails {
   factory UserDetailsModel.fromJson(Map<String, dynamic> json) =>
     _$UserDetailsModelFromJson(json);
 
-  Map<dynamic, dynamic> toJson() => _$UserDetailsModelToJson(this);
+  Map<String, dynamic> toJson() => _$UserDetailsModelToJson(this);
+}
+
+List<Role> _convertToRole(dynamic role){
+  List<Role> roleList = role.map(( f) => Role.fromJson(f)).toList();
+  return roleList;
 }

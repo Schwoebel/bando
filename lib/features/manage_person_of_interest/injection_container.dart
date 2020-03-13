@@ -35,7 +35,9 @@ void init() async {
   sl.registerLazySingleton<PersonOfInterestRemoteDataSource>(
     () => PersonOfInterestRemoteDataSourceImpl(
       firestore: sl(),
-      firebaseAuth: FirebaseAuth.instance,
+      firebaseAuth: sl(),
+      userDetailsRemoteDataSource: sl(),
+      userDetailsLocalDataSource: sl()
     ),
   );
 }

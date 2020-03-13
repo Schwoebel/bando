@@ -1,5 +1,6 @@
 import 'package:baindo/core/failures/failures.dart';
-import 'package:baindo/core/features/user_profile/data/models/user_details.model.dart';
+import 'package:baindo/core/features/user_details/data/models/user_details.model.dart';
+import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:firebase_auth/firebase_auth.dart';

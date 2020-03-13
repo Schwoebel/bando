@@ -1,4 +1,4 @@
-  import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:baindo/core/features/authentication/data/data_sources/auth_remote_data_source.dart';
 import 'package:baindo/core/features/authentication/data/repositories/auth_repository_impl.dart';
@@ -27,6 +27,8 @@ void init() {
   //Repository
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
+      userDetailsLocalDataSource: sl(),
+      userDetailsRemoteDataSource: sl(),
       authRemoteDataSource: sl(),
       networkInfo: sl(),
     ),
@@ -34,10 +36,8 @@ void init() {
 
   //Data Sources
   sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(firebaseAuth: sl()),
-  );
-
-  sl.registerLazySingleton<FirebaseAuth>(
-    () => FirebaseAuth.instance,
+    () => AuthRemoteDataSourceImpl(
+      firebaseAuth: sl(),
+    ),
   );
 }
