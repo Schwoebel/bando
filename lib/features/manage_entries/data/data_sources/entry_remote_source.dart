@@ -1,17 +1,18 @@
 import 'package:baindo/features/manage_entries/data/models/entry_model.dart';
+import 'package:baindo/features/view_entries/data/data_sources/view_entries_remote_data_source.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
 const COLLECTION_NAME = 'entries';
 
 abstract class EntryRemoteSource {
-  Future<void> createEntry({@required EntryModel entry});
+  Future<void> createEntry({@required EntryModel entry, @required String personOfInterestId});
 
-  Future<EntryModel> readEntry({@required String id});
+  Future<EntryModel> readEntry({@required String id, @required String personOfInterestId});
 
-  Future<void> updateEntry({@required EntryModel entry, String id});
+  Future<void> updateEntry({@required EntryModel entry, String id, @required String personOfInterestId});
 
-  Future<void> deleteEntry({@required String id});
+  Future<void> deleteEntry({@required String id, @required String personOfInterestId});
 }
 
 class EntryRemoteSourceImpl extends EntryRemoteSource {
@@ -20,22 +21,25 @@ class EntryRemoteSourceImpl extends EntryRemoteSource {
   EntryRemoteSourceImpl({@required this.firestore});
 
   @override
-  Future<void> createEntry({@required EntryModel entry}) {
+  Future<void> createEntry(
+      {@required EntryModel entry, @required String personOfInterestId}) {
     Map<dynamic, dynamic> entryMap = entry.toJson();
     return this
         .firestore
-        .collection(COLLECTION_NAME)
+        .collection(PERSON_OF_INTEREST)
+        .document(personOfInterestId)
+        .collection(ENTRIES_COLLECTION_NAME)
         .document()
         .setData(entryMap);
   }
 
   @override
-  Future<void> deleteEntry({@required String id}) {
+  Future<void> deleteEntry({@required String id, @required String personOfInterestId}) {
     return this.firestore.collection(COLLECTION_NAME).document(id).delete();
   }
 
   @override
-  Future<EntryModel> readEntry({@required String id}) async {
+  Future<EntryModel> readEntry({@required String id, @required String personOfInterestId}) async {
     DocumentSnapshot snapshot =
         await this.firestore.collection(COLLECTION_NAME).document(id).get();
     return EntryModel.fromJson(snapshot.documentID, snapshot.data);
@@ -43,7 +47,7 @@ class EntryRemoteSourceImpl extends EntryRemoteSource {
 
   @override
   Future<void> updateEntry(
-      {@required EntryModel entry, @required String id}) async {
+      {@required EntryModel entry, @required String id, @required String personOfInterestId}) async {
     return await this
         .firestore
         .collection(COLLECTION_NAME)

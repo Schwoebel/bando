@@ -27,7 +27,10 @@ class AddEntryBloc extends Bloc<AddEntryEvent, AddEntryState> {
     } else if (event is SaveEntry) {
       yield SubmittingNewEntry();
       Either<Failure, bool> result =
-          await manageEntryOnRemoteSource.create(event.entry);
+          await manageEntryOnRemoteSource.create(EntryParams(
+        entry: event.entry,
+        personOfInterestId: event.personOfInterestId,
+      ));
       yield* _eitherSavedOrFailure(result);
     }
   }

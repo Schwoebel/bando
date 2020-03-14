@@ -107,7 +107,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                             color: Color(0xFFc2e59c),
                             onPressed: () =>
                               BlocProvider.of<AddEntryBloc>(context).add(
-                                SaveEntry(entry),
+                                SaveEntry(entry, widget.personOfInterest),
                               ),
                             child: Text('Submit'),
                           ),

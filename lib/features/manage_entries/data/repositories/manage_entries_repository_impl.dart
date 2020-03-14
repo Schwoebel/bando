@@ -12,7 +12,7 @@ class ManageEntriesRepositoryImpl extends ManageEntriesRepository {
   ManageEntriesRepositoryImpl({@required this.entryRemoteSource});
 
   @override
-  Future<Either<Failure, bool>> createEntry({Entry entry}) async {
+  Future<Either<Failure, bool>> createEntry({Entry entry, String poiId}) async {
     try{
       EntryModel model = EntryModel.fromEntry(entry);
       await entryRemoteSource.createEntry(entry: model);
@@ -20,22 +20,23 @@ class ManageEntriesRepositoryImpl extends ManageEntriesRepository {
     } catch(e){
       return Left(NetworkFailure());
     }
+    return null;
   }
 
   @override
-  Future<Either<Failure, bool>> deleteEntry({String id}) {
+  Future<Either<Failure, bool>> deleteEntry({String id, String poiId}) async {
     // TODO: implement deleteEntry
     return null;
   }
 
   @override
-  Future<Either<Failure, Entry>> readEntry({String id}) {
+  Future<Either<Failure, Entry>> readEntry({String id}) async {
     // TODO: implement readEntry
     return null;
   }
 
   @override
-  Future<Either<Failure, bool>> updateEntry({Entry task, String id}) {
+  Future<Either<Failure, bool>> updateEntry({Entry entry, String poiId, String id})async  {
     // TODO: implement updateEntry
     return null;
   }

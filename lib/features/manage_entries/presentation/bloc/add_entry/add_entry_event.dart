@@ -26,7 +26,9 @@ class UpdateEntry extends AddEntryEvent{
 }
 
 class SaveEntry extends AddEntryEvent{
-  SaveEntry(Entry entry) : super(entry);
+  final Entry entry;
+  final String personOfInterestId;
+  SaveEntry(this.entry, this.personOfInterestId) : super(entry);
 
   @override
   List<Object> get props => [entry];
