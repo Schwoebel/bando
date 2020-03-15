@@ -24,6 +24,8 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
     if (event is GetMoodsEvent) {
       Either<Failure, List<Mood>> getMoodAttempt = await moods(NoParams());
       yield* _failureOrMoodList(getMoodAttempt);
+    } else if(event is MoodSelected){
+      yield HasMoodsState(event.moods);
     }
   }
 

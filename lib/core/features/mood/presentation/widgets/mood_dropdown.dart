@@ -6,14 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoodDropdown extends StatefulWidget {
-  final Entry entry;
-  MoodDropdown({Key key, @required this.entry}) : super(key: key);
+  final Function(String) onSelected;
+  final value;
+  MoodDropdown({Key key, this.onSelected, this.value = ''}) : super(key: key);
 
   @override
   _MoodDropdownState createState() => _MoodDropdownState();
 }
 
 class _MoodDropdownState extends State<MoodDropdown> {
+  String value;
+  @override
+  void initState() {
+    value = widget.value;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MoodBloc, MoodState>(
@@ -25,11 +32,11 @@ class _MoodDropdownState extends State<MoodDropdown> {
             children: <Widget>[
               Expanded(
                 child: DropdownButton<String>(
-                  value: widget.entry.metaData['mood'],
+                  value: value.isNotEmpty ? value : null,
                   onChanged: (String newValue) {
-                    widget.entry.metaData['mood'] = newValue;
-                    BlocProvider.of<AddEntryBloc>(context)
-                      .add(CreateEntry(widget.entry));
+                    value = newValue;
+                    BlocProvider.of<MoodBloc>(context).add(MoodSelected(moodState.moods));
+                    widget.onSelected(newValue);
                   },
                   items: moodState.moods
                     .map(

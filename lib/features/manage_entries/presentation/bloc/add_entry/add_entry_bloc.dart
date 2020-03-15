@@ -31,7 +31,10 @@ class AddEntryBloc extends Bloc<AddEntryEvent, AddEntryState> {
         entry: event.entry,
         personOfInterestId: event.personOfInterestId,
       ));
-      yield* _eitherSavedOrFailure(result);
+      yield result.fold(
+          (failure) => ErrorSubmittingEntry(),
+          (success) => NewEntrySubmittedSuccessfully(),
+      );
     }
   }
 

@@ -18,21 +18,21 @@ class AddEntryPage extends StatefulWidget {
 }
 
 class _AddEntryPageState extends State<AddEntryPage> {
-  Entry entry;
+  String title;
+  String text;
+  String mood;
+  int createTime;
+  TextEditingController _titleController;
 
   @override
   void initState() {
-    int now = DateTime
-      .now()
-      .millisecondsSinceEpoch;
-    entry = Entry(
-      createDate: now,
-      author: '',
-      metaData: {'mood': 'Happy'},
-      text: '',
-      title: '',
-    );
+    _titleController = TextEditingController()..addListener(_onChanged);
+    createTime = DateTime.now().millisecondsSinceEpoch;
     super.initState();
+  }
+
+  void _onChanged() {
+    title = _titleController.text;
   }
 
   @override
@@ -44,8 +44,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
             create: (_) => sl<AddEntryBloc>(),
           ),
           BlocProvider<MoodBloc>(
-            create: (_) =>
-            sl<MoodBloc>()
+            create: (_) => sl<MoodBloc>()
               ..add(
                 GetMoodsEvent(),
               ),
@@ -68,8 +67,6 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   content: Text('Error saving Entry, please try again later'),
                 ),
               );
-            } else if (state is HasEntryInProgress) {
-              entry = state.entry;
             }
           },
           child: BlocBuilder<AddEntryBloc, AddEntryState>(
@@ -80,18 +77,39 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   child: Column(
                     children: <Widget>[
                       MoodDropdown(
-                        entry: entry,
+                        onSelected: (String value) {
+                          mood = value;
+                        },
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Title',
+                              ),
+                              controller: _titleController,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8,
                       ),
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 4.0, color: Colors.greenAccent),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            )),
+                              border: Border.all(
+                                  width: 4.0, color: Colors.greenAccent),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              )),
                           constraints: BoxConstraints.expand(),
-                          child: EntryEditor(entry: entry),
+                          child: EntryEditor(
+                              value: '',
+                              onUpdated: (String value) {
+                                text = value;
+                              }),
                         ),
                       ),
                       SizedBox(height: 16),
@@ -105,10 +123,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                           height: 50,
                           child: RaisedButton(
                             color: Color(0xFFc2e59c),
-                            onPressed: () =>
-                              BlocProvider.of<AddEntryBloc>(context).add(
-                                SaveEntry(entry, widget.personOfInterest),
-                              ),
+                            onPressed: () => _triggerSave(context),
                             child: Text('Submit'),
                           ),
                         ),
@@ -121,6 +136,22 @@ class _AddEntryPageState extends State<AddEntryPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _triggerSave(BuildContext context) {
+    BlocProvider.of<AddEntryBloc>(context).add(
+      SaveEntry(
+          Entry(
+            createDate: createTime,
+            title: title,
+            text: text,
+            author: '',
+            metaData: {
+              mood: mood,
+            },
+          ),
+          widget.personOfInterest),
     );
   }
 }

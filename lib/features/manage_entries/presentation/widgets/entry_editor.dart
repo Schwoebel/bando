@@ -1,19 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:baindo/features/manage_entries/data/models/entry_model.dart';
-import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
-import 'package:baindo/features/manage_entries/presentation/bloc/add_entry/add_entry_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zefyr/zefyr.dart';
-import 'package:quill_delta/quill_delta.dart';
 
 class EntryEditor extends StatefulWidget {
-  final Entry entry;
+  final String value;
+  final Function(String) onUpdated;
 
-  EntryEditor({Key key, @required this.entry})
-      : assert(entry != null),
+  EntryEditor({Key key, this.value, @required this.onUpdated})
+      : assert(onUpdated != null),
         super(key: key);
 
   @override
@@ -27,25 +22,16 @@ class _EntryEditorState extends State<EntryEditor> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    final document = widget.entry.text.isEmpty
+    final document = widget.value.isEmpty
         ? NotusDocument()
-        : NotusDocument.fromJson(jsonDecode(widget.entry.text));
+        : NotusDocument.fromJson(jsonDecode(widget.value));
     _controller = ZefyrController(document);
     _controller.addListener(() {
-          BlocProvider.of<AddEntryBloc>(context).add(
-            UpdateEntry(
-              EntryModel(
-                  createDate: widget.entry.createDate,
-                  text: jsonEncode(
-                    _controller.document.toJson(),
-                  ),
-                  title: '',
-                  metaData: {'mood': widget.entry.metaData['mood']}),
-            ),
-          );
-        });
+      widget.onUpdated(jsonEncode(
+        _controller.document.toJson(),
+      ));
+    });
     _focusNode = FocusNode();
   }
 

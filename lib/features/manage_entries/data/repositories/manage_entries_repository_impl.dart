@@ -15,7 +15,7 @@ class ManageEntriesRepositoryImpl extends ManageEntriesRepository {
   Future<Either<Failure, bool>> createEntry({Entry entry, String poiId}) async {
     try{
       EntryModel model = EntryModel.fromEntry(entry);
-      await entryRemoteSource.createEntry(entry: model);
+      await entryRemoteSource.createEntry(entry: model, personOfInterestId: poiId);
       return Right(true);
     } catch(e){
       return Left(NetworkFailure());
