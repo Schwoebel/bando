@@ -6,15 +6,12 @@ import 'package:baindo/features/manage_entries/presentation/bloc/add_entry/add_e
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 GetIt sl = GetIt.instance;
 
 init() async {
   //Bloc
 
-  sl.registerFactory(() => AddEntryBloc(
-    manageEntryOnRemoteSource: sl()
-  ));
+  sl.registerFactory(() => AddEntryBloc(manageEntryOnRemoteSource: sl()));
 
   //UseCases
   sl.registerLazySingleton<ManageEntryOnRemoteSource>(
@@ -26,6 +23,7 @@ init() async {
   sl.registerLazySingleton<ManageEntriesRepository>(
     () => ManageEntriesRepositoryImpl(
       entryRemoteSource: sl(),
+      userDetailsLocalDataSource: sl(),
     ),
   );
 

@@ -38,6 +38,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: MultiBlocProvider(
         providers: [
           BlocProvider<AddEntryBloc>(
@@ -148,7 +149,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
             text: text,
             author: '',
             metaData: {
-              mood: mood,
+              'mood': mood,
             },
           ),
           widget.personOfInterest),

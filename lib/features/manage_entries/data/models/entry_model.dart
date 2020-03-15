@@ -1,3 +1,4 @@
+import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
 import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -17,11 +18,11 @@ class EntryModel extends Entry {
     return _$EntryModelFromJson(json)..id = id;
   }
 
-  factory EntryModel.fromEntry(Entry entry) {
+  factory EntryModel.fromEntry(Entry entry, UserDetails userDetails) {
     return EntryModel(
         createDate: entry.createDate,
         text: entry.text,
-        author: entry.author,
+        author: entry.author.isNotEmpty ? entry.author : "${userDetails.firstName} ${userDetails.lastName}",
         title: entry.title,
         metaData: entry.metaData);
   }

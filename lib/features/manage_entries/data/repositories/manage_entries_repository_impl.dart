@@ -1,3 +1,4 @@
+import 'package:baindo/core/data_sources/user_details_local_data_source.dart';
 import 'package:baindo/core/failures/failures.dart';
 import 'package:baindo/features/manage_entries/data/data_sources/entry_remote_source.dart';
 import 'package:baindo/features/manage_entries/data/models/entry_model.dart';
@@ -8,16 +9,23 @@ import 'package:dartz/dartz.dart';
 
 class ManageEntriesRepositoryImpl extends ManageEntriesRepository {
   final EntryRemoteSource entryRemoteSource;
+  final UserDetailsLocalDataSource userDetailsLocalDataSource;
 
-  ManageEntriesRepositoryImpl({@required this.entryRemoteSource});
+  ManageEntriesRepositoryImpl(
+      {@required this.entryRemoteSource,
+      @required this.userDetailsLocalDataSource});
 
   @override
   Future<Either<Failure, bool>> createEntry({Entry entry, String poiId}) async {
-    try{
-      EntryModel model = EntryModel.fromEntry(entry);
-      await entryRemoteSource.createEntry(entry: model, personOfInterestId: poiId);
+    try {
+      EntryModel model = EntryModel.fromEntry(
+        entry,
+        await userDetailsLocalDataSource.getUserDetails(),
+      );
+      await entryRemoteSource.createEntry(
+          entry: model, personOfInterestId: poiId);
       return Right(true);
-    } catch(e){
+    } catch (e) {
       return Left(NetworkFailure());
     }
     return null;
@@ -36,7 +44,8 @@ class ManageEntriesRepositoryImpl extends ManageEntriesRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> updateEntry({Entry entry, String poiId, String id})async  {
+  Future<Either<Failure, bool>> updateEntry(
+      {Entry entry, String poiId, String id}) async {
     // TODO: implement updateEntry
     return null;
   }
