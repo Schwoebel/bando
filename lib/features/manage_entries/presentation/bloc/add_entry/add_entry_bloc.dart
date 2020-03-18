@@ -31,14 +31,11 @@ class AddEntryBloc extends Bloc<AddEntryEvent, AddEntryState> {
         entry: event.entry,
         personOfInterestId: event.personOfInterestId,
       ));
-      yield result.fold(
-          (failure) => ErrorSubmittingEntry(),
-          (success) => NewEntrySubmittedSuccessfully(),
-      );
+      yield* _eitherSavedOrFailure(result);
     }
   }
 
-  _eitherSavedOrFailure(Either<Failure, bool> result) async* {
+  Stream<AddEntryState> _eitherSavedOrFailure(Either<Failure, bool> result) async* {
     yield result.fold(
       (failure) => ErrorSubmittingEntry(),
       (success) => NewEntrySubmittedSuccessfully(),

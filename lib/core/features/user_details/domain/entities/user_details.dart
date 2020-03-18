@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
-
 class UserDetails extends Equatable {
   final String email;
   @JsonKey(name: 'first_name')
@@ -13,14 +12,15 @@ class UserDetails extends Equatable {
   @JsonKey(name: 'people_of_interest')
   final List<dynamic> peopleOfInterest;
   final List<Role> roles;
+  final List<dynamic> authors;
 
-  UserDetails({
-    @required this.email,
-    @required this.firstName,
-    @required this.lastName,
-    @required this.peopleOfInterest,
-    @required this.roles,
-  });
+  UserDetails(
+      {@required this.email,
+      @required this.firstName,
+      @required this.lastName,
+      @required this.peopleOfInterest,
+      @required this.roles,
+      @required this.authors});
 
   @override
   List<Object> get props => [
@@ -29,6 +29,6 @@ class UserDetails extends Equatable {
         lastName,
         peopleOfInterest,
         roles,
+        authors,
       ];
 }
-

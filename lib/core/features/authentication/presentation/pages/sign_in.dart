@@ -14,6 +14,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: BlocBuilder<AuthBloc, AuthState>(
         bloc: BlocProvider.of<AuthBloc>(context),
         builder: (context, AuthState state) {

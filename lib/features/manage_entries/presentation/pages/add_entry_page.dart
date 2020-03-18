@@ -3,6 +3,7 @@ import 'package:baindo/features/manage_entries/presentation/bloc/add_entry/add_e
 import 'package:baindo/features/manage_entries/presentation/widgets/entry_editor.dart';
 import 'package:baindo/core/features/mood/presentation/bloc/mood/mood_bloc.dart';
 import 'package:baindo/core/features/mood/presentation/widgets/mood_dropdown.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,8 +55,18 @@ class _AddEntryPageState extends State<AddEntryPage> {
         child: BlocListener<AddEntryBloc, AddEntryState>(
           listener: (BuildContext context, AddEntryState state) {
             if (state is NewEntrySubmittedSuccessfully) {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Entry Added'),
+                ),
+              );
               Navigator.pop(context);
             } else if (state is SubmittingNewEntry) {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Adding Entry'),
+                ),
+              );
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Entry Saved'),
@@ -140,10 +151,13 @@ class _AddEntryPageState extends State<AddEntryPage> {
     );
   }
 
-  void _triggerSave(BuildContext context) {
+  void _triggerSave(BuildContext context) async  {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+
     BlocProvider.of<AddEntryBloc>(context).add(
       SaveEntry(
           Entry(
+            authorId: user.uid,
             createDate: createTime,
             title: title,
             text: text,

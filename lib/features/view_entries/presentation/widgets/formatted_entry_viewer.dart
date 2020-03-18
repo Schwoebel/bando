@@ -26,6 +26,7 @@ class FormattedEntryViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(16.0),
         constraints: BoxConstraints.expand(),
         child: documentLoaded
             ? ZefyrView(document: document)

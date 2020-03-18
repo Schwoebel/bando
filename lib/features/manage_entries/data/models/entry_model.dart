@@ -6,8 +6,9 @@ part 'entry_model.g.dart';
 
 @JsonSerializable(anyMap: true)
 class EntryModel extends Entry {
-  EntryModel({createDate, text, title, metaData, author})
+  EntryModel({authorId, createDate, text, title, metaData, author})
       : super(
+            authorId: authorId,
             createDate: createDate,
             text: text,
             title: title,
@@ -22,7 +23,9 @@ class EntryModel extends Entry {
     return EntryModel(
         createDate: entry.createDate,
         text: entry.text,
-        author: entry.author.isNotEmpty ? entry.author : "${userDetails.firstName} ${userDetails.lastName}",
+        author: entry.author.isNotEmpty
+            ? entry.author
+            : "${userDetails.firstName} ${userDetails.lastName}",
         title: entry.title,
         metaData: entry.metaData);
   }

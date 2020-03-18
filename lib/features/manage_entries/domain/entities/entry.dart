@@ -11,6 +11,8 @@ class Entry {
   final String title;
   final String text;
   final String author;
+  @JsonKey(name: 'author_id')
+  final String authorId;
   @JsonKey(name: 'meta_data')
   final Map<dynamic, dynamic> metaData;
 
@@ -23,7 +25,7 @@ class Entry {
         dateTime.year.toString();
   }
 
-  Entry({
+  Entry( {@required this.authorId,
     @required this.createDate,
     @required this.title,
     @required this.metaData,

@@ -14,6 +14,7 @@ class EntryPage extends StatelessWidget {
           child: Icon(Icons.chevron_left),
           onPressed: () => Navigator.pop(context),
         ),
+        appBar: AppBar(title: Text(entry.title)),
         body: SafeArea(
           child: Container(
             padding: EdgeInsets.all(16),
@@ -24,7 +25,7 @@ class EntryPage extends StatelessWidget {
                     Expanded(
                       child: Column(
                         children: <Widget>[
-                          Text(''),
+                          Text('by ${entry.author}'),
                         ],
                       ),
                     ),
