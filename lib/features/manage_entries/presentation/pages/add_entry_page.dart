@@ -1,3 +1,5 @@
+import 'package:baindo/core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
+import 'package:baindo/core/features/user_details/presentation/widgets/author_drop_down.dart';
 import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
 import 'package:baindo/features/manage_entries/presentation/bloc/add_entry/add_entry_bloc.dart';
 import 'package:baindo/features/manage_entries/presentation/widgets/entry_editor.dart';
@@ -22,6 +24,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
   String title;
   String text;
   String mood;
+  String author;
   int createTime;
   TextEditingController _titleController;
 
@@ -44,6 +47,9 @@ class _AddEntryPageState extends State<AddEntryPage> {
         providers: [
           BlocProvider<AddEntryBloc>(
             create: (_) => sl<AddEntryBloc>(),
+          ),
+          BlocProvider<UserDetailsBloc>(
+            create: (_) => sl<UserDetailsBloc>()..add(GetUserDetailsEvent()),
           ),
           BlocProvider<MoodBloc>(
             create: (_) => sl<MoodBloc>()
@@ -92,6 +98,11 @@ class _AddEntryPageState extends State<AddEntryPage> {
                         onSelected: (String value) {
                           mood = value;
                         },
+                      ),
+                      AuthorDropDown(
+                        onSelected: (String value){
+                          author = value;
+                        }
                       ),
                       Row(
                         children: <Widget>[

@@ -9,7 +9,7 @@ import 'package:meta/meta.dart';
 
 abstract class UserDetailsRemoteDataSource{
   Future<UserDetailsModel> getUserDetails();
-  Future<bool> updateUserDetails();
+  Future<bool> updateUserDetails(UserDetailsModel userDetailsModel);
 }
 
 class UserDetailsRemoteDataSourceImpl implements UserDetailsRemoteDataSource{
@@ -30,9 +30,14 @@ class UserDetailsRemoteDataSourceImpl implements UserDetailsRemoteDataSource{
   }
 
   @override
-  Future<bool> updateUserDetails() {
-    // TODO: implement updateUserDetails
-    return null;
+  Future<bool> updateUserDetails(UserDetailsModel userDetailsModel) async {
+    try{
+      FirebaseUser user = await firebaseAuth.currentUser();
+      await fireStore.document('/user_details/' + user.uid).setData(userDetailsModel.toJson());
+      return Future.value(true);
+    } catch(e){
+      throw Exception();
+    }
   }
 }
 

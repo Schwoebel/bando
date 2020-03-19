@@ -1,9 +1,13 @@
+import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
 import 'package:baindo/core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddAuthDialog extends StatefulWidget {
+  final Function(String string) callback;
+
+  const AddAuthDialog({Key key, this.callback}) : super(key: key);
   @override
   _AddAuthDialogState createState() => _AddAuthDialogState();
 }
@@ -55,25 +59,25 @@ class _AddAuthDialogState extends State<AddAuthDialog>
                 ),
               ),
               Expanded(
-                  child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: TextFormField(
-                        controller: _textController,
-                        validator: (String value){
-                          if (value.isEmpty) {
-                            return 'Please enter a new author name';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(labelText: "Name"),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: TextFormField(
+                          controller: _textController,
+                          validator: (String value) {
+                            if (value.isEmpty) {
+                              return 'Please enter a new author name';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(labelText: "Name"),
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              )),
+                    )
+                  ],
+                )),
               Padding(
                 padding: const EdgeInsets.only(top: 24, bottom: 16),
                 child: Row(
@@ -83,14 +87,13 @@ class _AddAuthDialogState extends State<AddAuthDialog>
                     MaterialButton(
                       color: Color(Colors.blue.value),
                       onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                         BlocProvider.of<UserDetailsBloc>(context).add(UpdateAuthorList(_textController.text));
-                        }
+                        widget.callback(_textController.text);
+                        Navigator.of(context).pop();
                       },
-
                       child: Text(
                         'Okay',
-                        style: TextStyle(fontSize: 18.0, color: Colors.white),
+                        style: TextStyle(
+                          fontSize: 18.0),
                       ),
                     ),
                     SizedBox(
@@ -103,7 +106,8 @@ class _AddAuthDialogState extends State<AddAuthDialog>
                       },
                       child: Text(
                         'Cancel',
-                        style: TextStyle(fontSize: 18.0, color: Colors.white),
+                        style: TextStyle(
+                          fontSize: 18.0),
                       ),
                     )
                   ],

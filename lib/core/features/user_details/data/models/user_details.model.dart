@@ -13,14 +13,12 @@ class UserDetailsModel extends UserDetails {
     @required lastName,
     @required firstName,
     @required email,
-    @required peopleOfInterest,
     @required this.roles,
     @required authors,
   }) : super(
           lastName: lastName,
           firstName: firstName,
           email: email,
-          peopleOfInterest: peopleOfInterest,
           roles: roles,
           authors: authors,
         );

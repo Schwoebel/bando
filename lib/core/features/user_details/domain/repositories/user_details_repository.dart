@@ -4,5 +4,5 @@ import 'package:dartz/dartz.dart';
 
 abstract class UserDetailsRepository{
   Future<Either<Failure, UserDetails>> getUserDetails();
-  Future<Either<Failure, UserDetails>> updateUserDetails();
+  Future<Either<Failure, UserDetails>> updateUserDetails(UserDetails userDetails);
 }

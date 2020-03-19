@@ -1,7 +1,9 @@
 part of 'user_details_bloc.dart';
 
 @immutable
-abstract class UserDetailsEvent extends Equatable{}
+abstract class UserDetailsEvent extends Equatable {
+  const UserDetailsEvent();
+}
 
 class GetUserDetailsEvent extends UserDetailsEvent {
   @override
@@ -9,15 +11,16 @@ class GetUserDetailsEvent extends UserDetailsEvent {
   List<Object> get props => null;
 }
 
-class UpdateAuthorList extends UserDetailsEvent{
-  final String newAuthor;
+class UpdateUserDetails extends UserDetailsEvent {
+  final UserDetails updatedUserDetails;
 
-  UpdateAuthorList(this.newAuthor);
+  const UpdateUserDetails(this.updatedUserDetails);
 
   @override
   // TODO: implement props
-  List<Object> get props => [newAuthor];
+  List<Object> get props => [updatedUserDetails];
 
+  @override
+  String toString() =>
+      'UpdateUserDetails { updatedUserDetails | $updatedUserDetails';
 }
-
-

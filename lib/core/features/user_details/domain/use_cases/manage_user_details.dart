@@ -20,11 +20,14 @@ class ManageUserDetails extends UseCase<UserDetails, UserDetailParameters> {
   }
 
   Future<Either<Failure, UserDetails>> update(UserDetailParameters params) {
-    return null;
+    return repository.updateUserDetails(params.details);
   }
 }
 
 class UserDetailParameters extends Equatable {
+  final UserDetails details;
+
+  UserDetailParameters(this.details);
   @override
-  List<Object> get props => null;
+  List<Object> get props => [details];
 }

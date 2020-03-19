@@ -1,4 +1,8 @@
 import 'package:baindo/core/features/authentication/presentation/bloc/auth/auth_bloc.dart';
+import 'package:baindo/core/features/user_details/domain/entities/role.dart';
+import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
+import 'package:baindo/core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
+import 'package:baindo/core/features/user_details/presentation/pages/user_details_portal_page.dart';
 import 'package:baindo/core/theme/bando_theme.dart';
 import 'package:baindo/features/manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
 import 'package:baindo/features/view_entries/domain/entities/view_entry_arguments.dart';
@@ -17,8 +21,9 @@ class _PersonOfInterestPageState extends State<PersonOfInterestPage>
   @override
   void initState() {
     _controller = AnimationController(vsync: this);
-    BlocProvider.of<PersonOfInterestBloc>(context)
-        .add(ReadAllowedPersonsOfInterestEvent());
+    BlocProvider.of<PersonOfInterestBloc>(context).add(
+      ReadAllowedPersonsOfInterestEvent(),
+    );
     super.initState();
   }
 
@@ -46,12 +51,7 @@ class _PersonOfInterestPageState extends State<PersonOfInterestPage>
             icon: Icon(Icons.people),
             onPressed: () {},
           ),
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, '/profile');
-            },
-          ),
+          _userDetailsButton(),
           IconButton(
             icon: Icon(Icons.exit_to_app),
             onPressed: () {
@@ -66,15 +66,20 @@ class _PersonOfInterestPageState extends State<PersonOfInterestPage>
         builder: (BuildContext context, PersonOfInterestState state) {
           if (state is GetAllPersonsOfInterestComplete) {
             return ListView.separated(
-              separatorBuilder: (context, int) =>
-                  Divider(color: BandoColors.blue[200]),
+              separatorBuilder: (context, int) => Divider(
+                color: BandoColors.blue[200],
+              ),
               itemCount: state.personsOfInterest.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () {
-                    Navigator.pushNamed(context, '/viewEntries',
-                        arguments: ViewEntriesArgs(
-                            id: state.personsOfInterest[index].id));
+                    Navigator.pushNamed(
+                      context,
+                      '/viewEntries',
+                      arguments: ViewEntriesArgs(
+                        id: state.personsOfInterest[index].id,
+                      ),
+                    );
                   },
                   title: Text(state.personsOfInterest[index].initials),
                   trailing: Icon(Icons.keyboard_arrow_right),
@@ -84,10 +89,54 @@ class _PersonOfInterestPageState extends State<PersonOfInterestPage>
           } else if (state is ErrorWithPersonOfInterestProcess) {
             return Center(child: Text(state.message));
           } else {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),
     );
+  }
+
+  Widget _userDetailsButton() {
+    return BlocBuilder<UserDetailsBloc, UserDetailsState>(
+        builder: (context, UserDetailsState state) {
+      if (state is UserDetailsRetrieved) {
+        return IconButton(
+          icon: Icon(Icons.settings),
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              '/userDetails',
+              arguments: UserDetailsPageArgs(
+                (
+                  String firstName,
+                  String lastName,
+                  String emailAddress,
+                  List<dynamic> authors,
+                  List<Role> roles,
+                ) {
+                  UserDetails updatedUserDetails = state.userDetails.copyWith(
+                    email: emailAddress,
+                    firstName: firstName,
+                    lastName: lastName,
+                    roles: roles,
+                    authors: authors,
+                  );
+                  BlocProvider.of<UserDetailsBloc>(context).add(
+                    UpdateUserDetails(
+                      updatedUserDetails,
+                    ),
+                  );
+                },
+                state.userDetails,
+              ),
+            );
+          },
+        );
+      } else {
+        return SizedBox();
+      }
+    });
   }
 }

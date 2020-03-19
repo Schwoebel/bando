@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:baindo/core/failures/failures.dart';
 import 'package:baindo/core/data_sources/user_details_local_data_source.dart';
 import 'package:baindo/core/data_sources/user_details_remote_data_source.dart';
+import 'package:baindo/core/features/user_details/data/models/user_details.model.dart';
 import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
 import 'package:baindo/core/features/user_details/domain/repositories/user_details_repository.dart';
 import 'package:baindo/core/network/network_info.dart';
@@ -33,8 +36,25 @@ class UserDetailsRepositoryImpl implements UserDetailsRepository {
   }
 
   @override
-  Future<Either<Failure, UserDetails>> updateUserDetails() {
-    // TODO: implement updateUserDetails
-    return null;
+  Future<Either<Failure, UserDetails>> updateUserDetails(
+    UserDetails userDetails,
+  ) async {
+    UserDetailsModel userDetailsModel = UserDetailsModel.fromJson(userDetails.toMap());
+    if (await networkInfo.isConnected) {
+      try {
+        await userDetailsLocalDataSource.saveUserDetails(userDetailsModel);
+        bool success = await userDetailsRemoteDataSource.updateUserDetails(userDetailsModel);
+        if(success){
+          return Right(userDetailsModel);
+        } else {
+          return Left(NetworkFailure());
+        }
+
+      } catch (e) {
+        return Left(NetworkFailure());
+      }
+    } else {
+      return Left(NetworkFailure());
+    }
   }
 }

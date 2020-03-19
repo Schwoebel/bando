@@ -9,8 +9,6 @@ class UserDetails extends Equatable {
   final String firstName;
   @JsonKey(name: 'last_name')
   final String lastName;
-  @JsonKey(name: 'people_of_interest')
-  final List<dynamic> peopleOfInterest;
   final List<Role> roles;
   final List<dynamic> authors;
 
@@ -18,16 +16,34 @@ class UserDetails extends Equatable {
       {@required this.email,
       @required this.firstName,
       @required this.lastName,
-      @required this.peopleOfInterest,
       @required this.roles,
       @required this.authors});
+
+  UserDetails copyWith({String email, String firstName, String lastName, List<Role> roles, List<dynamic> authors}) {
+    return UserDetails(
+      email: email ?? this.email,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      roles: roles ?? this.roles,
+      authors: authors ?? this.authors,
+    );
+  }
+
+  Map<String, dynamic> toMap(){
+    return {
+      'first_name': firstName,
+      'last_name': lastName,
+      'email': email,
+      'roles': roles,
+      'authors': authors,
+    };
+  }
 
   @override
   List<Object> get props => [
         email,
         firstName,
         lastName,
-        peopleOfInterest,
         roles,
         authors,
       ];

@@ -1,5 +1,3 @@
-import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
-import 'package:baindo/features/manage_entries/presentation/bloc/add_entry/add_entry_bloc.dart';
 import 'package:baindo/core/features/mood/domain/entities/mood.dart';
 import 'package:baindo/core/features/mood/presentation/bloc/mood/mood_bloc.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +19,7 @@ class _MoodDropdownState extends State<MoodDropdown> {
     value = widget.value;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MoodBloc, MoodState>(
@@ -29,23 +28,23 @@ class _MoodDropdownState extends State<MoodDropdown> {
           return SizedBox();
         } else if (moodState is HasMoodsState) {
           return Row(
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Expanded(
                 child: DropdownButton<String>(
                   value: value.isNotEmpty ? value : null,
                   onChanged: (String newValue) {
                     value = newValue;
-                    BlocProvider.of<MoodBloc>(context).add(MoodSelected(moodState.moods));
+                    BlocProvider.of<MoodBloc>(context)
+                        .add(MoodSelected(moodState.moods));
                     widget.onSelected(newValue);
                   },
                   items: moodState.moods
-                    .map(
-                      (Mood mood) =>
-                      DropdownMenuItem<String>(
-                        child: Text(mood.mood),
-                        value: mood.mood),
-                  )
-                    .toList(),
+                      .map(
+                        (Mood mood) => DropdownMenuItem<String>(
+                            child: Text(mood.mood), value: mood.mood),
+                      )
+                      .toList(),
                 ),
               )
             ],

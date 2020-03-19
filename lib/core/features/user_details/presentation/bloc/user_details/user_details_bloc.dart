@@ -26,9 +26,11 @@ class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
     if (event is GetUserDetailsEvent) {
       yield Waiting();
       Either<Failure, UserDetails> result = await manageUserDetails(
-        UserDetailParameters(),
+        UserDetailParameters(null),
       );
       yield* _eitherFailureOrSuccess(result);
+    } else if (event is UpdateUserDetails) {
+      yield* _updateUserDetails(event.updatedUserDetails);
     }
   }
 
@@ -41,5 +43,12 @@ class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
       ),
       (UserDetails success) => UserDetailsRetrieved(userDetails: success),
     );
+  }
+
+  Stream<UserDetailsState> _updateUserDetails(UserDetails updatedUserDetails) async* {
+    UserDetails userDetails = updatedUserDetails
+      .copyWith(authors: updatedUserDetails.authors);
+    var result = await manageUserDetails.update(UserDetailParameters(userDetails));
+    yield* _eitherFailureOrSuccess(result);
   }
 }

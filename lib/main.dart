@@ -1,9 +1,11 @@
-import 'package:baindo/core/features/user_details/presentation/pages/user_details.dart';
+import 'package:baindo/core/features/user_details/presentation/pages/edit_user_details_page.dart';
+import 'package:baindo/core/features/user_details/presentation/pages/user_details_portal_page.dart';
 import 'package:baindo/core/theme/bando_theme.dart';
 
 import 'core/features/authentication/presentation/pages/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'core/features/mood/presentation/bloc/mood/mood_bloc.dart';
+import 'core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
 import 'features/manage_person_of_interest/presentation/pages/person_of_interest_page.dart';
 import 'features/view_entries/presentation/pages/view_entries_page.dart';
 import 'injection_container.dart' as app_di;
@@ -36,6 +38,9 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider<PersonOfInterestBloc>(
                 create: (BuildContext context) => sl<PersonOfInterestBloc>()),
+            BlocProvider<UserDetailsBloc>(
+              create: (BuildContext context) => sl<UserDetailsBloc>(),
+            )
           ],
           child: BlocBuilder<AuthBloc, AuthState>(
             builder: (BuildContext context, AuthState state) {
@@ -43,13 +48,14 @@ class MyApp extends StatelessWidget {
                 BlocProvider.of<AuthBloc>(context).add(GetCurrentUserEvent());
               }
               if (state is Loaded && state.auth.currentUser != null) {
+                BlocProvider.of<UserDetailsBloc>(context).add(GetUserDetailsEvent());
                 return PersonOfInterestPage();
               } else
                 return SignIn();
             },
           )),
       routes: {
-        '/profile': (BuildContext context) => UserDetailsPage(),
+        '/userDetails': (BuildContext context) => UserDetailsPortalPage(),
         '/viewEntries': (BuildContext context) => ViewEntriesPage(),
         '/poi': (_) => PersonOfInterestPage()
       },
