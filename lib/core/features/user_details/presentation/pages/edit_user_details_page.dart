@@ -27,12 +27,13 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage>
   @override
   void initState() {
     _controller = AnimationController(vsync: this);
+    updatedUserDetails = widget.userDetails;
     _emailTextController =
-        TextEditingController(text: widget.userDetails.email);
+        TextEditingController(text: updatedUserDetails.email);
     _firstNameController =
-        TextEditingController(text: widget.userDetails.firstName);
+        TextEditingController(text: updatedUserDetails.firstName);
     _lastNameController =
-        TextEditingController(text: widget.userDetails.lastName);
+        TextEditingController(text: updatedUserDetails.lastName);
     super.initState();
   }
 
@@ -100,12 +101,14 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage>
                         context: context,
                         builder: (BuildContext context) => AddAuthDialog(
                           callback: (String value) {
-                            List<dynamic> newAuthors =
-                                widget.userDetails.authors.map((f) => f.toString()).toList();
+                            List<dynamic> newAuthors = updatedUserDetails
+                                .authors
+                                .map((f) => f.toString())
+                                .toList();
                             newAuthors.add(value);
-                            updatedUserDetails = widget.userDetails
-                                .copyWith(authors: newAuthors);
-                            _triggerCallback();
+                            updatedUserDetails = updatedUserDetails.copyWith(
+                                authors: newAuthors);
+                            setState(() {});
                           },
                         ),
                       );
@@ -119,12 +122,27 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage>
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         leading: Icon(Icons.person_pin),
-                        title: Text(
-                          widget.userDetails.authors[index],
+                        title: FlatButton(
+                          onPressed: () {},
+                          child: Text(
+                            updatedUserDetails.authors[index],
+                          ),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.cancel),
+                          onPressed: () {
+                            List<dynamic> newAuthors =
+                                updatedUserDetails.authors
+                                    .map(
+                                      (f) => f.toString(),
+                                    )
+                                    .toList();
+                            _confirmRemove(context, newAuthors, index);
+                          },
                         ),
                       );
                     },
-                    itemCount: widget.userDetails.authors.length),
+                    itemCount: updatedUserDetails.authors.length),
               )
             ],
           ),
@@ -138,13 +156,52 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage>
       ),
     );
   }
-  void _triggerCallback(){
+
+  _confirmRemove(BuildContext context, List<dynamic> newAuthors, index) {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Confirm"),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text("Are you sure you want to remove ${newAuthors[index]}"),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Yes'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text('No'),
+              onPressed: () {
+                newAuthors.remove(updatedUserDetails.authors[index]);
+                updatedUserDetails =
+                    updatedUserDetails.copyWith(authors: newAuthors);
+                setState(() {});
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  void _triggerCallback() {
     widget.onSaveUserDetailsCallback(
       _firstNameController.text,
       _lastNameController.text,
       _emailTextController.text,
-      updatedUserDetails.authors ?? widget.userDetails.authors,
-      updatedUserDetails.roles ?? widget.userDetails.roles,
+      updatedUserDetails.authors,
+      updatedUserDetails.roles,
     );
+    Navigator.pop(context);
   }
 }

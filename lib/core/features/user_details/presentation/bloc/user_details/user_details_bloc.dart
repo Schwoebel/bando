@@ -35,13 +35,13 @@ class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
   }
 
   Stream<UserDetailsState> _eitherFailureOrSuccess(
-    Either<Failure, UserDetails> result,
+    Either<Failure, UserDetails> result, {bool fromUpdate = false}
   ) async* {
     yield result.fold(
       (failure) => ErrorRetrievingUserDetails(
         mapFailureToMessage(failure),
       ),
-      (UserDetails success) => UserDetailsRetrieved(userDetails: success),
+      (UserDetails success) => UserDetailsRetrieved(userDetails: success, fromUpdate: fromUpdate),
     );
   }
 
@@ -49,6 +49,6 @@ class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
     UserDetails userDetails = updatedUserDetails
       .copyWith(authors: updatedUserDetails.authors);
     var result = await manageUserDetails.update(UserDetailParameters(userDetails));
-    yield* _eitherFailureOrSuccess(result);
+    yield* _eitherFailureOrSuccess(result, fromUpdate: true);
   }
 }

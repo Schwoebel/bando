@@ -8,6 +8,7 @@ class AddAuthDialog extends StatefulWidget {
   final Function(String string) callback;
 
   const AddAuthDialog({Key key, this.callback}) : super(key: key);
+
   @override
   _AddAuthDialogState createState() => _AddAuthDialogState();
 }
@@ -59,55 +60,51 @@ class _AddAuthDialogState extends State<AddAuthDialog>
                 ),
               ),
               Expanded(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: TextFormField(
-                          controller: _textController,
-                          validator: (String value) {
-                            if (value.isEmpty) {
-                              return 'Please enter a new author name';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(labelText: "Name"),
-                        ),
+                  child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: TextFormField(
+                        controller: _textController,
+                        validator: (String value) {
+                          if (value.isEmpty) {
+                            return 'Please enter a new author name';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(labelText: "Name"),
                       ),
-                    )
-                  ],
-                )),
+                    ),
+                  )
+                ],
+              )),
               Padding(
                 padding: const EdgeInsets.only(top: 24, bottom: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    MaterialButton(
-                      color: Color(Colors.blue.value),
+                    FlatButton(
                       onPressed: () {
                         widget.callback(_textController.text);
                         Navigator.of(context).pop();
                       },
                       child: Text(
                         'Okay',
-                        style: TextStyle(
-                          fontSize: 18.0),
+                        style: TextStyle(fontSize: 18.0),
                       ),
                     ),
                     SizedBox(
                       width: 16,
                     ),
-                    MaterialButton(
-                      color: Color(Colors.redAccent.value),
+                    FlatButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                       child: Text(
                         'Cancel',
-                        style: TextStyle(
-                          fontSize: 18.0),
+                        style: TextStyle(fontSize: 18.0),
                       ),
                     )
                   ],

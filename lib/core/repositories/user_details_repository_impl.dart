@@ -39,7 +39,8 @@ class UserDetailsRepositoryImpl implements UserDetailsRepository {
   Future<Either<Failure, UserDetails>> updateUserDetails(
     UserDetails userDetails,
   ) async {
-    UserDetailsModel userDetailsModel = UserDetailsModel.fromJson(userDetails.toMap());
+    Map<dynamic, dynamic> userDetailsMap = userDetails.toMap();
+    UserDetailsModel userDetailsModel = UserDetailsModel.fromJson(userDetailsMap);
     if (await networkInfo.isConnected) {
       try {
         await userDetailsLocalDataSource.saveUserDetails(userDetailsModel);

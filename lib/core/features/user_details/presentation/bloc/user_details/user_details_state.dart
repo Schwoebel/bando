@@ -7,14 +7,24 @@ class InitialUserDetailsState extends UserDetailsState {}
 
 class Waiting extends UserDetailsState {}
 
-class ErrorRetrievingUserDetails extends UserDetailsState{
+class ErrorRetrievingUserDetails extends UserDetailsState {
   final String message;
 
   ErrorRetrievingUserDetails(this.message);
 }
 
-class UserDetailsRetrieved extends UserDetailsState{
+class UserDetailsUpdated extends UserDetailsState {
   final UserDetails userDetails;
 
-  UserDetailsRetrieved({@required this.userDetails});
+  UserDetailsUpdated(this.userDetails);
+}
+
+class UserDetailsRetrieved extends UserDetailsState {
+  final UserDetails userDetails;
+  final bool fromUpdate;
+
+  UserDetailsRetrieved({
+    @required this.userDetails,
+    this.fromUpdate = false,
+  });
 }

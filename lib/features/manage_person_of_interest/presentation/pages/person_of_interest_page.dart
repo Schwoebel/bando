@@ -99,44 +99,59 @@ class _PersonOfInterestPageState extends State<PersonOfInterestPage>
   }
 
   Widget _userDetailsButton() {
-    return BlocBuilder<UserDetailsBloc, UserDetailsState>(
-        builder: (context, UserDetailsState state) {
-      if (state is UserDetailsRetrieved) {
-        return IconButton(
-          icon: Icon(Icons.settings),
-          onPressed: () {
-            Navigator.pushNamed(
-              context,
-              '/userDetails',
-              arguments: UserDetailsPageArgs(
-                (
-                  String firstName,
-                  String lastName,
-                  String emailAddress,
-                  List<dynamic> authors,
-                  List<Role> roles,
-                ) {
-                  UserDetails updatedUserDetails = state.userDetails.copyWith(
-                    email: emailAddress,
-                    firstName: firstName,
-                    lastName: lastName,
-                    roles: roles,
-                    authors: authors,
-                  );
-                  BlocProvider.of<UserDetailsBloc>(context).add(
-                    UpdateUserDetails(
-                      updatedUserDetails,
-                    ),
-                  );
-                },
-                state.userDetails,
-              ),
-            );
-          },
-        );
-      } else {
-        return SizedBox();
-      }
-    });
+    return BlocListener<UserDetailsBloc, UserDetailsState>(
+
+      child: BlocBuilder<UserDetailsBloc, UserDetailsState>(
+          builder: (context, UserDetailsState state) {
+        if (state is UserDetailsRetrieved) {
+          return IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                '/userDetails',
+                arguments: UserDetailsPageArgs(
+                  (
+                    String firstName,
+                    String lastName,
+                    String emailAddress,
+                    List<dynamic> authors,
+                    List<Role> roles,
+                  ) {
+                    UserDetails updatedUserDetails = state.userDetails.copyWith(
+                      email: emailAddress,
+                      firstName: firstName,
+                      lastName: lastName,
+                      roles: roles,
+                      authors: authors,
+                    );
+                    BlocProvider.of<UserDetailsBloc>(context).add(
+                      UpdateUserDetails(
+                        updatedUserDetails,
+                      ),
+                    );
+                  },
+                  state.userDetails,
+                ),
+              );
+            },
+          );
+        } else {
+          return IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {},
+          );
+        }
+      }), listener: (BuildContext context, UserDetailsState state) {
+        if(state is UserDetailsRetrieved){
+          if(state.fromUpdate == true){
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text('Settings Udated'),
+            ));
+          }
+
+        }
+    },
+    );
   }
 }

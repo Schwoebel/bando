@@ -20,7 +20,6 @@ class Role extends Equatable {
       @required this.roleName});
 
   @override
-  // TODO: implement props
   List<Object> get props => [
     areaOfInterest,
     poiId,

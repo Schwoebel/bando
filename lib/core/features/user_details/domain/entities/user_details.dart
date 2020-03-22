@@ -34,7 +34,7 @@ class UserDetails extends Equatable {
       'first_name': firstName,
       'last_name': lastName,
       'email': email,
-      'roles': roles,
+      'roles': roles.map((Role f) => f.toJson()).toList(),
       'authors': authors,
     };
   }
