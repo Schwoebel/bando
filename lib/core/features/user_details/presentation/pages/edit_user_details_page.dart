@@ -96,8 +96,8 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage>
                 children: <Widget>[
                   Text('Authors'),
                   IconButton(
-                    onPressed: () {
-                      showDialog(
+                    onPressed: () async {
+                      await showDialog(
                         context: context,
                         builder: (BuildContext context) => AddAuthDialog(
                           callback: (String value) {
@@ -157,8 +157,8 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage>
     );
   }
 
-  _confirmRemove(BuildContext context, List<dynamic> newAuthors, index) {
-    showDialog<void>(
+  Future<void> _confirmRemove(BuildContext context, List<dynamic> newAuthors, index) async {
+    return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
