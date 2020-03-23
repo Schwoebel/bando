@@ -57,18 +57,23 @@ class PersonOfInterestRemoteDataSourceImpl
   @override
   Future<List<PersonOfInterest>> readAllAllowed() async {
     UserDetails details = await userDetailsLocalDataSource.getUserDetails();
-    List<Future<DocumentSnapshot>> snaps = details.roles.map((Role r) =>
+    if(details != null){
+      List<Future<DocumentSnapshot>> snaps = details.roles.map((Role r) =>
         firestore.collection('person_of_interest').document(r.poiId).get()).toList();
-    List<PersonOfInterest> pois =  await Future.wait(snaps)
+      List<PersonOfInterest> pois =  await Future.wait(snaps)
         .then((List<DocumentSnapshot> onValue) => onValue
-            .map(
-              (DocumentSnapshot snap) => PersonOfInterestModel.fromJson(
-                snap.documentID,
-                snap.data,
-              ),
-            )
-            .toList());
-    return pois;
+        .map(
+          (DocumentSnapshot snap) => PersonOfInterestModel.fromJson(
+          snap.documentID,
+          snap.data,
+        ),
+      )
+        .toList());
+      return pois;
+    } else {
+      return [];
+    }
+
   }
 
   @override

@@ -30,13 +30,18 @@ class UserDetailsLocalDataSourceImpl extends UserDetailsLocalDataSource {
 
   @override
   Future<UserDetailsModel> getUserDetails() {
-    String userDetailsString = sharedPreferences.getString(USER_DETAILS_STORAGE_KEY);
+    if(sharedPreferences.containsKey(USER_DETAILS_STORAGE_KEY)){
+      String userDetailsString = sharedPreferences.getString(USER_DETAILS_STORAGE_KEY);
 
-    UserDetailsModel userDetails = UserDetailsModel.fromJson(
-      jsonDecode(
-        userDetailsString,
-      ),
-    );
-    return Future.value(userDetails);
+      UserDetailsModel userDetails = UserDetailsModel.fromJson(
+        jsonDecode(
+          userDetailsString,
+        ),
+      );
+      return Future.value(userDetails ?? null);
+    } else {
+      return Future.value(null);
+    }
+
   }
 }

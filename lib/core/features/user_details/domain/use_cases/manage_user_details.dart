@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 import '../entities/user_details.dart';
 import '../repositories/user_details_repository.dart';
 
-class ManageUserDetails extends UseCase<UserDetails, UserDetailParameters> {
+class  ManageUserDetails extends UseCase<UserDetails, UserDetailParameters> {
   final UserDetailsRepository repository;
 
   ManageUserDetails({

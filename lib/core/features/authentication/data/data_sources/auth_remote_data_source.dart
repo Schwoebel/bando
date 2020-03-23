@@ -29,10 +29,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<AuthResult> signIn(String email, String password) async {
-    return await firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password
-    );
+    try{
+      return await firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password
+      );
+    } catch (e){
+      print(e.toString());
+      throw e;
+    }
   }
 
   @override

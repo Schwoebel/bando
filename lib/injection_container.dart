@@ -53,7 +53,7 @@ init() async {
 
   sl.registerLazySingleton<UserDetailsLocalDataSource>(
       () => UserDetailsLocalDataSourceImpl(
-      sharedPreferences: sl(),
+      sharedPreferences: sharedPreferences,
     ),
   );
 

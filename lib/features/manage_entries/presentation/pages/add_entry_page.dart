@@ -1,3 +1,4 @@
+import 'package:baindo/core/features/user_details/presentation/bloc/author/author_bloc.dart';
 import 'package:baindo/core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
 import 'package:baindo/core/features/user_details/presentation/widgets/author_drop_down.dart';
 import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
@@ -56,6 +57,12 @@ class _AddEntryPageState extends State<AddEntryPage> {
               ..add(
                 GetMoodsEvent(),
               ),
+          ),
+          BlocProvider<AuthorBloc>(
+            create: (_) => sl<AuthorBloc>()
+              ..add(
+                GetAuthors(),
+              ),
           )
         ],
         child: BlocListener<AddEntryBloc, AddEntryState>(
@@ -94,15 +101,21 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   padding: EdgeInsets.all(16),
                   child: Column(
                     children: <Widget>[
-                      MoodDropdown(
-                        onSelected: (String value) {
-                          mood = value;
-                        },
-                      ),
-                      AuthorDropDown(
-                        onSelected: (String value){
-                          author = value;
-                        }
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: MoodDropdown(
+                              onSelected: (String value) {
+                                mood = value;
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: AuthorDropDown(onSelected: (String value) {
+                              author = value;
+                            }),
+                          ),
+                        ],
                       ),
                       Row(
                         children: <Widget>[
@@ -162,7 +175,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
     );
   }
 
-  void _triggerSave(BuildContext context) async  {
+  void _triggerSave(BuildContext context) async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
 
     BlocProvider.of<AddEntryBloc>(context).add(

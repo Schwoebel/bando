@@ -14,7 +14,9 @@ part 'mood_state.dart';
 class MoodBloc extends Bloc<MoodEvent, MoodState> {
   final GetMoods moods;
 
-  MoodBloc({@required this.moods});
+  MoodBloc({
+    @required this.moods,
+  });
 
   @override
   MoodState get initialState => InitialMoodState();
@@ -24,18 +26,16 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
     if (event is GetMoodsEvent) {
       Either<Failure, List<Mood>> getMoodAttempt = await moods(NoParams());
       yield* _failureOrMoodList(getMoodAttempt);
-    } else if(event is MoodSelected){
+    } else if (event is MoodSelected) {
       yield HasMoodsState(event.moods);
     }
   }
 
   Stream<MoodState> _failureOrMoodList(
       Either<Failure, List<Mood>> attempt) async* {
-    yield attempt.fold((failure) {
-      return HasErrorMoodState();
-    }, (success) {
-      print('success');
-      return HasMoodsState(success);
-    });
+    yield attempt.fold(
+      (failure) => HasErrorMoodState(),
+      (success) => HasMoodsState(success),
+    );
   }
 }

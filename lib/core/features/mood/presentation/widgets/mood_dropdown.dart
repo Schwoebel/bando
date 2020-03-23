@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MoodDropdown extends StatefulWidget {
   final Function(String) onSelected;
   final value;
+
   MoodDropdown({Key key, this.onSelected, this.value = ''}) : super(key: key);
 
   @override
@@ -14,6 +15,7 @@ class MoodDropdown extends StatefulWidget {
 
 class _MoodDropdownState extends State<MoodDropdown> {
   String value;
+
   @override
   void initState() {
     value = widget.value;
@@ -24,9 +26,7 @@ class _MoodDropdownState extends State<MoodDropdown> {
   Widget build(BuildContext context) {
     return BlocBuilder<MoodBloc, MoodState>(
       builder: (BuildContext context, MoodState moodState) {
-        if (moodState is InitialMoodState) {
-          return SizedBox();
-        } else if (moodState is HasMoodsState) {
+        if (moodState is HasMoodsState) {
           return Row(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[

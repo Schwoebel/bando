@@ -21,19 +21,19 @@ dependencies:
     sdk: flutter
 
   rxdart: ^0.23.1
-  get_it: ^3.1.0
+  get_it: ^4.0.1
   flutter_bloc: ^3.2.0
-  equatable: ^1.0.3
+  equatable: ^1.1.1
   data_connection_checker: ^0.3.4
   dartz: ^0.8.9
   #Google Firebase plugins
-  firebase_core: ^0.4.3+2
+  firebase_core: ^0.4.4+3
   #firebase_analytics: 5.0.1
   #firebase_crashlytics: 0.1.0+3
   firebase_messaging: 6.0.9
-  firebase_storage: ^3.1.1
+  firebase_storage: ^3.1.3
   cloud_firestore: 0.12.9+2
-  firebase_auth: ^0.15.4
+  firebase_auth: ^0.15.5+3
   #a local no sql database to use for quick filtering without hitting the Firebase DB so much.
   hive: 1.3.0
   #a tool for picking an image from the phone gallery or taking a new image with the camera
@@ -50,8 +50,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic: ^1.8.0
-  build_runner: ^1.7.2
+  pedantic: ^1.8.0+1
+  build_runner: ^1.8.0
   json_serializable: ^3.2.5
   mockito: ^4.1.1
 
