@@ -1,6 +1,7 @@
 import 'package:baindo/core/features/user_details/presentation/bloc/author/author_bloc.dart';
 import 'package:baindo/core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
 import 'package:baindo/core/features/user_details/presentation/widgets/author_drop_down.dart';
+import 'package:baindo/features/manage_entries/data/models/entry_model.dart';
 import 'package:baindo/features/manage_entries/domain/entities/entry.dart';
 import 'package:baindo/features/manage_entries/presentation/bloc/add_entry/add_entry_bloc.dart';
 import 'package:baindo/features/manage_entries/presentation/widgets/entry_editor.dart';
@@ -180,12 +181,12 @@ class _AddEntryPageState extends State<AddEntryPage> {
 
     BlocProvider.of<AddEntryBloc>(context).add(
       SaveEntry(
-          Entry(
+          EntryModel(
             authorId: user.uid,
             createDate: createTime,
             title: title,
             text: text,
-            author: '',
+            author: author,
             metaData: {
               'mood': mood,
             },

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
 abstract class AuthRemoteDataSource {
@@ -35,7 +36,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         password: password
       );
     } catch (e){
-      print(e.toString());
+      //print(e.toString());
       throw e;
     }
   }

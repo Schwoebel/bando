@@ -173,13 +173,13 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage>
           ),
           actions: <Widget>[
             FlatButton(
-              child: Text('Yes'),
+              child: Text('No'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             FlatButton(
-              child: Text('No'),
+              child: Text('Yes'),
               onPressed: () {
                 newAuthors.remove(updatedUserDetails.authors[index]);
                 updatedUserDetails =

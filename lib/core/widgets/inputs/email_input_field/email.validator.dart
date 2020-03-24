@@ -7,7 +7,7 @@ class EmailValidator {
   StreamTransformer<String,String>.fromHandlers(handleData: (email, sink){
     final RegExp emailExp = new RegExp(_kEmailRule);
 
-    if (!emailExp.hasMatch(email) || email.isEmpty){
+    if (!emailExp.hasMatch(email) && email.isNotEmpty){
       sink.addError('Enter a valid email');
     } else {
       sink.add(email);

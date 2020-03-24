@@ -12,7 +12,6 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-
   final ManageAuth auth;
 
   AuthBloc({
@@ -56,17 +55,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Either<Failure, Auth> failureOrAuth,
   ) async* {
     yield failureOrAuth.fold(
-      (failure) => Error(_mapFailureToMessage(failure)),
-      (auth) => Loaded(auth: auth),
+      (Failure failure) => Error(_mapFailureToMessage(failure)),
+      (Auth auth) {
+        if (auth.currentUser == null) {
+          if (auth.code == "ERROR_USER_NOT_FOUND") {
+            return UserNotFoundError();
+          } else if (auth.code == "ERROR_WRONG_PASSWORD") {
+            return PasswordWrongError();
+          } else {
+            return Error(auth.code);
+          }
+        } else {
+          return Loaded(auth: auth);
+        }
+      },
     );
   }
 
   Stream<AuthState> _eitherEmptyOrErrorState(
     Either<Failure, Auth> failureOrAuth,
-    ) async* {
+  ) async* {
     yield failureOrAuth.fold(
-        (failure) => Error(_mapFailureToMessage(failure)),
-        (auth) => Empty(),
+      (failure) => Error(_mapFailureToMessage(failure)),
+      (auth) => Empty(),
     );
   }
 

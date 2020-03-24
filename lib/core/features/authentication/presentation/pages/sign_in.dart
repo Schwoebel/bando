@@ -15,11 +15,24 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: BlocBuilder<AuthBloc, AuthState>(
-        bloc: BlocProvider.of<AuthBloc>(context),
-        builder: (context, AuthState state) {
-          return SignInForm();
+      body: BlocListener<AuthBloc, AuthState>(
+        listener: (BuildContext context, AuthState state) {
+          if (state is UserNotFoundError ||
+              state is PasswordWrongError ||
+              state is Error) {
+            String message = (state as Error).message;
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text(message),
+            ));
+          } else if (state is PasswordWrongError) {
+          } else if (state is Error) {}
         },
+        child: BlocBuilder<AuthBloc, AuthState>(
+          bloc: BlocProvider.of<AuthBloc>(context),
+          builder: (context, AuthState state) {
+            return SignInForm();
+          },
+        ),
       ),
     );
   }

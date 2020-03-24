@@ -29,6 +29,10 @@ class NetworkFailure extends Failure {}
 
 class PlatformFailure extends Failure {}
 
+class WrongPasswordFailure extends Failure {}
+
+class UserNotFoundFailure extends Failure {}
+
 mapFailureToMessage(Failure failure) {
   switch (failure.runtimeType) {
     case ServerFailure:
