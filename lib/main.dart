@@ -1,6 +1,7 @@
 import 'package:baindo/core/features/user_details/presentation/pages/edit_user_details_page.dart';
 import 'package:baindo/core/features/user_details/presentation/pages/user_details_portal_page.dart';
 import 'package:baindo/core/theme/bando_theme.dart';
+import 'package:baindo/features/manage_person_of_interest/presentation/pages/add_person_of_interest.dart';
 
 import 'core/features/authentication/presentation/pages/sign_in.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Bando an app to connect all the parts in your child's upbringing",
       theme: BandoThemeData,
       home: MultiBlocProvider(
@@ -55,6 +57,7 @@ class MyApp extends StatelessWidget {
             },
           )),
       routes: {
+        '/addPoi': (_) => AddPersonOfInterest(),
         '/userDetails': (BuildContext context) => UserDetailsPortalPage(),
         '/viewEntries': (BuildContext context) => ViewEntriesPage(),
         '/poi': (_) => PersonOfInterestPage()

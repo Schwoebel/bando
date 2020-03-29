@@ -23,6 +23,7 @@ class AddEntryPage extends StatefulWidget {
 }
 
 class _AddEntryPageState extends State<AddEntryPage> {
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String title;
   String text;
   String mood;
@@ -100,72 +101,82 @@ class _AddEntryPageState extends State<AddEntryPage> {
               return SafeArea(
                 child: Padding(
                   padding: EdgeInsets.all(16),
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: MoodDropdown(
-                              onSelected: (String value) {
-                                mood = value;
-                              },
-                            ),
-                          ),
-                          Expanded(
-                            child: AuthorDropDown(onSelected: (String value) {
-                              author = value;
-                            }),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                labelText: 'Title',
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: TextFormField(
+                                validator: (String value) =>
+                                    title == null || title.isEmpty
+                                        ? null
+                                        : title,
+                                decoration: InputDecoration(
+                                  labelText: 'Title',
+                                ),
+                                controller: _titleController,
                               ),
-                              controller: _titleController,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 4.0, color: Colors.greenAccent),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                )),
+                            constraints: BoxConstraints.expand(),
+                            child: EntryEditor(
+                                value: '',
+                                onUpdated: (String value) {
+                                  text = value;
+                                }),
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: MoodDropdown(
+                                onSelected: (String value) {
+                                  mood = value;
+                                },
+                              ),
+                            ),
+                            Expanded(
+                              child: AuthorDropDown(onSelected: (String value) {
+                                author = value;
+                              }),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          constraints: BoxConstraints(
+                            minWidth: 50,
+                            maxWidth: 100,
+                          ),
+                          child: ButtonTheme(
+                            minWidth: 300,
+                            height: 50,
+                            child: RaisedButton(
+                              color: Color(0xFFc2e59c),
+                              onPressed: () => _triggerSave(context),
+                              child: Text('Submit'),
                             ),
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 4.0, color: Colors.greenAccent),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              )),
-                          constraints: BoxConstraints.expand(),
-                          child: EntryEditor(
-                              value: '',
-                              onUpdated: (String value) {
-                                text = value;
-                              }),
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      Container(
-                        constraints: BoxConstraints(
-                          minWidth: 50,
-                          maxWidth: 100,
-                        ),
-                        child: ButtonTheme(
-                          minWidth: 300,
-                          height: 50,
-                          child: RaisedButton(
-                            color: Color(0xFFc2e59c),
-                            onPressed: () => _triggerSave(context),
-                            child: Text('Submit'),
-                          ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               );

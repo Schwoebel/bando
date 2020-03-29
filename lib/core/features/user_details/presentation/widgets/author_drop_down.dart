@@ -32,7 +32,8 @@ class _AuthorDropDownState extends State<AuthorDropDown> {
         return Row(
           children: <Widget>[
             Expanded(
-              child: DropdownButton<String>(
+              child: DropdownButtonFormField<String>(
+                hint: Text('Author:'),
                 value: value.isNotEmpty ? value : null,
                 onChanged: (String newValue) {
                   value = newValue;

@@ -66,7 +66,7 @@ class _EmailInputFieldState extends State<EmailInputField> {
           controller: _controller,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            errorText: state is HasError ? widget.errorText : '',
+            errorText: state is HasError ? widget.errorText : null,
             hintText: widget.hintText,
             fillColor: Colors.white,
             filled: true,

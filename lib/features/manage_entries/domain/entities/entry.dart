@@ -8,6 +8,7 @@ class Entry {
   String id;
   @JsonKey(name: 'create_date')
   final int createDate;
+  @JsonKey(nullable: false)
   final String title;
   final String text;
   final String author;

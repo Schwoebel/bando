@@ -31,7 +31,8 @@ class _MoodDropdownState extends State<MoodDropdown> {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Expanded(
-                child: DropdownButton<String>(
+                child: DropdownButtonFormField<String>(
+                  hint: Text('Mood:'),
                   value: value.isNotEmpty ? value : null,
                   onChanged: (String newValue) {
                     value = newValue;

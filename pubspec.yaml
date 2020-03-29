@@ -34,6 +34,7 @@ dependencies:
   firebase_storage: ^3.1.3
   cloud_firestore: 0.12.9+2
   firebase_auth: ^0.15.5+3
+  animations: 1.0.0+5
   #a local no sql database to use for quick filtering without hitting the Firebase DB so much.
   hive: 1.3.0
   #a tool for picking an image from the phone gallery or taking a new image with the camera

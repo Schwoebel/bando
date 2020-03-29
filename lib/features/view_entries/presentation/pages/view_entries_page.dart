@@ -1,15 +1,16 @@
-import 'package:baindo/core/features/authentication/presentation/bloc/auth/auth_bloc.dart';
+import 'package:animations/animations.dart';
 import 'package:baindo/features/view_entries/domain/entities/view_entry_arguments.dart';
 
 import '../../../../features/manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
 import 'package:baindo/features/manage_entries/presentation/pages/add_entry_page.dart';
 import 'package:baindo/features/view_entries/presentation/bloc/view_entries/view_entries_bloc.dart';
 import 'package:baindo/features/view_entries/presentation/pages/entry_page.dart';
-import 'package:baindo/features/view_entries/presentation/widgets/person_of_interest_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:baindo/features/view_entries/injection_container.dart';
+
+const double _fabDimension = 56.0;
 
 class ViewEntriesPage extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class ViewEntriesPage extends StatefulWidget {
 }
 
 class _ViewEntriesPageState extends State<ViewEntriesPage> {
+  ContainerTransitionType _transitionType = ContainerTransitionType.fade;
   String personOfInterestId;
 
   @override
@@ -53,20 +55,34 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
           child: Scaffold(
             appBar: AppBar(
               leading: null,
+              title: Text("Jounal Entries"),
               actions: <Widget>[],
             ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddEntryPage(
-                      personOfInterest: personOfInterestId,
+            floatingActionButton: OpenContainer(
+              closedColor: Theme.of(context).colorScheme.secondary,
+              closedShape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(_fabDimension / 2),
+                ),
+              ),
+              closedBuilder:
+                  (BuildContext context, VoidCallback openContainer) {
+                return SizedBox(
+                  height: _fabDimension,
+                  width: _fabDimension,
+                  child: Center(
+                    child: Icon(
+                      Icons.add,
+                      color: Theme.of(context).colorScheme.onSecondary,
                     ),
                   ),
                 );
               },
+              openBuilder: (BuildContext c, VoidCallback action) =>
+                  AddEntryPage(
+                personOfInterest: personOfInterestId,
+              ),
+              tappable: true,
             ),
             body: SafeArea(
                 child: Padding(
@@ -75,43 +91,6 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  /* Expanded(
-                    child: BlocListener<PersonOfInterestBloc,
-                        PersonOfInterestState>(
-                      listener: (BuildContext context,
-                          PersonOfInterestState state) {},
-                      child: BlocBuilder<PersonOfInterestBloc,
-                          PersonOfInterestState>(
-                        builder: (BuildContext context,
-                            PersonOfInterestState state) {
-                          if (state is InitialPersonOfInterestState) {
-                            BlocProvider.of<PersonOfInterestBloc>(context)
-                                .add(
-                              ReadAllowedPersonsOfInterestEvent(),
-                            );
-                            return SizedBox();
-                          } else if (state
-                              is GetAllPersonsOfInterestComplete) {
-                            return PersonOfInterestDropdown(
-                              personsOfInterest: state.personsOfInterest,
-                              callback: (String value) {
-                                BlocProvider.of<ViewEntriesBloc>(context)
-                                    .add(
-                                  LoadEntriesEvent(
-                                    value,
-                                  ),
-                                );
-                              },
-                            );
-                          } else {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                  ),*/
                   BlocBuilder<ViewEntriesBloc, ViewEntriesState>(
                     builder: (BuildContext context, ViewEntriesState state) {
                       if (state is ViewEntriesEmptyState) {
@@ -128,50 +107,28 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
                       } else if (state is ViewEntriesSuccessState) {
                         personOfInterestId = state.personOfInterest;
                         return Expanded(
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) {
-                              return Divider(
-                                height: 2,
-                                thickness: 2,
-                                color: Colors.black,
-                              );
-                            },
+                          child: ListView.builder(
                             itemCount: state.entries.length,
                             itemBuilder: (BuildContext context, int i) {
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
+                              return Card(
+                                child: ListTile(
+                                  onTap:() =>  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => EntryPage(
                                         entry: state.entries[i],
                                       ),
                                     ),
-                                  );
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.all(16),
-                                  child: Row(
-                                    children: <Widget>[
-                                      ///TODO Sync personsOfInterest from firestore
-                                      ///and store them in sharedPreferences so this can look it up locally.
-                                      Expanded(
-                                        child: Text(
-                                          state.entries[i].prettyDate,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-
-                                      ///TODO Sync moods from Firestore and store them
-                                      /// in shared preferences so this can look them up locally through the MoodsBloc
-                                      Expanded(
-                                        child: Text(
-                                          state.entries[i].title,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    ],
                                   ),
+                                  leading: Icon(Icons.school, size: 32.0,),
+                                  title: Text(
+                                    state.entries[i].title ?? '',
+                                  ),
+                                  subtitle: Text(
+                                    state.entries[i].prettyDate,
+                                  ),
+                                  trailing: Icon(Icons.more_vert),
+                                  isThreeLine: true,
                                 ),
                               );
                             },

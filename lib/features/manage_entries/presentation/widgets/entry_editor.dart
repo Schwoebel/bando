@@ -41,6 +41,7 @@ class _EntryEditorState extends State<EntryEditor> {
       child: ZefyrEditor(
         padding: EdgeInsets.all(16),
         controller: _controller,
+        autofocus: false,
         focusNode: _focusNode,
       ),
     );

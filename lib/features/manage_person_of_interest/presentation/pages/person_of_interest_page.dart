@@ -36,6 +36,12 @@ class _PersonOfInterestPageState extends State<PersonOfInterestPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.person_add),
+        onPressed: () {
+          Navigator.pushNamed(context, '/addPoi');
+        },
+      ),
       appBar: AppBar(
         title: Text('Journals'),
         actions: <Widget>[
@@ -46,10 +52,6 @@ class _PersonOfInterestPageState extends State<PersonOfInterestPage>
                 ReadAllowedPersonsOfInterestEvent(),
               );
             },
-          ),
-          IconButton(
-            icon: Icon(Icons.people),
-            onPressed: () {},
           ),
           _userDetailsButton(),
           IconButton(
@@ -65,24 +67,24 @@ class _PersonOfInterestPageState extends State<PersonOfInterestPage>
       body: BlocBuilder<PersonOfInterestBloc, PersonOfInterestState>(
         builder: (BuildContext context, PersonOfInterestState state) {
           if (state is GetAllPersonsOfInterestComplete) {
-            return ListView.separated(
-              separatorBuilder: (context, int) => Divider(
-                color: BandoColors.blue[200],
-              ),
+            return ListView.builder(
               itemCount: state.personsOfInterest.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      '/viewEntries',
-                      arguments: ViewEntriesArgs(
-                        id: state.personsOfInterest[index].id,
-                      ),
-                    );
-                  },
-                  title: Text(state.personsOfInterest[index].initials),
-                  trailing: Icon(Icons.keyboard_arrow_right),
+                return Card(
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/viewEntries',
+                        arguments: ViewEntriesArgs(
+                          id: state.personsOfInterest[index].id,
+                        ),
+                      );
+                    },
+                    title: Text(state.personsOfInterest[index].initials),
+                    leading: Icon(Icons.book),
+                    trailing: Icon(Icons.keyboard_arrow_right),
+                  ),
                 );
               },
             );
@@ -100,7 +102,6 @@ class _PersonOfInterestPageState extends State<PersonOfInterestPage>
 
   Widget _userDetailsButton() {
     return BlocListener<UserDetailsBloc, UserDetailsState>(
-
       child: BlocBuilder<UserDetailsBloc, UserDetailsState>(
           builder: (context, UserDetailsState state) {
         if (state is UserDetailsRetrieved) {
@@ -142,16 +143,16 @@ class _PersonOfInterestPageState extends State<PersonOfInterestPage>
             onPressed: () {},
           );
         }
-      }), listener: (BuildContext context, UserDetailsState state) {
-        if(state is UserDetailsRetrieved){
-          if(state.fromUpdate == true){
+      }),
+      listener: (BuildContext context, UserDetailsState state) {
+        if (state is UserDetailsRetrieved) {
+          if (state.fromUpdate == true) {
             Scaffold.of(context).showSnackBar(SnackBar(
               content: Text('Settings Udated'),
             ));
           }
-
         }
-    },
+      },
     );
   }
 }
