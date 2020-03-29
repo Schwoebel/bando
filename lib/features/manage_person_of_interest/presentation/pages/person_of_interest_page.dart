@@ -5,7 +5,7 @@ import 'package:baindo/core/features/user_details/presentation/bloc/user_details
 import 'package:baindo/core/features/user_details/presentation/pages/user_details_portal_page.dart';
 import 'package:baindo/core/theme/bando_theme.dart';
 import 'package:baindo/features/manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
-import 'package:baindo/features/view_entries/domain/entities/view_entry_arguments.dart';
+import 'package:baindo/features/entries/domain/entities/view_entry_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

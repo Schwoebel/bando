@@ -1,6 +1,6 @@
 import 'package:baindo/core/features/authentication/presentation/bloc/auth/auth_bloc.dart';
 import 'package:baindo/core/features/authentication/presentation/widgets/sign_in_form.dart';
-import 'package:baindo/features/view_entries/presentation/pages/view_entries_page.dart';
+import 'package:baindo/features/entries/presentation/pages/view_entries_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

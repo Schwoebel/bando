@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'core/features/mood/presentation/bloc/mood/mood_bloc.dart';
 import 'core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
 import 'features/manage_person_of_interest/presentation/pages/person_of_interest_page.dart';
-import 'features/view_entries/presentation/pages/view_entries_page.dart';
+import 'features/entries/presentation/pages/view_entries_page.dart';
 import 'injection_container.dart' as app_di;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,8 +52,14 @@ class MyApp extends StatelessWidget {
               if (state is Loaded && state.auth.currentUser != null) {
                 BlocProvider.of<UserDetailsBloc>(context).add(GetUserDetailsEvent());
                 return PersonOfInterestPage();
-              } else
+              } else if(state is Loaded && state.auth.currentUser == null) {
                 return SignIn();
+              } else {
+                return Center(
+                  child: CircularProgressIndicator()
+                );
+              }
+
             },
           )),
       routes: {

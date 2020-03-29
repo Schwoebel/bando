@@ -9,8 +9,7 @@ import 'core/data_sources/user_details_local_data_source.dart';
 import 'core/data_sources/user_details_remote_data_source.dart';
 import 'core/features/user_details/domain/repositories/user_details_repository.dart';
 import 'core/repositories/user_details_repository_impl.dart';
-import 'features/view_entries/injection_container.dart' as ve_di;
-import 'features/manage_entries/injection_container.dart' as me_di;
+import 'features/entries/injection_container.dart' as me_di;
 import 'features/manage_person_of_interest/injection_container.dart' as pi_di;
 import 'core/features/mood/injection_container.dart' as mood_di;
 import 'core/features/authentication/injection_container.dart' as auth_di;
@@ -57,7 +56,6 @@ init() async {
     ),
   );
 
-  ve_di.init();
   me_di.init();
   auth_di.init();
   mood_di.init();
