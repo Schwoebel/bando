@@ -21,28 +21,26 @@ class ViewEntriesRepositoryImpl extends ViewEntriesRepository {
   });
 
   @override
-  Future<Either<Failure, List<Entry>>> getEntries({
+  Future<Either<Failure, Stream<List<Entry>>>> getEntries({
     @required String personOfInterestId,
   }) async {
-    print(personOfInterestId);
     if (await networkInfo.isConnected) {
       try {
-        final List<EntryModel> entriesList =
-            await viewEntriesRemoteDataSource.getEntriesForPersonOfInterest(
+        final Stream<List<EntryModel>> entriesList =
+            viewEntriesRemoteDataSource.getEntriesForPersonOfInterest(
                 personOfInterestId: personOfInterestId);
         viewEntriesLocalDataSource.cacheEntries(
-          entries: entriesList,
+          entries: await entriesList.first,
         );
         return Right(entriesList);
       } catch(e) {
-        print(e);
         return Left(ServerFailure());
       }
        } else {
       try {
-        final localTrivia =
+        final localEntries =
             await viewEntriesLocalDataSource.getEntriesFromLocalDataSource();
-        return Right(localTrivia);
+        return Right(Stream.value(localEntries));
       } on CacheException {
         return Left(CacheFailure());
       }

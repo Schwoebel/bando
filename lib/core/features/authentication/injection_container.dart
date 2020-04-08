@@ -38,6 +38,7 @@ void init() {
   sl.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSourceImpl(
       firebaseAuth: sl(),
+      sharedPreferences: sl(),
     ),
   );
 }

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
 abstract class ViewEntriesRemoteDataSource {
-  Future<List<EntryModel>> getEntriesForPersonOfInterest({
+  Stream<List<EntryModel>> getEntriesForPersonOfInterest({
     @required String personOfInterestId,
   });
 }
@@ -17,18 +17,15 @@ class ViewEntriesRemoteDataSourceImpl extends ViewEntriesRemoteDataSource {
   ViewEntriesRemoteDataSourceImpl({@required this.firestore});
 
   @override
-  Future<List<EntryModel>> getEntriesForPersonOfInterest(
-      {String personOfInterestId}) async {
-    QuerySnapshot querySnapshot = await firestore
+  Stream<List<EntryModel>> getEntriesForPersonOfInterest(
+      {String personOfInterestId}) {
+    Stream<QuerySnapshot> querySnapshot = firestore
         .collection(PERSON_OF_INTEREST)
         .document(personOfInterestId)
         .collection(ENTRIES_COLLECTION_NAME)
-        .orderBy('create_date')
-        .getDocuments();
-    return querySnapshot.documents
-        .map((element) => EntryModel.fromJson(element.documentID, element.data))
-        .toList()
-        .reversed
-        .toList();
+        .orderBy('create_date').snapshots();
+    return querySnapshot.map((QuerySnapshot snapshot){
+      return snapshot.documents.map((DocumentSnapshot element) => EntryModel.fromJson(element.documentID, element.data)).toList();
+    });
   }
 }

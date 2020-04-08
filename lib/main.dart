@@ -19,10 +19,10 @@ import 'features/manage_person_of_interest/presentation/bloc/person_of_interest/
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await app_di.init();
-  runApp(MyApp());
+  runApp(Bando());
 }
 
-class MyApp extends StatelessWidget {
+class Bando extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -44,21 +44,7 @@ class MyApp extends StatelessWidget {
               create: (BuildContext context) => sl<UserDetailsBloc>(),
             )
           ],
-          child: BlocConsumer<AuthBloc, AuthState>(
-            listener: (BuildContext context, AuthState state){
-              {
-                if (state is Error) {
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text(state.message),
-                  ));
-                } else if (state is Loading) {
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text("Loading"),
-                  ));
-                } else if(state is Loaded){
-                }
-              };
-            },
+          child: BlocBuilder<AuthBloc, AuthState>(
             builder: (BuildContext context, AuthState state) {
               if (state is Empty) {
                 BlocProvider.of<AuthBloc>(context).add(GetCurrentUserEvent());

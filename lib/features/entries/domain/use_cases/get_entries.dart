@@ -6,12 +6,12 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-class GetEntries extends UseCase<List<Entry>, Params>{
+class GetEntries{
   ViewEntriesRepository viewEntriesRepository;
 
   GetEntries({@required this.viewEntriesRepository});
-  @override
-  Future<Either<Failure, List<Entry>>> call(Params params) async {
+
+  Future<Either<Failure, Stream<List<Entry>>>> call(Params params) async {
     return await viewEntriesRepository.getEntries(personOfInterestId: params.personOfInterestId);
   }
 

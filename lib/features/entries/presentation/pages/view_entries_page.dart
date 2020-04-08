@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:bando/features/entries/domain/entities/entry.dart';
 import 'package:bando/features/entries/domain/entities/view_entry_arguments.dart';
 
 import '../../../manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
@@ -107,32 +108,59 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
                       } else if (state is ViewEntriesSuccessState) {
                         personOfInterestId = state.personOfInterest;
                         return Expanded(
-                          child: ListView.builder(
-                            itemCount: state.entries.length,
-                            itemBuilder: (BuildContext context, int i) {
-                              return Card(
-                                child: ListTile(
-                                  onTap:() =>  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EntryPage(
-                                        entry: state.entries[i],
-                                      ),
-                                    ),
-                                  ),
-                                  leading: Icon(Icons.school, size: 32.0,),
-                                  title: Text(
-                                    state.entries[i].title ?? '',
-                                  ),
-                                  subtitle: Text(
-                                    state.entries[i].prettyDate,
-                                  ),
-                                  trailing: Icon(Icons.more_vert),
-                                  isThreeLine: true,
-                                ),
-                              );
-                            },
-                          ),
+                          child: StreamBuilder<List<Entry>>(
+                              stream: state.entries,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return ListView.builder(
+                                    itemCount: snapshot.data.length,
+                                    itemBuilder: (BuildContext context, int i) {
+                                      return Card(
+                                        child: ListTile(
+                                          onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => EntryPage(
+                                                entry: snapshot.data[i],
+                                              ),
+                                            ),
+                                          ),
+                                          leading: Icon(
+                                            Icons.school,
+                                            size: 32.0,
+                                          ),
+                                          title: Text(
+                                            snapshot.data[i].title ?? '',
+                                          ),
+                                          subtitle: Text(
+                                            snapshot.data[i].prettyDate,
+                                          ),
+                                          trailing: DropdownButton<String>(
+                                              underline: SizedBox(),
+                                              onChanged: (String value) {
+                                                if (value == 'Delete') {
+                                                  Scaffold.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                          content: Text(
+                                                              'Not available, yet.')));
+                                                }
+                                              },
+                                              items: [
+                                                DropdownMenuItem(
+                                                  value: 'Delete',
+                                                  child: Text('Delete'),
+                                                )
+                                              ],
+                                              icon: Icon(Icons.more_vert)),
+                                          isThreeLine: true,
+                                        ),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  return SizedBox();
+                                }
+                              }),
                         );
                       } else {
                         return SizedBox();

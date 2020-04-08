@@ -19,7 +19,7 @@ class ViewEntriesLoadingState extends ViewEntriesState {
 }
 
 class ViewEntriesSuccessState extends ViewEntriesState {
-  final List<Entry> entries;
+  final Stream<List<Entry>> entries;
   final String personOfInterest;
 
   ViewEntriesSuccessState({

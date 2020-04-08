@@ -29,7 +29,7 @@ class ViewEntriesBloc extends Bloc<ViewEntriesEvent, ViewEntriesState>{
   }
 
   Stream<ViewEntriesState> _eitherLoadedOrErrorState(
-    Either<Failure, List<Entry>> failureOrEntries,
+    Either<Failure, Stream<List<Entry>>> failureOrEntries,
     String personOfInterest
     ) async* {
     yield failureOrEntries.fold(

@@ -26,8 +26,7 @@ class _SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     return BlocProvider<SignInFormBloc>(
       create: (BuildContext context) => SignInFormBloc(),
-      child: BlocConsumer<SignInFormBloc, SignInFormState>(
-        listener: (BuildContext context, SignInFormState state) {},
+      child: BlocBuilder<SignInFormBloc, SignInFormState>(
         builder: (BuildContext context, SignInFormState state) {
           return _loginFormLayoutBuilder();
         },

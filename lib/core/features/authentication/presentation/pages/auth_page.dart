@@ -16,7 +16,19 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: BlocBuilder<AuthBloc, AuthState>(
+      body: BlocConsumer<AuthBloc, AuthState>(
+        listener: (BuildContext context, AuthState state){
+          if (state is Error) {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text(state.message),
+            ));
+          } else if (state is Loading) {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text("Loading"),
+            ));
+          } else if(state is Loaded){
+          }
+        },
         builder: (
           BuildContext context,
           AuthState state,
