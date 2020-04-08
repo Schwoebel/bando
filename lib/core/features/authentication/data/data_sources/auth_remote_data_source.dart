@@ -36,7 +36,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         password: password
       );
     } catch (e){
-      //print(e.toString());
       throw e;
     }
   }

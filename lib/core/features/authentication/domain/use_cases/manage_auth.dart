@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:baindo/core/failures/failures.dart';
-import 'package:baindo/core/features/authentication/domain/entities/auth.dart';
-import 'package:baindo/core/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:bando/core/failures/failures.dart';
+import 'package:bando/core/features/authentication/domain/entities/auth.dart';
+import 'package:bando/core/features/authentication/domain/repositories/auth_repository.dart';
 
 class ManageAuth {
   final AuthRepository authRepository;

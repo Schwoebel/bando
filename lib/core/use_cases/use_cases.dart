@@ -1,4 +1,4 @@
-import 'package:baindo/core/failures/failures.dart';
+import 'package:bando/core/failures/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 

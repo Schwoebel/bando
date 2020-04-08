@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:baindo/core/failures/failures.dart';
-import 'package:baindo/features/manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
+import 'package:bando/core/failures/failures.dart';
+import 'package:bando/features/manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
 
 import '../../../domain/use_cases/manage_person_of_interest.dart';
 import 'package:bloc/bloc.dart';

@@ -1,14 +1,14 @@
-import 'package:baindo/core/network/network_info.dart';
+import 'package:bando/core/network/network_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/data_sources/user_details_local_data_source.dart';
-import 'core/data_sources/user_details_remote_data_source.dart';
+import 'core/features/user_details/data/data_sources/user_details_local_data_source.dart';
+import 'core/features/user_details/data/data_sources/user_details_remote_data_source.dart';
 import 'core/features/user_details/domain/repositories/user_details_repository.dart';
-import 'core/repositories/user_details_repository_impl.dart';
+import 'core/features/user_details/data/repositories/user_details_repository_impl.dart';
 import 'features/entries/injection_container.dart' as me_di;
 import 'features/manage_person_of_interest/injection_container.dart' as pi_di;
 import 'core/features/mood/injection_container.dart' as mood_di;

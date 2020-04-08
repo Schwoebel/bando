@@ -1,5 +1,5 @@
-import 'package:baindo/core/features/user_details/domain/repositories/user_details_repository.dart';
-import 'package:baindo/core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
+import 'package:bando/core/features/user_details/domain/repositories/user_details_repository.dart';
+import 'package:bando/core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import 'domain/use_cases/manage_user_details.dart';

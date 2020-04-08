@@ -1,9 +1,9 @@
-import 'package:baindo/core/features/user_details/presentation/pages/edit_user_details_page.dart';
-import 'package:baindo/core/features/user_details/presentation/pages/user_details_portal_page.dart';
-import 'package:baindo/core/theme/bando_theme.dart';
-import 'package:baindo/features/manage_person_of_interest/presentation/pages/add_person_of_interest.dart';
+import 'package:bando/core/features/user_details/presentation/pages/edit_user_details_page.dart';
+import 'package:bando/core/features/user_details/presentation/pages/user_details_portal_page.dart';
+import 'package:bando/core/theme/bando_theme.dart';
+import 'package:bando/features/manage_person_of_interest/presentation/pages/add_person_of_interest.dart';
 
-import 'core/features/authentication/presentation/pages/sign_in.dart';
+import 'core/features/authentication/presentation/pages/auth_page.dart';
 import 'package:flutter/material.dart';
 import 'core/features/mood/presentation/bloc/mood/mood_bloc.dart';
 import 'core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
@@ -44,22 +44,32 @@ class MyApp extends StatelessWidget {
               create: (BuildContext context) => sl<UserDetailsBloc>(),
             )
           ],
-          child: BlocBuilder<AuthBloc, AuthState>(
+          child: BlocConsumer<AuthBloc, AuthState>(
+            listener: (BuildContext context, AuthState state){
+              {
+                if (state is Error) {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text(state.message),
+                  ));
+                } else if (state is Loading) {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text("Loading"),
+                  ));
+                } else if(state is Loaded){
+                }
+              };
+            },
             builder: (BuildContext context, AuthState state) {
               if (state is Empty) {
                 BlocProvider.of<AuthBloc>(context).add(GetCurrentUserEvent());
               }
               if (state is Loaded && state.auth.currentUser != null) {
-                BlocProvider.of<UserDetailsBloc>(context).add(GetUserDetailsEvent());
+                BlocProvider.of<UserDetailsBloc>(context)
+                    .add(GetUserDetailsEvent());
                 return PersonOfInterestPage();
-              } else if(state is Loaded && state.auth.currentUser == null) {
-                return SignIn();
               } else {
-                return Center(
-                  child: CircularProgressIndicator()
-                );
+                return SignIn();
               }
-
             },
           )),
       routes: {

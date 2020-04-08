@@ -1,7 +1,7 @@
-import 'package:baindo/core/features/mood/data/data_sources/mood_remote_data_source.dart';
-import 'package:baindo/core/features/mood/data/repositories/mood_repository_impl.dart';
-import 'package:baindo/core/features/mood/domain/repositories/mood_repository.dart';
-import 'package:baindo/core/features/mood/domain/use_cases/get_moods.dart';
+import 'package:bando/core/features/mood/data/data_sources/mood_remote_data_source.dart';
+import 'package:bando/core/features/mood/data/repositories/mood_repository_impl.dart';
+import 'package:bando/core/features/mood/domain/repositories/mood_repository.dart';
+import 'package:bando/core/features/mood/domain/use_cases/get_moods.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

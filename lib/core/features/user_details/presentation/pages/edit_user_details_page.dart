@@ -1,6 +1,6 @@
-import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
-import 'package:baindo/core/features/user_details/presentation/pages/user_details_portal_page.dart';
-import 'package:baindo/core/features/user_details/presentation/widgets/add_author_dialog.dart';
+import 'package:bando/core/features/user_details/domain/entities/user_details.dart';
+import 'package:bando/core/features/user_details/presentation/pages/user_details_portal_page.dart';
+import 'package:bando/core/features/user_details/presentation/widgets/add_author_dialog.dart';
 import 'package:flutter/material.dart';
 
 class EditUserDetailsPage extends StatefulWidget {
@@ -119,30 +119,30 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage>
               ),
               Expanded(
                 child: ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        leading: Icon(Icons.person_pin),
-                        title: FlatButton(
-                          onPressed: () {},
-                          child: Text(
-                            updatedUserDetails.authors[index],
-                          ),
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      leading: Icon(Icons.person_pin),
+                      title: FlatButton(
+                        onPressed: () {},
+                        child: Text(
+                          updatedUserDetails.authors[index],
                         ),
-                        trailing: IconButton(
-                          icon: Icon(Icons.cancel),
-                          onPressed: () {
-                            List<dynamic> newAuthors =
-                                updatedUserDetails.authors
-                                    .map(
-                                      (f) => f.toString(),
-                                    )
-                                    .toList();
-                            _confirmRemove(context, newAuthors, index);
-                          },
-                        ),
-                      );
-                    },
-                    itemCount: updatedUserDetails.authors.length),
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(Icons.cancel),
+                        onPressed: () {
+                          List<dynamic> newAuthors = updatedUserDetails.authors
+                              .map(
+                                (f) => f.toString(),
+                              )
+                              .toList();
+                          _confirmRemove(context, newAuthors, index);
+                        },
+                      ),
+                    );
+                  },
+                  itemCount: updatedUserDetails.authors.length,
+                ),
               )
             ],
           ),
@@ -157,7 +157,8 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage>
     );
   }
 
-  Future<void> _confirmRemove(BuildContext context, List<dynamic> newAuthors, index) async {
+  Future<void> _confirmRemove(
+      BuildContext context, List<dynamic> newAuthors, index) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!

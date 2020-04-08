@@ -1,11 +1,11 @@
-import 'package:baindo/core/features/authentication/presentation/bloc/auth/auth_bloc.dart';
-import 'package:baindo/core/features/user_details/domain/entities/role.dart';
-import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
-import 'package:baindo/core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
-import 'package:baindo/core/features/user_details/presentation/pages/user_details_portal_page.dart';
-import 'package:baindo/core/theme/bando_theme.dart';
-import 'package:baindo/features/manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
-import 'package:baindo/features/entries/domain/entities/view_entry_arguments.dart';
+import 'package:bando/core/features/authentication/presentation/bloc/auth/auth_bloc.dart';
+import 'package:bando/core/features/user_details/domain/entities/role.dart';
+import 'package:bando/core/features/user_details/domain/entities/user_details.dart';
+import 'package:bando/core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
+import 'package:bando/core/features/user_details/presentation/pages/user_details_portal_page.dart';
+import 'package:bando/core/theme/bando_theme.dart';
+import 'package:bando/features/manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
+import 'package:bando/features/entries/domain/entities/view_entry_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

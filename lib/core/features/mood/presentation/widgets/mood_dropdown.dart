@@ -1,5 +1,5 @@
-import 'package:baindo/core/features/mood/domain/entities/mood.dart';
-import 'package:baindo/core/features/mood/presentation/bloc/mood/mood_bloc.dart';
+import 'package:bando/core/features/mood/domain/entities/mood.dart';
+import 'package:bando/core/features/mood/presentation/bloc/mood/mood_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

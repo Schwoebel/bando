@@ -1,10 +1,10 @@
 
-import 'package:baindo/features/entries/presentation/pages/view_entries_page.dart';
+import 'package:bando/features/entries/presentation/pages/view_entries_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:baindo/core/features/authentication/injection_container.dart';
-import 'package:baindo/core/features/authentication/presentation/bloc/auth/auth_bloc.dart';
+import 'package:bando/core/features/authentication/injection_container.dart';
+import 'package:bando/core/features/authentication/presentation/bloc/auth/auth_bloc.dart';
 
 class CreateUser extends StatefulWidget {
   @override
@@ -56,7 +56,7 @@ class _CreateUserState extends State<CreateUser> {
                     children: <Widget>[
                       Expanded(
                         child: Image.network(
-                            "http://placehold.it/250x150/baindo.png?text=Baindo"),
+                            "http://placehold.it/250x150/bando.png?text=bando"),
                       ),
                       Expanded(
                           child: Padding(

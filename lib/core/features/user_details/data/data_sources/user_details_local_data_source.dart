@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:baindo/core/features/user_details/data/models/user_details.model.dart';
-import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
+import 'package:bando/core/features/user_details/data/models/user_details.model.dart';
+import 'package:bando/core/features/user_details/domain/entities/user_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meta/meta.dart';
 

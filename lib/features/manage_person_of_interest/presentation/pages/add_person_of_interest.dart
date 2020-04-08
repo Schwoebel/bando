@@ -1,4 +1,4 @@
-import 'package:baindo/core/theme/bando_theme.dart';
+import 'package:bando/core/theme/bando_theme.dart';
 import 'package:flutter/material.dart';
 
 class AddPersonOfInterest extends StatefulWidget {

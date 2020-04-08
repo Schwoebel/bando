@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 class PasswordField extends StatefulWidget {
-  final Function callback;
+  final Function(String) onSavedCallback;
 
-  PasswordField({Key key, @required this.callback}) : super(key: key);
+  PasswordField({Key key, @required this.onSavedCallback}) : super(key: key);
 
   @override
   _PasswordFieldState createState() => _PasswordFieldState();
@@ -26,19 +26,10 @@ class _PasswordFieldState extends State<PasswordField> {
   }
 
   @override
-  void didChangeDependencies() {
-    _controller.addListener(_onChanged);
-    super.didChangeDependencies();
-  }
-
-  void _onChanged() {
-    widget.callback(_controller.text);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _controller,
+      onSaved: widget.onSavedCallback(_controller.text),
       validator: (value) {
         if (value.isEmpty) return "you're empty bro";
         return null;

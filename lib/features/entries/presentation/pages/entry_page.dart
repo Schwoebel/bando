@@ -1,5 +1,5 @@
-import 'package:baindo/features/entries/domain/entities/entry.dart';
-import 'package:baindo/features/entries/presentation/widgets/formatted_entry_viewer.dart';
+import 'package:bando/features/entries/domain/entities/entry.dart';
+import 'package:bando/features/entries/presentation/widgets/formatted_entry_viewer.dart';
 import 'package:flutter/material.dart';
 
 class EntryPage extends StatelessWidget {

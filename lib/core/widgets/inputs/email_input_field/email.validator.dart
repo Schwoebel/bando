@@ -1,14 +1,12 @@
 import 'dart:async';
 
-const String _kEmailRule = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+import 'package:email_validator/email_validator.dart';
 
-class EmailValidator {
+class ValidEmail extends EmailValidator {
   final StreamTransformer<String,String> validateEmail =
   StreamTransformer<String,String>.fromHandlers(handleData: (email, sink){
-    final RegExp emailExp = new RegExp(_kEmailRule);
-
-    if (!emailExp.hasMatch(email) && email.isNotEmpty){
-      sink.addError('Enter a valid email');
+    if (!EmailValidator.validate(email) && email.isNotEmpty){
+      sink.addError('');
     } else {
       sink.add(email);
     }

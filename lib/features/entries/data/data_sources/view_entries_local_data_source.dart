@@ -1,5 +1,5 @@
-import 'package:baindo/core/failures/exceptions.dart';
-import 'package:baindo/features/entries/data/models/entry_model.dart';
+import 'package:bando/core/failures/exceptions.dart';
+import 'package:bando/features/entries/data/models/entry_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';

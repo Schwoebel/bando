@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:baindo/core/failures/failures.dart';
-import 'package:baindo/core/use_cases/use_cases.dart';
-import 'package:baindo/core/features/mood/domain/entities/mood.dart';
-import 'package:baindo/core/features/mood/domain/use_cases/get_moods.dart';
+import 'package:bando/core/failures/failures.dart';
+import 'package:bando/core/use_cases/use_cases.dart';
+import 'package:bando/core/features/mood/domain/entities/mood.dart';
+import 'package:bando/core/features/mood/domain/use_cases/get_moods.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';

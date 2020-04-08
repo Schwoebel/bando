@@ -1,9 +1,9 @@
-import 'package:baindo/core/data_sources/user_details_local_data_source.dart';
-import 'package:baindo/core/failures/failures.dart';
-import 'package:baindo/features/entries/data/data_sources/entry_remote_source.dart';
-import 'package:baindo/features/entries/data/models/entry_model.dart';
-import 'package:baindo/features/entries/domain/entities/entry.dart';
-import 'package:baindo/features/entries/domain/repositories/manage_entries_repository.dart';
+import 'package:bando/core/features/user_details/data/data_sources/user_details_local_data_source.dart';
+import 'package:bando/core/failures/failures.dart';
+import 'package:bando/features/entries/data/data_sources/entry_remote_source.dart';
+import 'package:bando/features/entries/data/models/entry_model.dart';
+import 'package:bando/features/entries/domain/entities/entry.dart';
+import 'package:bando/features/entries/domain/repositories/manage_entries_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:dartz/dartz.dart';
 

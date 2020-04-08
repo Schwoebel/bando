@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 final ThemeData BandoThemeData = new ThemeData(
+  fontFamily: 'Montserrat',
   brightness: Brightness.light,
   primarySwatch: MaterialColor(BandoColors.blue[50].value, BandoColors.blue),
   primaryColor: BandoColors.blue[500],

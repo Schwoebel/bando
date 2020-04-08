@@ -1,8 +1,8 @@
-import 'package:baindo/features/entries/data/data_sources/entry_remote_source.dart';
-import 'package:baindo/features/entries/data/repositories/manage_entries_repository_impl.dart';
-import 'package:baindo/features/entries/domain/repositories/manage_entries_repository.dart';
-import 'package:baindo/features/entries/domain/use_cases/manage_entry.dart';
-import 'package:baindo/features/entries/presentation/bloc/add_entry/add_entry_bloc.dart';
+import 'package:bando/features/entries/data/data_sources/entry_remote_source.dart';
+import 'package:bando/features/entries/data/repositories/manage_entries_repository_impl.dart';
+import 'package:bando/features/entries/domain/repositories/manage_entries_repository.dart';
+import 'package:bando/features/entries/domain/use_cases/manage_entry.dart';
+import 'package:bando/features/entries/presentation/bloc/add_entry/add_entry_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

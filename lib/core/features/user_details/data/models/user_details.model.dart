@@ -1,5 +1,5 @@
-import 'package:baindo/core/features/user_details/domain/entities/role.dart';
-import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
+import 'package:bando/core/features/user_details/domain/entities/role.dart';
+import 'package:bando/core/features/user_details/domain/entities/user_details.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 

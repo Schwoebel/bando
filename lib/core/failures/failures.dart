@@ -18,6 +18,8 @@ const String INVALID_INPUT_FAILURE_MESSAGE =
 const String PLATFORM_FAILURE_MESSAGE = "There was an issue with Firebase";
 const String NETWORK_FAILURE_MESSAGE = "There was in issue with the connection to the internet";
 const String UNKNOWN_ERROR = "There was an unknown error";
+const String WRONG_PASSWORD_MESSAGE = "The password entered was wrong";
+const String USER_NOT_FOUND_MESSAGE = "The User was not found";
 
 //General Failures
 
@@ -32,6 +34,10 @@ class PlatformFailure extends Failure {}
 class WrongPasswordFailure extends Failure {}
 
 class UserNotFoundFailure extends Failure {}
+
+class NotLoggedInFailure extends Failure {}
+
+class UnknownFailure extends Failure{}
 
 mapFailureToMessage(Failure failure) {
   switch (failure.runtimeType) {

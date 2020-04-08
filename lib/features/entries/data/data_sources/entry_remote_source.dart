@@ -1,5 +1,5 @@
-import 'package:baindo/features/entries/data/models/entry_model.dart';
-import 'package:baindo/features/entries/data/data_sources/view_entries_remote_data_source.dart';
+import 'package:bando/features/entries/data/models/entry_model.dart';
+import 'package:bando/features/entries/data/data_sources/view_entries_remote_data_source.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 

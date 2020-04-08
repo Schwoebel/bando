@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:baindo/core/failures/failures.dart';
-import 'package:baindo/core/data_sources/user_details_local_data_source.dart';
-import 'package:baindo/core/data_sources/user_details_remote_data_source.dart';
-import 'package:baindo/core/features/user_details/data/models/user_details.model.dart';
-import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
-import 'package:baindo/core/features/user_details/domain/repositories/user_details_repository.dart';
-import 'package:baindo/core/network/network_info.dart';
+import 'package:bando/core/failures/failures.dart';
+import 'package:bando/core/features/user_details/data/data_sources/user_details_local_data_source.dart';
+import 'package:bando/core/features/user_details/data/data_sources/user_details_remote_data_source.dart';
+import 'package:bando/core/features/user_details/data/models/user_details.model.dart';
+import 'package:bando/core/features/user_details/domain/entities/user_details.dart';
+import 'package:bando/core/features/user_details/domain/repositories/user_details_repository.dart';
+import 'package:bando/core/network/network_info.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 

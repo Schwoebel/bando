@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:baindo/core/failures/failures.dart';
-import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
-import 'package:baindo/core/features/user_details/domain/use_cases/manage_user_details.dart';
+import 'package:bando/core/failures/failures.dart';
+import 'package:bando/core/features/user_details/domain/entities/user_details.dart';
+import 'package:bando/core/features/user_details/domain/use_cases/manage_user_details.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';

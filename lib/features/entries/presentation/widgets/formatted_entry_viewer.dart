@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:baindo/features/entries/domain/entities/entry.dart';
+import 'package:bando/features/entries/domain/entities/entry.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zefyr/zefyr.dart';

@@ -1,4 +1,4 @@
-import 'package:baindo/core/features/user_details/domain/entities/role.dart';
+import 'package:bando/core/features/user_details/domain/entities/role.dart';
 
 import './../../domain/entities/user_details.dart';
 

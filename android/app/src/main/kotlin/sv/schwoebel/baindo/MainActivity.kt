@@ -1,4 +1,4 @@
-package sv.schwoebel.baindo
+package sv.schwoebel.bando
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

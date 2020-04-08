@@ -1,6 +1,6 @@
-import 'package:baindo/core/failures/failures.dart';
-import 'package:baindo/features/entries/domain/entities/entry.dart';
-import 'package:baindo/features/entries/domain/use_cases/get_entries.dart';
+import 'package:bando/core/failures/failures.dart';
+import 'package:bando/features/entries/domain/entities/entry.dart';
+import 'package:bando/features/entries/domain/use_cases/get_entries.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

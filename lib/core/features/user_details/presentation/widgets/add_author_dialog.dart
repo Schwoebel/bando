@@ -1,5 +1,5 @@
-import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
-import 'package:baindo/core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
+import 'package:bando/core/features/user_details/domain/entities/user_details.dart';
+import 'package:bando/core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

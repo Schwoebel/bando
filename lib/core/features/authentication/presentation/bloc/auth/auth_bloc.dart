@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:baindo/core/failures/failures.dart';
-import 'package:baindo/core/features/authentication/domain/entities/auth.dart';
-import 'package:baindo/core/features/authentication/domain/use_cases/manage_auth.dart';
+import 'package:bando/core/failures/failures.dart';
+import 'package:bando/core/features/authentication/domain/entities/auth.dart';
+import 'package:bando/core/features/authentication/domain/use_cases/manage_auth.dart';
 
 part 'auth_event.dart';
 
@@ -27,16 +27,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield Loading();
       final failureOrAuth = await auth.getCurrentUser();
       yield* _eitherLoadedOrErrorState(failureOrAuth);
-    }
-    if (event is CreateUserEvent) {
+    } else if (event is CreateUserEvent) {
       yield Loading();
       final failureOrAuth = await auth.createUser(
         event.email,
         event.password,
       );
       yield* _eitherLoadedOrErrorState(failureOrAuth);
-    }
-    if (event is SignInEvent) {
+    } else if (event is SignInEvent) {
       yield Loading();
       final failureOrAuth = await auth.signIn(
         event.email,
@@ -56,19 +54,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async* {
     yield failureOrAuth.fold(
       (Failure failure) => Error(_mapFailureToMessage(failure)),
-      (Auth auth) {
-        if (auth.currentUser == null) {
-          if (auth.code == "ERROR_USER_NOT_FOUND") {
-            return UserNotFoundError();
-          } else if (auth.code == "ERROR_WRONG_PASSWORD") {
-            return PasswordWrongError();
-          } else {
-            return Error(auth.code);
-          }
-        } else {
-          return Loaded(auth: auth);
-        }
-      },
+      (Auth auth) => Loaded(auth: auth),
     );
   }
 
@@ -87,6 +73,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         return SERVER_FAILURE_MESSAGE;
       case CacheFailure:
         return CACHE_FAILURE_MESSAGE;
+      case UserNotFoundFailure:
+        return USER_NOT_FOUND_MESSAGE;
+      case WrongPasswordFailure:
+        return WRONG_PASSWORD_MESSAGE;
       default:
         return 'Unexpected error';
     }

@@ -1,10 +1,10 @@
-import 'package:baindo/features/entries/injection_container.dart';
+import 'package:bando/features/entries/injection_container.dart';
 
 import '../../../manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
-import 'package:baindo/features/entries/presentation/bloc/dropdown_button/dropdown_button_bloc.dart';
+import 'package:bando/features/entries/presentation/bloc/dropdown_button/dropdown_button_bloc.dart';
 import 'package:flutter/material.dart';
 
-import 'package:baindo/features/entries/presentation/bloc/view_entries/view_entries_bloc.dart';
+import 'package:bando/features/entries/presentation/bloc/view_entries/view_entries_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PersonOfInterestDropdown extends StatefulWidget {

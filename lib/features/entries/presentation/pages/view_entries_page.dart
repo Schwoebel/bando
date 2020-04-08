@@ -1,14 +1,14 @@
 import 'package:animations/animations.dart';
-import 'package:baindo/features/entries/domain/entities/view_entry_arguments.dart';
+import 'package:bando/features/entries/domain/entities/view_entry_arguments.dart';
 
 import '../../../manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
-import 'package:baindo/features/entries/presentation/pages/add_entry_page.dart';
-import 'package:baindo/features/entries/presentation/bloc/view_entries/view_entries_bloc.dart';
-import 'package:baindo/features/entries/presentation/pages/entry_page.dart';
+import 'package:bando/features/entries/presentation/pages/add_entry_page.dart';
+import 'package:bando/features/entries/presentation/bloc/view_entries/view_entries_bloc.dart';
+import 'package:bando/features/entries/presentation/pages/entry_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:baindo/features/entries/injection_container.dart';
+import 'package:bando/features/entries/injection_container.dart';
 
 const double _fabDimension = 56.0;
 

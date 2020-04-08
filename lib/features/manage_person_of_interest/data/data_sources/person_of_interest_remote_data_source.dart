@@ -1,9 +1,9 @@
-import 'package:baindo/core/data_sources/user_details_local_data_source.dart';
-import 'package:baindo/core/data_sources/user_details_remote_data_source.dart';
-import 'package:baindo/core/features/user_details/domain/entities/role.dart';
-import 'package:baindo/core/features/user_details/domain/entities/user_details.dart';
-import 'package:baindo/features/manage_person_of_interest/data/models/person_of_interest_model.dart';
-import 'package:baindo/features/manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
+import 'package:bando/core/features/user_details/data/data_sources/user_details_local_data_source.dart';
+import 'package:bando/core/features/user_details/data/data_sources/user_details_remote_data_source.dart';
+import 'package:bando/core/features/user_details/domain/entities/role.dart';
+import 'package:bando/core/features/user_details/domain/entities/user_details.dart';
+import 'package:bando/features/manage_person_of_interest/data/models/person_of_interest_model.dart';
+import 'package:bando/features/manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
