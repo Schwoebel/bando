@@ -45,6 +45,9 @@ class _AddEntryPageState extends State<AddEntryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Add Entry'),
+      ),
       resizeToAvoidBottomPadding: false,
       body: MultiBlocProvider(
         providers: [
@@ -75,19 +78,14 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   content: Text('Entry Added'),
                 ),
               );
-              Navigator.pop(context);
+              //Navigator.pop(context);
             } else if (state is SubmittingNewEntry) {
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Adding Entry'),
                 ),
               );
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Entry Saved'),
-                ),
-              );
-              Navigator.pop(context);
+              // Navigator.pop(context);
             } else if (state is ErrorSubmittingEntry) {
               Scaffold.of(context).showSnackBar(
                 SnackBar(
@@ -127,17 +125,19 @@ class _AddEntryPageState extends State<AddEntryPage> {
                         Expanded(
                           child: Container(
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 4.0, color: Colors.greenAccent),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
-                                )),
+                              border: Border.all(
+                                  width: 4.0, color: Colors.greenAccent),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                            ),
                             constraints: BoxConstraints.expand(),
                             child: EntryEditor(
-                                value: '',
-                                onUpdated: (String value) {
-                                  text = value;
-                                }),
+                              value: '',
+                              onUpdated: (String value) {
+                                text = value;
+                              },
+                            ),
                           ),
                         ),
                         SizedBox(height: 16),
@@ -151,9 +151,11 @@ class _AddEntryPageState extends State<AddEntryPage> {
                               ),
                             ),
                             Expanded(
-                              child: AuthorDropDown(onSelected: (String value) {
-                                author = value;
-                              }),
+                              child: AuthorDropDown(
+                                onSelected: (String value) {
+                                  author = value;
+                                },
+                              ),
                             ),
                           ],
                         ),
@@ -189,17 +191,16 @@ class _AddEntryPageState extends State<AddEntryPage> {
 
   void _triggerSave(BuildContext context) async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
-
     BlocProvider.of<AddEntryBloc>(context).add(
       SaveEntry(
           EntryModel(
             authorId: user.uid,
             createDate: createTime,
-            title: title,
-            text: text,
-            author: author,
+            title: title ?? '',
+            text: text ?? '',
+            author: author ?? '',
             metaData: {
-              'mood': mood,
+              'mood': mood ?? '',
             },
           ),
           widget.personOfInterest),

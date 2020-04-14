@@ -19,6 +19,14 @@ class Loading extends AuthState {
   List<Object> get props => null;
 }
 
+class SigningIn extends AuthState {
+  SigningIn();
+
+
+  @override
+  // TODO: implement props
+  List<Object> get props => null;}
+
 class Loaded extends AuthState {
   final Auth auth;
 

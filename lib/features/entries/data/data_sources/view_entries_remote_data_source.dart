@@ -23,9 +23,13 @@ class ViewEntriesRemoteDataSourceImpl extends ViewEntriesRemoteDataSource {
         .collection(PERSON_OF_INTEREST)
         .document(personOfInterestId)
         .collection(ENTRIES_COLLECTION_NAME)
-        .orderBy('create_date').snapshots();
-    return querySnapshot.map((QuerySnapshot snapshot){
-      return snapshot.documents.map((DocumentSnapshot element) => EntryModel.fromJson(element.documentID, element.data)).toList();
+        .orderBy('create_date')
+        .snapshots();
+    return querySnapshot.map((QuerySnapshot snapshot) {
+      return snapshot.documents
+          .map((DocumentSnapshot element) =>
+              EntryModel.fromJson(element.documentID, element.data))
+          .toList();
     });
   }
 }

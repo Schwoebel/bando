@@ -35,7 +35,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
       yield* _eitherLoadedOrErrorState(failureOrAuth);
     } else if (event is SignInEvent) {
-      yield Loading();
+      yield SigningIn();
       final failureOrAuth = await auth.signIn(
         event.email,
         event.password,
@@ -53,7 +53,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Either<Failure, Auth> failureOrAuth,
   ) async* {
     yield failureOrAuth.fold(
-      (Failure failure) => Error(_mapFailureToMessage(failure)),
+      (Failure failure) => failure is NotLoggedInFailure
+          ? Loaded(auth: Auth(currentUser: null))
+          : Error(_mapFailureToMessage(failure)),
       (Auth auth) => Loaded(auth: auth),
     );
   }

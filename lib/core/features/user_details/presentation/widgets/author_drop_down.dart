@@ -41,7 +41,8 @@ class _AuthorDropDownState extends State<AuthorDropDown> {
                     AuthorSelected(
                       state.authors,
                     ),
-                  );widget.onSelected(newValue);
+                  );
+                  widget.onSelected(newValue);
                 },
                 items: state.authors
                     .map(

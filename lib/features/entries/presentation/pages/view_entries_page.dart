@@ -21,6 +21,7 @@ class ViewEntriesPage extends StatefulWidget {
 class _ViewEntriesPageState extends State<ViewEntriesPage> {
   ContainerTransitionType _transitionType = ContainerTransitionType.fade;
   String personOfInterestId;
+  List<Entry> entries;
 
   @override
   void initState() {
@@ -46,47 +47,45 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
         )
       ],
       child: BlocListener<PersonOfInterestBloc, PersonOfInterestState>(
-          listener: (BuildContext context, PersonOfInterestState state) {
-            if (state is InitialPersonOfInterestState) {
-              BlocProvider.of<PersonOfInterestBloc>(context).add(
-                ReadAllowedPersonsOfInterestEvent(),
-              );
-            }
-          },
-          child: Scaffold(
-            appBar: AppBar(
-              leading: null,
-              title: Text("Jounal Entries"),
-              actions: <Widget>[],
-            ),
-            floatingActionButton: OpenContainer(
-              closedColor: Theme.of(context).colorScheme.secondary,
-              closedShape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(_fabDimension / 2),
-                ),
+        listener: (BuildContext context, PersonOfInterestState state) {
+          if (state is InitialPersonOfInterestState) {
+            BlocProvider.of<PersonOfInterestBloc>(context).add(
+              ReadAllowedPersonsOfInterestEvent(),
+            );
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            leading: null,
+            title: Text("Jounal Entries"),
+            actions: <Widget>[],
+          ),
+          floatingActionButton: OpenContainer(
+            closedColor: Theme.of(context).colorScheme.secondary,
+            closedShape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(_fabDimension / 2),
               ),
-              closedBuilder:
-                  (BuildContext context, VoidCallback openContainer) {
-                return SizedBox(
-                  height: _fabDimension,
-                  width: _fabDimension,
-                  child: Center(
-                    child: Icon(
-                      Icons.add,
-                      color: Theme.of(context).colorScheme.onSecondary,
-                    ),
+            ),
+            closedBuilder: (BuildContext context, VoidCallback openContainer) {
+              return SizedBox(
+                height: _fabDimension,
+                width: _fabDimension,
+                child: Center(
+                  child: Icon(
+                    Icons.add,
+                    color: Theme.of(context).colorScheme.onSecondary,
                   ),
-                );
-              },
-              openBuilder: (BuildContext c, VoidCallback action) =>
-                  AddEntryPage(
-                personOfInterest: personOfInterestId,
-              ),
-              tappable: true,
+                ),
+              );
+            },
+            openBuilder: (BuildContext c, VoidCallback action) => AddEntryPage(
+              personOfInterest: personOfInterestId,
             ),
-            body: SafeArea(
-                child: Padding(
+            tappable: true,
+          ),
+          body: SafeArea(
+            child: Padding(
               padding: EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -109,58 +108,63 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
                         personOfInterestId = state.personOfInterest;
                         return Expanded(
                           child: StreamBuilder<List<Entry>>(
-                              stream: state.entries,
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  return ListView.builder(
-                                    itemCount: snapshot.data.length,
-                                    itemBuilder: (BuildContext context, int i) {
-                                      return Card(
-                                        child: ListTile(
-                                          onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => EntryPage(
-                                                entry: snapshot.data[i],
-                                              ),
+                            stream: state.entries,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                entries = snapshot.data;
+                                return ListView.builder(
+                                  itemCount: entries.length,
+                                  itemBuilder: (BuildContext context, int i) {
+                                    return Card(
+                                      child: ListTile(
+                                        onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => EntryPage(
+                                              entry: entries[i],
                                             ),
                                           ),
-                                          leading: Icon(
-                                            Icons.school,
-                                            size: 32.0,
-                                          ),
-                                          title: Text(
-                                            snapshot.data[i].title ?? '',
-                                          ),
-                                          subtitle: Text(
-                                            snapshot.data[i].prettyDate,
-                                          ),
-                                          trailing: DropdownButton<String>(
-                                              underline: SizedBox(),
-                                              onChanged: (String value) {
-                                                if (value == 'Delete') {
-                                                  Scaffold.of(context)
-                                                      .showSnackBar(SnackBar(
-                                                          content: Text(
-                                                              'Not available, yet.')));
-                                                }
-                                              },
-                                              items: [
-                                                DropdownMenuItem(
-                                                  value: 'Delete',
-                                                  child: Text('Delete'),
-                                                )
-                                              ],
-                                              icon: Icon(Icons.more_vert)),
-                                          isThreeLine: true,
                                         ),
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return SizedBox();
-                                }
-                              }),
+                                        leading: Icon(
+                                          Icons.school,
+                                          size: 32.0,
+                                        ),
+                                        title: Text(
+                                         entries[i].title ?? '',
+                                        ),
+                                        subtitle: Text(
+                                          entries[i].prettyDate,
+                                        ),
+                                        trailing: DropdownButton<String>(
+                                          underline: SizedBox(),
+                                          onChanged: (String value) {
+                                            if (value == 'Delete') {
+                                              Scaffold.of(context).showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                      'Not available, yet.'),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                          items: [
+                                            DropdownMenuItem(
+                                              value: 'Delete',
+                                              child: Text('Delete'),
+                                            )
+                                          ],
+                                          icon: Icon(Icons.more_vert),
+                                        ),
+                                        isThreeLine: true,
+                                      ),
+                                    );
+                                  },
+                                );
+                              } else {
+                                return SizedBox();
+                              }
+                            },
+                          ),
                         );
                       } else {
                         return SizedBox();
@@ -169,8 +173,10 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
                   ),
                 ],
               ),
-            )),
-          )),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

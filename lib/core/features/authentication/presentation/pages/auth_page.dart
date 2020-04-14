@@ -22,11 +22,11 @@ class _SignInState extends State<SignIn> {
             Scaffold.of(context).showSnackBar(SnackBar(
               content: Text(state.message),
             ));
-          } else if (state is Loading) {
+          } else if (state is SigningIn) {
             Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text("Loading"),
+              content: Text("Authenticating"),
             ));
-          } else if(state is Loaded){
+          } else if(state is Loaded || state is Empty){
           }
         },
         builder: (
