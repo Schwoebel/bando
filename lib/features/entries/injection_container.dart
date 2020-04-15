@@ -3,6 +3,7 @@ import 'package:bando/features/entries/data/repositories/manage_entries_reposito
 import 'package:bando/features/entries/domain/repositories/manage_entries_repository.dart';
 import 'package:bando/features/entries/domain/use_cases/manage_entry.dart';
 import 'package:bando/features/entries/presentation/bloc/add_entry/add_entry_bloc.dart';
+import 'package:bando/features/entries/presentation/bloc/delete_entry/delete_entry_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,7 +21,11 @@ init() async {
   //Bloc
 
   sl.registerFactory(() => AddEntryBloc(manageEntryOnRemoteSource: sl()));
-
+  sl.registerLazySingleton<DeleteEntryBloc>(
+    () => DeleteEntryBloc(
+      sl<ManageEntryOnRemoteSource>(),
+    ),
+  );
   //UseCases
   sl.registerLazySingleton<ManageEntryOnRemoteSource>(
     () => ManageEntryOnRemoteSource(
@@ -38,26 +43,27 @@ init() async {
   sl.registerLazySingleton<EntryRemoteSource>(
     () => EntryRemoteSourceImpl(
       firestore: sl(),
+      networkInfo: sl(),
     ),
   );
   sl.registerFactory<ViewEntriesBloc>(
-      () => ViewEntriesBloc(
+    () => ViewEntriesBloc(
       getEntries: sl(),
     ),
   );
 
   sl.registerFactory<DropdownButtonBloc>(
-      () => DropdownButtonBloc(),
+    () => DropdownButtonBloc(),
   );
 
   sl.registerLazySingleton<GetEntries>(
-      () => GetEntries(
+    () => GetEntries(
       viewEntriesRepository: sl(),
     ),
   );
 
   sl.registerLazySingleton<ViewEntriesRepository>(
-      () => ViewEntriesRepositoryImpl(
+    () => ViewEntriesRepositoryImpl(
       viewEntriesLocalDataSource: sl(),
       viewEntriesRemoteDataSource: sl(),
       networkInfo: sl(),
@@ -65,13 +71,13 @@ init() async {
   );
 
   sl.registerLazySingleton<ViewEntriesRemoteDataSource>(
-      () => ViewEntriesRemoteDataSourceImpl(
+    () => ViewEntriesRemoteDataSourceImpl(
       firestore: sl(),
     ),
   );
 
   sl.registerLazySingleton<ViewEntriesLocalDataSource>(
-      () => ViewEntriesLocalDataSourceImpl(
+    () => ViewEntriesLocalDataSourceImpl(
       sharedPreferences: sl(),
     ),
   );

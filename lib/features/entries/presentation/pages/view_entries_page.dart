@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:bando/features/entries/domain/entities/entry.dart';
 import 'package:bando/features/entries/domain/entities/view_entry_arguments.dart';
+import 'package:bando/features/entries/presentation/bloc/delete_entry/delete_entry_bloc.dart';
 
 import '../../../manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
 import 'package:bando/features/entries/presentation/pages/add_entry_page.dart';
@@ -130,7 +131,7 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
                                           size: 32.0,
                                         ),
                                         title: Text(
-                                         entries[i].title ?? '',
+                                          entries[i].title ?? '',
                                         ),
                                         subtitle: Text(
                                           entries[i].prettyDate,
@@ -139,10 +140,10 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
                                           underline: SizedBox(),
                                           onChanged: (String value) {
                                             if (value == 'Delete') {
-                                              Scaffold.of(context).showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                      'Not available, yet.'),
+                                              sl<DeleteEntryBloc>().add(
+                                                Delete(
+                                                  personOfInterestId,
+                                                  entries[i].id,
                                                 ),
                                               );
                                             }
@@ -151,6 +152,10 @@ class _ViewEntriesPageState extends State<ViewEntriesPage> {
                                             DropdownMenuItem(
                                               value: 'Delete',
                                               child: Text('Delete'),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: 'Edit',
+                                              child: Text('Edit'),
                                             )
                                           ],
                                           icon: Icon(Icons.more_vert),

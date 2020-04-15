@@ -33,7 +33,7 @@ class ManageEntriesRepositoryImpl extends ManageEntriesRepository {
 
   @override
   Future<Either<Failure, bool>> deleteEntry({String id, String poiId}) async {
-    // TODO: implement deleteEntry
+    entryRemoteSource.deleteEntry(id: id, personOfInterestId: poiId);
     return null;
   }
 
