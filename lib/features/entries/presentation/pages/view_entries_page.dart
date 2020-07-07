@@ -3,7 +3,7 @@ import 'package:bando/features/entries/domain/entities/entry.dart';
 import 'package:bando/features/entries/domain/entities/view_entry_arguments.dart';
 import 'package:bando/features/entries/presentation/bloc/delete_entry/delete_entry_bloc.dart';
 
-import '../../../manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
+import '../../../person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
 import 'package:bando/features/entries/presentation/pages/add_entry_page.dart';
 import 'package:bando/features/entries/presentation/bloc/view_entries/view_entries_bloc.dart';
 import 'package:bando/features/entries/presentation/pages/entry_page.dart';

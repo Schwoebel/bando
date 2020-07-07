@@ -12,36 +12,30 @@ class ManageEntryOnRemoteSource extends ManagementUseCase<Entry, EntryParams> {
 
   ManageEntryOnRemoteSource({@required this.repository});
 
-  Future<Either<Failure, bool>> create(EntryParams params) {
+  Future<Either<Failure, bool>> create(CreateParams params) {
     return repository.createEntry(
         entry: params.entry, poiId: params.personOfInterestId);
   }
 
-  Future<Either<Failure, Entry>> read(EntryParams params) {
-    return repository.readEntry(id: params.entryId);
+  Future<Either<Failure, Entry>> read(ReadParams params) {
+    return repository.readEntry(id: params.objectId);
   }
 
-  Future<Either<Failure, bool>> update(EntryParams params) {
+  Future<Either<Failure, bool>> update(UpdateParams params) {
     return repository.updateEntry(
         entry: params.entry,
         poiId: params.personOfInterestId,
         id: params.entryId);
   }
 
-  Future<Either<Failure, bool>> delete(EntryParams params) {
+  Future<Either<Failure, bool>> delete(DeleteParams params) {
     return repository.deleteEntry(
         id: params.entryId, poiId: params.personOfInterestId);
   }
-}
-
-class EntryParams extends Equatable {
-  final Entry entry;
-  final String personOfInterestId;
-  final entryId;
-
-  EntryParams({this.entryId, this.entry, @required this.personOfInterestId});
 
   @override
-  // TODO: implement props
-  List<Object> get props => [entry, personOfInterestId];
+  Future<Either<Failure, List<Entry>>> readAll() {
+    // TODO: implement readAll
+    throw UnimplementedError();
+  }
 }

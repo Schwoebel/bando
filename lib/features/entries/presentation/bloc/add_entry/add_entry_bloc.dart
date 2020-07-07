@@ -14,10 +14,7 @@ part 'add_entry_state.dart';
 class AddEntryBloc extends Bloc<AddEntryEvent, AddEntryState> {
   final ManageEntryOnRemoteSource manageEntryOnRemoteSource;
 
-  AddEntryBloc({@required this.manageEntryOnRemoteSource});
-
-  @override
-  AddEntryState get initialState => InitialAddEntryState();
+  AddEntryBloc({@required this.manageEntryOnRemoteSource}) : super(InitialAddEntryState());
 
   @override
   Stream<AddEntryState> mapEventToState(AddEntryEvent event) async* {

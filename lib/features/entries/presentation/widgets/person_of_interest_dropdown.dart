@@ -1,6 +1,6 @@
 import 'package:bando/features/entries/injection_container.dart';
 
-import '../../../manage_person_of_interest/domain/entities/person_of_interest_entity.dart';
+import '../../../person_of_interest/domain/entities/person_of_interest_entity.dart';
 import 'package:bando/features/entries/presentation/bloc/dropdown_button/dropdown_button_bloc.dart';
 import 'package:flutter/material.dart';
 

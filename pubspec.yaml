@@ -20,20 +20,20 @@ dependencies:
   flutter:
     sdk: flutter
 
-  rxdart: ^0.23.1
-  get_it: ^4.0.1
-  flutter_bloc: ^3.2.0
-  equatable: ^1.1.1
+  rxdart: ^0.24.1
+  get_it: ^4.0.2
+  flutter_bloc: ^5.0.1
+  equatable: ^1.2.0
   data_connection_checker: ^0.3.4
-  dartz: ^0.8.9
+  dartz: ^0.9.1
   #Google Firebase plugins
-  firebase_core: ^0.4.4+3
+  firebase_core: ^0.4.5
   #firebase_analytics: 5.0.1
   #firebase_crashlytics: 0.1.0+3
   firebase_messaging: 6.0.9
-  firebase_storage: ^3.1.3
+  firebase_storage: ^3.1.6
   cloud_firestore: 0.12.9+2
-  firebase_auth: ^0.15.5+3
+  firebase_auth: ^0.16.1
   animations: 1.0.0+5
   #a local no sql database to use for quick filtering without hitting the Firebase DB so much.
   hive: 1.3.0
@@ -47,14 +47,14 @@ dependencies:
 
   json_annotation: ^3.0.1
   shared_preferences: 0.5.6+1
-  email_validator: '^1.0.4'
+  email_validator: ^1.0.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   pedantic: ^1.8.0+1
-  build_runner: ^1.8.0
-  json_serializable: ^3.2.5
+  build_runner: ^1.10.0
+  json_serializable: ^3.3.0
   mockito: ^4.1.1
 
 # For information on the generic Dart part of this file, see the

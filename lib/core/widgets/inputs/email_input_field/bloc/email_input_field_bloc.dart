@@ -11,6 +11,8 @@ part 'email_input_field_state.dart';
 
 class EmailInputFieldBloc
     extends Bloc<EmailInputFieldEvent, EmailInputFieldState> {
+  EmailInputFieldBloc(EmailInputFieldState initialState) : super(initialState);
+
 
   @override
   EmailInputFieldState get initialState => InitialInputFieldState();

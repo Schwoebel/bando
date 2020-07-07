@@ -9,8 +9,7 @@ part 'dropdown_button_state.dart';
 
 class DropdownButtonBloc
   extends Bloc<DropdownButtonEvent, DropdownButtonState> {
-  @override
-  DropdownButtonState get initialState => InitialDropdownButtonState();
+  DropdownButtonBloc() : super(InitialDropdownButtonState());
 
   @override
   Stream<DropdownButtonState> mapEventToState(

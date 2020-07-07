@@ -1,4 +1,4 @@
-import 'package:bando/core/features/user_details/domain/entities/user_details.dart';
+import 'package:bando/features/user_details/domain/entities/user_details.dart';
 import 'package:bando/features/entries/domain/entities/entry.dart';
 import 'package:json_annotation/json_annotation.dart';
 

@@ -1,20 +1,21 @@
-import 'package:bando/core/features/user_details/presentation/pages/edit_user_details_page.dart';
-import 'package:bando/core/features/user_details/presentation/pages/user_details_portal_page.dart';
+import 'package:bando/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
+import 'package:bando/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
+import 'package:bando/features/user_details/presentation/pages/user_details_portal_page.dart';
 import 'package:bando/core/theme/bando_theme.dart';
-import 'package:bando/features/manage_person_of_interest/presentation/pages/add_person_of_interest.dart';
+import 'package:bando/features/person_of_interest/presentation/pages/add_person_of_interest.dart';
 
-import 'core/features/authentication/presentation/pages/auth_page.dart';
+import 'features/authentication/presentation/pages/auth_page.dart';
 import 'package:flutter/material.dart';
-import 'core/features/mood/presentation/bloc/mood/mood_bloc.dart';
-import 'core/features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
-import 'features/manage_person_of_interest/presentation/pages/person_of_interest_page.dart';
+import 'features/mood/presentation/bloc/mood/mood_bloc.dart';
+import 'features/person_of_interest/presentation/pages/person_of_interest_page.dart';
 import 'features/entries/presentation/pages/view_entries_page.dart';
+import 'features/user_details/presentation/bloc/user_details/user_details_bloc.dart';
 import 'injection_container.dart' as app_di;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'core/features/authentication/injection_container.dart';
-import 'core/features/authentication/presentation/bloc/auth/auth_bloc.dart';
-import 'features/manage_person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
+import 'features/authentication/injection_container.dart';
+import 'features/authentication/presentation/bloc/auth/auth_bloc.dart';
+import 'features/person_of_interest/presentation/bloc/person_of_interest/person_of_interest_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

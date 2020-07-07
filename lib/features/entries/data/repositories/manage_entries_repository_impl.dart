@@ -1,4 +1,4 @@
-import 'package:bando/core/features/user_details/data/data_sources/user_details_local_data_source.dart';
+import 'package:bando/features/user_details/data/data_sources/user_details_local_data_source.dart';
 import 'package:bando/core/failures/failures.dart';
 import 'package:bando/features/entries/data/data_sources/entry_remote_source.dart';
 import 'package:bando/features/entries/data/models/entry_model.dart';

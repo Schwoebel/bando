@@ -13,10 +13,7 @@ part 'view_entries_state.dart';
 class ViewEntriesBloc extends Bloc<ViewEntriesEvent, ViewEntriesState>{
   final GetEntries getEntries;
 
-  ViewEntriesBloc({@required this.getEntries});
-
-  @override
-  ViewEntriesState get initialState => ViewEntriesEmptyState();
+  ViewEntriesBloc({@required this.getEntries}) : super(ViewEntriesEmptyState());
 
   @override
   Stream<ViewEntriesState> mapEventToState(ViewEntriesEvent event) async* {

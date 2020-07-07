@@ -5,15 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/features/user_details/data/data_sources/user_details_local_data_source.dart';
-import 'core/features/user_details/data/data_sources/user_details_remote_data_source.dart';
-import 'core/features/user_details/domain/repositories/user_details_repository.dart';
-import 'core/features/user_details/data/repositories/user_details_repository_impl.dart';
+import 'features/user_details/data/data_sources/user_details_local_data_source.dart';
+import 'features/user_details/data/data_sources/user_details_remote_data_source.dart';
+import 'features/user_details/domain/repositories/user_details_repository.dart';
+import 'features/user_details/data/repositories/user_details_repository_impl.dart';
 import 'features/entries/injection_container.dart' as me_di;
-import 'features/manage_person_of_interest/injection_container.dart' as pi_di;
-import 'core/features/mood/injection_container.dart' as mood_di;
-import 'core/features/authentication/injection_container.dart' as auth_di;
-import 'core/features/user_details/injection_container.dart' as userDetails_di;
+import 'features/person_of_interest/injection_container.dart' as pi_di;
+import 'features/mood/injection_container.dart' as mood_di;
+import 'features/authentication/injection_container.dart' as auth_di;
+import 'features/user_details/injection_container.dart' as userDetails_di;
 
 final sl = GetIt.instance;
 

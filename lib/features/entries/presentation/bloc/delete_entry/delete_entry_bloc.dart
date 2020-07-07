@@ -11,10 +11,7 @@ part 'delete_entry_state.dart';
 class DeleteEntryBloc extends Bloc<DeleteEntryEvent, DeleteEntryState> {
   final ManageEntryOnRemoteSource manageEntry;
 
-  DeleteEntryBloc(this.manageEntry);
-
-  @override
-  DeleteEntryState get initialState => InitialDeleteEntryState();
+  DeleteEntryBloc(this.manageEntry) : super(InitialDeleteEntryState());
 
   @override
   Stream<DeleteEntryState> mapEventToState(DeleteEntryEvent event) async* {
