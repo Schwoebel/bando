@@ -16,7 +16,7 @@ class ManageEntriesRepositoryImpl extends ManageEntriesRepository {
       @required this.userDetailsLocalDataSource});
 
   @override
-  Future<Either<Failure, bool>> createEntry({Entry entry, String poiId}) async {
+  Future<Either<Failure, Entry>> createEntry({Entry entry, String poiId}) async {
     try {
       EntryModel model = EntryModel.fromEntry(
         entry,
@@ -24,7 +24,7 @@ class ManageEntriesRepositoryImpl extends ManageEntriesRepository {
       );
       await entryRemoteSource.createEntry(
           entry: model, personOfInterestId: poiId);
-      return Right(true);
+      return Right(model);
     } catch (e) {
       return Left(NetworkFailure());
     }
@@ -44,7 +44,7 @@ class ManageEntriesRepositoryImpl extends ManageEntriesRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> updateEntry(
+  Future<Either<Failure, Entry>> updateEntry(
       {Entry entry, String poiId, String id}) async {
     // TODO: implement updateEntry
     return null;

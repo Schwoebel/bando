@@ -22,16 +22,16 @@ class AddEntryBloc extends Bloc<AddEntryEvent, AddEntryState> {
       yield HasEntryInProgress(event.entry);
     } else if (event is SaveEntry) {
       yield SubmittingNewEntry();
-      Either<Failure, bool> result =
-          await manageEntryOnRemoteSource.create(EntryParams(
-        entry: event.entry,
+      Either<Failure, Entry> result =
+          await manageEntryOnRemoteSource.create(CreateEntryParams(
+        event.entry,
         personOfInterestId: event.personOfInterestId,
       ));
       yield* _eitherSavedOrFailure(result);
     }
   }
 
-  Stream<AddEntryState> _eitherSavedOrFailure(Either<Failure, bool> result) async* {
+  Stream<AddEntryState> _eitherSavedOrFailure(Either<Failure, Entry> result) async* {
     yield result.fold(
       (failure) => ErrorSubmittingEntry(),
       (success) => NewEntrySubmittedSuccessfully(),

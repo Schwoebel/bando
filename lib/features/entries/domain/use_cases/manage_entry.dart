@@ -7,30 +7,29 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:dartz/dartz.dart';
 
-class ManageEntryOnRemoteSource extends ManagementUseCase<Entry, EntryParams> {
+class ManageEntryOnRemoteSource extends ManagementUseCase<Entry, CRUDParams> {
   final ManageEntriesRepository repository;
 
   ManageEntryOnRemoteSource({@required this.repository});
 
-  Future<Either<Failure, bool>> create(CreateParams params) {
+  Future<Either<Failure, Entry>> create(CreateParams<Entry> params) {
     return repository.createEntry(
-        entry: params.entry, poiId: params.personOfInterestId);
+        entry: params.objectToCreate, poiId: params.parentId);
   }
 
   Future<Either<Failure, Entry>> read(ReadParams params) {
     return repository.readEntry(id: params.objectId);
   }
 
-  Future<Either<Failure, bool>> update(UpdateParams params) {
+  Future<Either<Failure, Entry>> update(UpdateParams<String, Entry> params) {
     return repository.updateEntry(
-        entry: params.entry,
-        poiId: params.personOfInterestId,
-        id: params.entryId);
+        entry: params.objectToUpdate,
+        poiId: params.parentId,
+        id: params.objectToUpdateId);
   }
 
-  Future<Either<Failure, bool>> delete(DeleteParams params) {
-    return repository.deleteEntry(
-        id: params.entryId, poiId: params.personOfInterestId);
+  Future<Either<Failure, bool>> delete(DeleteParams<String> params) {
+    return repository.deleteEntry(id: params.objectToDelete, poiId: params.parentId);
   }
 
   @override
@@ -38,4 +37,52 @@ class ManageEntryOnRemoteSource extends ManagementUseCase<Entry, EntryParams> {
     // TODO: implement readAll
     throw UnimplementedError();
   }
+}
+
+class CreateEntryParams extends CreateParams<Entry> {
+  final String personOfInterestId;
+
+  CreateEntryParams(Entry objectToCreate, {@required this.personOfInterestId})
+      : super(objectToCreate);
+
+  @override
+  List<Object> get props => [objectToCreate, personOfInterestId];
+
+  @override
+  bool get stringify => true;
+}
+
+class ReadEntryParams extends ReadParams<String> {
+  ReadEntryParams(String entryId, String personOfInterestId)
+      : super(entryId, parentId: personOfInterestId);
+
+  @override
+  List<Object> get props => [objectId, parentId];
+
+  @override
+  bool get stringify => true;
+}
+
+class UpdateEntryParams extends UpdateParams<String, Entry> {
+  UpdateEntryParams(
+      String objectToUpdateId, Entry objectToUpdate, String parentId)
+      : super(objectToUpdateId, objectToUpdate, parentId: parentId);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [objectToUpdateId, objectToUpdate];
+
+  @override
+  bool get stringify => true;
+}
+
+class DeleteEntryParams extends DeleteParams<String> {
+  DeleteEntryParams(String objectToDelete, String parentId)
+      : super(objectToDelete, parentId: parentId);
+
+  @override
+  List<Object> get props => [objectToDelete, parentId];
+
+  @override
+  bool get stringify => true;
 }

@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 
 abstract class PersonOfInterestRepository {
-  Future<Either<Failure, PersonOfInterest>> create();
+  Future<Either<Failure, PersonOfInterest>> create({@required PersonOfInterest personOfInterest});
 
   Future<Either<Failure, PersonOfInterest>> read({@required String id});
 
@@ -16,5 +16,5 @@ abstract class PersonOfInterestRepository {
     @required PersonOfInterest person,
   });
 
-  Future<Either<Failure, bool>> delete({@required PersonOfInterest personOfInterest});
+  Future<Either<Failure, bool>> delete({@required String personOfInterestId});
 }

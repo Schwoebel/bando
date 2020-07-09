@@ -29,13 +29,13 @@ class PersonOfInterestManager
 
   @override
   Future<Either<Failure, bool>> delete(
-      DeleteParams<PersonOfInterest> params) async {
-    return await personOfInterestRepository.delete(personOfInterest: params.objectToDelete);
+      DeleteParams<String> params) async {
+    return await personOfInterestRepository.delete(personOfInterestId: params.objectToDelete);
   }
 
   @override
   Future<Either<Failure, PersonOfInterest>> read(ReadParams params) async{
-    return await personOfInterestRepository.read(id: params.personOfInterestId);
+    return await personOfInterestRepository.read(id: params.objectId);
   }
 
   @override
@@ -69,7 +69,7 @@ class PersonOfInterestReadParams extends ReadParams<String> {
       : super(personOfInterestId);
 
   @override
-  List<Object> get props => [personOfInterestId];
+  List<Object> get props => [objectId];
 
   @override
   bool get stringify => true;

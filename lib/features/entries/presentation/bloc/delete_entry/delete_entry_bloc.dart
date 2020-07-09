@@ -16,10 +16,7 @@ class DeleteEntryBloc extends Bloc<DeleteEntryEvent, DeleteEntryState> {
   @override
   Stream<DeleteEntryState> mapEventToState(DeleteEntryEvent event) async* {
     if (event is Delete) {
-      await manageEntry.delete(EntryParams(
-        personOfInterestId: event.poiID,
-        entryId: event.entryID,
-      ));
+      await manageEntry.delete(DeleteEntryParams(event.entryID, event.poiID));
     }
   }
 }
